@@ -15,4 +15,4 @@
   Every work gets tags and an `alt` sentence. Slideshows default to 1 s per frame.
 - About 95% of visitors use a phone: design and test at 375px first. Glitches go on images and
   display type only — never a filter or overlay across the whole page; no blue HUD.
-- Works are ordered by their `order` field; portrait projects are named `Subject` + six digits.
+- Works are ordered by their `order` field; every project is named `Subject` + six digits. No glyph marks.
