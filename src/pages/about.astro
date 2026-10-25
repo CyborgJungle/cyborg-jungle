@@ -117,22 +117,34 @@ const formEndpoint = `https://formsubmit.co/${CONTACT_EMAIL}`;
     button.disabled = true;
     status.dataset.state = '';
     status.textContent = 'Sending…';
+    let data: { success?: string | boolean; message?: string } = {};
     try {
       const res = await fetch(form.dataset.endpoint!, {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: new FormData(form),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || data.success === 'false' || data.success === false) throw new Error(data.message || 'Send failed');
+      data = await res.json();
+    } catch {
+      // The quick send failed (network, blocked request, unreadable reply): post the form the
+      // ordinary way instead. FormSubmit delivers it and sends the visitor back here.
+      HTMLFormElement.prototype.submit.call(form);
+      return;
+    }
+    button.disabled = false;
+    if (data.success === true || data.success === 'true') {
       form.reset();
       status.dataset.state = 'ok';
       status.textContent = 'Message received. Thank you.';
-    } catch {
+    } else if (/activat/i.test(data.message ?? '')) {
+      // First use of the form: FormSubmit holds the message until the inbox owner confirms.
+      status.dataset.state = 'ok';
+      status.textContent = 'This form is being activated. The inbox owner has been sent a confirmation link; please try again shortly.';
+    } else {
       status.dataset.state = 'error';
-      status.textContent = 'The message could not be sent. Please try again, or write on Instagram @cyborgjungle.';
-    } finally {
-      button.disabled = false;
+      status.textContent = data.message
+        ? `The message could not be sent: ${data.message}`
+        : 'The message could not be sent. Please try again, or write on Instagram @cyborgjungle.';
     }
   });
 </script>
