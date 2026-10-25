@@ -4,6 +4,7 @@ import TestPattern from '../components/TestPattern.astro';
 import Img from '../components/Img.astro';
 import about from '../content/about.json';
 import { resolveImage } from '../lib/media';
+import Glyph from '../components/Glyph.astro';
 
 // Edited through Pages CMS (the "About page" entry), stored in src/content/about.json.
 const profile = (
@@ -31,11 +32,17 @@ const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
           <TestPattern pattern="rings" seed="operator" label="Portrait placeholder" />
         )}
       </div>
-      {about.portraitCredit && <figcaption class="label">{about.portraitCredit}</figcaption>}
+      <div class="cap">
+        {about.portraitCredit && <figcaption class="label">{about.portraitCredit}</figcaption>}
+        <Glyph seed="operator" size="40px" accent="var(--ch-about)" />
+      </div>
     </figure>
 
     <div class="info">
-      <h1>{about.name}</h1>
+      <div class="name">
+        <h1 class="glitch-type">{about.name}</h1>
+        <span class="jp tategaki" lang="ja">紹介</span>
+      </div>
       <div class="bio">{bio.map((p) => <p>{p}</p>)}</div>
       {profile.length > 0 && (
         <dl class="spec">
@@ -50,10 +57,9 @@ const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
   {photos.length > 0 && (
     <section class="wrap live" aria-labelledby="live-h">
       <div class="section-head">
-        <h2 id="live-h">Live</h2>
+        <h2 id="live-h" class="glitch-type">Live <span lang="ja">ライブ</span></h2>
         <span class="label">{photos.length} photos</span>
       </div>
-      <hr class="rule" />
       <ul>
         {photos.map((p) => (
           <li>
@@ -76,20 +82,24 @@ const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
   .portrait > :global(img) { object-position: 75% 20%; }
 
   .info { display: grid; gap: 20px; align-content: start; min-width: 0; }
+  .name { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
   h1 { font-size: var(--step-3); }
+  .jp { font-size: clamp(1.4rem, 6vw, 2.2rem); color: var(--ch-about); }
+  .cap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .section-head h2 span { font-size: 0.8em; color: var(--ch-about); text-shadow: none; }
   .bio p { margin: 0 0 14px; max-width: 60ch; font-size: var(--step-0); }
   .bio p:first-child { font-size: var(--step-1); line-height: 1.45; }
 
-  .spec { margin: 0; border-top: var(--stroke) solid var(--ink); }
-  .spec div { display: grid; grid-template-columns: 8.5rem 1fr; gap: 12px; padding: 10px 0; border-bottom: var(--stroke) solid var(--ink); align-items: baseline; }
+  .spec { margin: 0; border-top: var(--stroke) solid var(--rule); }
+  .spec div { display: grid; grid-template-columns: 8.5rem 1fr; gap: 12px; padding: 10px 0; border-bottom: var(--stroke) solid var(--rule); align-items: baseline; }
   .spec dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 
   .live { margin-top: 48px; }
-  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 10px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 10px; border-bottom: var(--stroke) solid var(--rule); }
   .section-head h2 { font-size: var(--step-2); }
   .live ul { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 28px 20px; }
   .live .tv { aspect-ratio: 4 / 3; }
-  .live figcaption { margin-top: 8px; font-size: var(--step--1); color: var(--ink-soft); }
+  .live figcaption { margin-top: 8px; font-size: var(--step--1); color: var(--cream-soft); }
 
   @media (min-width: 640px) { .live ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 900px) {

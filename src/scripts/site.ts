@@ -24,7 +24,7 @@ document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((el, n) => {
   const count = root.querySelector('[data-show-count]');
   const toggle = root.querySelector<HTMLButtonElement>('[data-show="toggle"]');
   const thumbs = [...root.querySelectorAll<HTMLElement>('[data-show-goto]')];
-  const ms = Number(el.dataset.interval) || 800;
+  const ms = Number(el.dataset.interval) || 1000;
   let i = 0;
   let visible = false;
   let paused = reduceMotion.matches;
@@ -47,6 +47,11 @@ document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((el, n) => {
     thumbs[i]?.setAttribute('aria-current', 'true');
     if (scrollThumb) thumbs[i]?.scrollIntoView({ inline: 'nearest', block: 'nearest' });
     if (count) count.textContent = pad(i + 1);
+    if (!reduceMotion.matches) {
+      el.classList.remove('cut');
+      void el.offsetWidth;
+      el.classList.add('cut');
+    }
   };
   const schedule = () => {
     clearInterval(timer);

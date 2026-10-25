@@ -16,7 +16,20 @@ export type ResolvedWork = Omit<CollectionEntry<'works'>['data'], 'image' | 'gal
   /** Grid thumbnail: the image, else the video's thumbnail. */
   thumb?: Img;
   embed?: string;
+  /** Position in the poster palette (see POSTERS), fixed per work so its card colour never changes. */
+  poster: number;
 };
+
+/** Bauhaus poster colours for work cards: background, ink, dot accent. */
+export const POSTERS = [
+  { bg: 'var(--cream)', ink: 'var(--void)', accent: 'var(--red)' },
+  { bg: 'var(--red)', ink: 'var(--void)', accent: 'var(--cream)' },
+  { bg: 'var(--teal)', ink: 'var(--void)', accent: 'var(--red)' },
+  { bg: 'var(--mustard)', ink: 'var(--void)', accent: 'var(--red)' },
+  { bg: 'var(--panel)', ink: 'var(--cream)', accent: 'var(--red)' },
+  { bg: 'var(--plum)', ink: 'var(--cream)', accent: 'var(--mint)' },
+  { bg: 'var(--lime)', ink: 'var(--void)', accent: 'var(--red)' },
+];
 
 // Works live in src/content/works/*.md and are edited through Pages CMS.
 async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWork> {
@@ -24,7 +37,7 @@ async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWor
   const image = resolveImage(d.image);
   const gallery = d.gallery.map((g) => resolveImage(g)!);
   const frames = image ? [image, ...gallery] : gallery;
-  const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, thumb: image };
+  const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, thumb: image, poster: 0 };
   if (!d.video) return work;
   const v = await resolveVideo(d.video);
   return { ...work, embed: v.embed, thumb: image ?? v.thumb, aspect: d.aspect ?? v.aspect };
@@ -35,12 +48,14 @@ let cache: Promise<ResolvedWork[]> | undefined;
 const hasMedia = (w: ResolvedWork) => (w.frames.length > 0 || w.embed ? 1 : 0);
 const sortKey = (w: ResolvedWork) => w.date ?? `${w.year}-12-31`;
 
-/** All works: real media before placeholders, then newest first. */
+const byOrder = (a: ResolvedWork, b: ResolvedWork) => (a.order ?? Infinity) - (b.order ?? Infinity) || 0;
+
+/** All works: by their Order number, then real media before placeholders, then newest first. */
 export function resolvedWorks(): Promise<ResolvedWork[]> {
   cache ??= getCollection('works').then(async (entries) =>
-    (await Promise.all(entries.map(resolveWork))).sort(
-      (a, b) => hasMedia(b) - hasMedia(a) || sortKey(b).localeCompare(sortKey(a)) || a.title.localeCompare(b.title),
-    ),
+    (await Promise.all(entries.map(resolveWork)))
+      .sort((a, b) => byOrder(a, b) || hasMedia(b) - hasMedia(a) || sortKey(b).localeCompare(sortKey(a)) || a.title.localeCompare(b.title))
+      .map((w, i) => ({ ...w, poster: i % POSTERS.length })),
   );
   return cache;
 }

@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import TestPattern from '../../components/TestPattern.astro';
 import Img from '../../components/Img.astro';
 import Frames from '../../components/Frames.astro';
+import Glyph from '../../components/Glyph.astro';
 import { channelFor } from '../../data/channels';
 import { resolvedWorks, type ResolvedWork } from '../../data/works';
 
@@ -61,8 +62,12 @@ const rows = [
     <a class="back label" href={ch.path}>← {ch.label}</a>
 
     <header class="title-block">
-      <h1>{work.title}</h1>
-      <p class="meta"><span class="dot" aria-hidden="true"></span>{ch.label} · {work.year}{total > 1 && ` · ${total} frames`}</p>
+      <Glyph seed={work.slug} size="64px" accent="var(--ch)" glitch />
+      <div class="tt">
+        <h1 class="glitch-type">{work.title}</h1>
+        <p class="meta"><span class="dot" aria-hidden="true"></span>{ch.label} · {work.year}{total > 1 && ` · ${total} frames`}</p>
+      </div>
+      {work.kana && <span class="kana tategaki" lang="ja">{work.kana}</span>}
     </header>
 
     <div class="stage" data-show-root={isShow ? '' : undefined}>
@@ -145,14 +150,17 @@ const rows = [
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: 'back' 'title' 'stage' 'text' 'step';
   }
-  .back { grid-area: back; text-decoration: none; justify-self: start; padding: 8px 0; }
+  .back { grid-area: back; color: var(--mint); text-decoration: none; justify-self: start; padding: 8px 0; }
   .title-block { grid-area: title; }
   .stage { grid-area: stage; min-width: 0; display: grid; gap: 12px; }
   .text { grid-area: text; min-width: 0; display: grid; gap: 20px; align-content: start; }
   .step { grid-area: step; }
 
-  h1 { font-size: var(--step-3); }
-  .meta { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; color: var(--ink-soft); font-size: var(--step--1); }
+  .title-block { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: 14px; }
+  .tt { min-width: 0; }
+  h1 { font-size: var(--step-3); overflow-wrap: anywhere; }
+  .kana { font-size: clamp(1.2rem, 5vw, 1.6rem); color: var(--ch); }
+  .meta { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; color: var(--cream-soft); font-size: var(--step--1); font-family: var(--font-pixel); }
   .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ch); }
 
   .screen { width: 100%; justify-self: center; }
@@ -160,15 +168,15 @@ const rows = [
 
   /* Dimension line, as on printed packaging */
   .dim { display: flex; align-items: center; gap: 10px; font-size: var(--step--2); }
-  .dim span { flex: 1; height: var(--stroke); background: var(--ink); position: relative; }
+  .dim span { flex: 1; height: var(--stroke); background: var(--cream); position: relative; }
   .dim span:first-child::before, .dim span:last-child::after {
     content: '';
     position: absolute;
     top: -4px;
     border: 4.5px solid transparent;
   }
-  .dim span:first-child::before { left: -2px; border-right-color: var(--ink); border-left-width: 0; }
-  .dim span:last-child::after { right: -2px; border-left-color: var(--ink); border-right-width: 0; }
+  .dim span:first-child::before { left: -2px; border-right-color: var(--cream); border-left-width: 0; }
+  .dim span:last-child::after { right: -2px; border-left-color: var(--cream); border-right-width: 0; }
   .dim b { font-weight: 700; letter-spacing: 0.06em; }
 
   .controls { display: flex; align-items: center; gap: 8px; }
@@ -176,16 +184,17 @@ const rows = [
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: var(--stroke) solid var(--ink);
-    background: var(--paper);
-    color: var(--ink);
+    border: var(--stroke) solid var(--cream);
+    background: var(--void);
+    color: var(--cream);
     font: inherit;
     font-size: var(--step-0);
     cursor: pointer;
   }
-  .controls button[data-show='toggle'] { background: var(--ch); border-color: var(--ch); color: var(--paper); }
-  .count { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
-  .count b { font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); color: var(--ink); }
+  .controls button[data-show='toggle'] { background: var(--ch); border-color: var(--ch); color: var(--void); }
+  .count { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--cream-soft); }
+  .count b { font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); color: var(--cream); }
+  .count { font-family: var(--font-pixel); }
 
   /* Thumbnail strip: swipe sideways on phones */
   .thumbs {
@@ -208,9 +217,9 @@ const rows = [
     border: 3px solid transparent;
     border-radius: 10px;
     overflow: hidden;
-    background: var(--ink);
+    background: var(--panel);
     cursor: pointer;
-    opacity: 0.55;
+    opacity: 0.5;
   }
   .thumbs button > :global(img) { width: 100%; height: 100%; object-fit: cover; }
   .thumbs button[aria-current] { opacity: 1; border-color: var(--ch); }
@@ -219,22 +228,22 @@ const rows = [
   .gallery .tv { aspect-ratio: 4 / 3; }
 
   .desc p { margin: 0 0 12px; max-width: 62ch; }
-  .spec { margin: 0; border-top: var(--stroke) solid var(--ink); }
+  .spec { margin: 0; border-top: var(--stroke) solid var(--rule); }
   .spec div {
     display: grid;
     grid-template-columns: 7.5rem 1fr;
     gap: 12px;
     padding: 10px 0;
-    border-bottom: var(--stroke) solid var(--ink);
+    border-bottom: var(--stroke) solid var(--rule);
     align-items: baseline;
   }
   .spec dd { margin: 0; min-width: 0; }
   .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .tags .stamp:hover { background: var(--ch); border-color: var(--ch); color: var(--paper); }
+  .tags .stamp:hover { background: var(--ch); border-color: var(--ch); color: var(--void); }
 
-  .step { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--stroke) solid var(--ink); margin-top: 12px; }
+  .step { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--stroke) solid var(--rule); margin-top: 12px; }
   .step a { display: grid; gap: 4px; padding: 16px 12px 16px 0; text-decoration: none; min-width: 0; }
-  .step a + a { text-align: right; padding: 16px 0 16px 12px; border-left: var(--stroke) solid var(--ink); }
+  .step a + a { text-align: right; padding: 16px 0 16px 12px; border-left: var(--stroke) solid var(--rule); }
   .step .t { font-family: var(--font-display); text-transform: uppercase; font-size: var(--step-1); line-height: 1.05; overflow-wrap: anywhere; }
   .step a:hover .t { color: var(--ch); }
 

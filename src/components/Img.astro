@@ -10,15 +10,16 @@ interface Props {
   widths: number[];
   sizes: string;
   loading?: 'lazy' | 'eager';
+  class?: string;
 }
 
-const { src, alt, widths, sizes, loading = 'lazy' } = Astro.props;
+const { src, alt, widths, sizes, loading = 'lazy', class: className } = Astro.props;
 // Never upscale: keep only widths the original can provide.
 const fit = typeof src === 'string' ? [] : widths.filter((w) => w <= src.width).concat(src.width < Math.max(...widths) ? [src.width] : []);
 ---
 
 {typeof src === 'string' ? (
-  <img src={src} alt={alt} loading={loading} />
+  <img src={src} alt={alt} loading={loading} class={className} />
 ) : (
-  <Image src={src} alt={alt} widths={fit} width={Math.max(...fit)} sizes={sizes} loading={loading} />
+  <Image src={src} alt={alt} widths={fit} width={Math.max(...fit)} sizes={sizes} loading={loading} class={className} />
 )}

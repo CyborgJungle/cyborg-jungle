@@ -27,7 +27,7 @@ Every save is a commit to `main`, and Vercel redeploys the site in about a minut
   - *Main image* / *Extra images*: JPEG, PNG or WebP. Uploads go to `src/assets/media/` and the site
     makes web-sized WebP versions at build time, so full-size exports are fine (keep them under ~10 MB).
   - *Play as slideshow*: for variations of one image. The main image and extra images cycle on
-    the home wall and the work page; *Seconds per image* sets the speed (default 0.8).
+    the home wall and the work page; *Seconds per image* sets the speed (default 1).
   - Without media a work shows a generated test pattern.
   - *Tags*: pick from the fixed list; visitors can filter a channel by tag.
   - *Image description*: one sentence of alt text for screen readers and search.
@@ -37,6 +37,12 @@ Media files are named `<project>-<frame>-<original IMG number>.jpg`, e.g. `eye-b
 so every file traces back to the original export.
 
 Field definitions live in `.pages.yml`; the matching schema is `src/content.config.ts`.
+
+## Fonts
+
+- Logo: **Aliens Among Us** by Darrell Flood (`public/fonts/aliens-among-us.woff`). Free for personal
+  use; commercial use needs a licence (see the font's license.txt). The file is served publicly with the site.
+- Dela Gothic One, DotGothic16 and Zen Kaku Gothic New: SIL Open Font License, via @fontsource.
 
 ## Media hosting limits (why video lives elsewhere)
 

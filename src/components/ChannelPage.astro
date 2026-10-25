@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import WorkTile from './WorkTile.astro';
 import TestPattern from './TestPattern.astro';
+import Glyph from './Glyph.astro';
 import { channelFor, type ChannelId } from '../data/channels';
 import { worksIn } from '../data/works';
 import { tagCounts } from '../data/tags';
@@ -20,14 +21,15 @@ const tags = tagCounts(list);
     <header class="head">
       <span class="num" aria-hidden="true">{Number(ch.num)}</span>
       <div class="titles">
-        <h1>{ch.label}</h1>
+        <h1 class="glitch-type">{ch.label}</h1>
         <p>{ch.blurb}</p>
       </div>
+      <span class="jp tategaki" lang="ja">{ch.jp}</span>
+      <Glyph seed={ch.id} size="56px" accent="var(--ch)" />
     </header>
     <div class="bar">
       <span class="label"><span data-count>{list.length}</span> {list.length === 1 ? 'project' : 'projects'}</span>
     </div>
-    <hr class="rule" />
 
     {tags.length > 1 && (
       <div class="filter" role="group" aria-label="Filter by tag" data-filter>
@@ -49,7 +51,7 @@ const tags = tagCounts(list);
         <div class="tv empty-screen">
           <TestPattern pattern="bars" seed={ch.id} label="Colour bars" />
         </div>
-        <p><strong>No signal yet.</strong> New work for this channel is on its way.</p>
+        <p><strong class="glitch-type">No signal yet.</strong> New work for this channel is on its way. <span lang="ja" class="label">信号なし</span></p>
       </div>
     )}
   </section>
@@ -89,25 +91,38 @@ const tags = tagCounts(list);
 </script>
 
 <style>
-  .head { display: flex; align-items: center; gap: 16px; padding-block: 8px 16px; }
+  .head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: 'num titles jp' 'num titles glyph';
+    align-items: center;
+    gap: 6px 16px;
+    padding-block: 12px 18px;
+  }
   .num {
+    grid-area: num;
     display: grid;
     place-items: center;
     width: clamp(64px, 20vw, 120px);
     aspect-ratio: 1;
     border-radius: 50%;
     background: var(--ch);
-    color: var(--paper);
+    color: var(--void);
     font-family: var(--font-display);
     font-size: clamp(2.2rem, 11vw, 4.4rem);
     line-height: 1;
-    flex: none;
   }
-  .titles { min-width: 0; }
+  .titles { grid-area: titles; min-width: 0; }
   /* Scales with the screen so the longest channel name ("Interactive") fits beside the number */
   h1 { font-size: clamp(1.5rem, 7vw, 3rem); }
-  .titles p { margin: 6px 0 0; color: var(--ink-soft); max-width: 46ch; }
-  .bar { padding-bottom: 8px; }
+  .titles p { margin: 6px 0 0; color: var(--cream-soft); max-width: 46ch; }
+  .jp { grid-area: jp; font-size: clamp(1.4rem, 6vw, 2.2rem); color: var(--ch); justify-self: center; }
+  .head :global(.glyph) { grid-area: glyph; }
+  @media (max-width: 639px) {
+    .head { grid-template-areas: 'num titles jp' 'num titles jp'; }
+    .head :global(.glyph) { display: none; }
+  }
+  .bar { padding-bottom: 10px; border-bottom: var(--stroke) solid var(--rule); }
 
   .filter {
     display: flex;
@@ -120,20 +135,16 @@ const tags = tagCounts(list);
   }
   .filter::-webkit-scrollbar { display: none; }
   .filter button { cursor: pointer; font-family: inherit; min-height: 40px; }
-  .filter .n { margin-left: 6px; font-size: var(--step--2); color: var(--ink-soft); }
-  .filter button[aria-pressed='true'] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .filter button[aria-pressed='true'] .n { color: var(--paper); }
+  .filter .n { margin-left: 6px; font-family: var(--font-pixel); font-size: var(--step--2); color: var(--cream-soft); }
+  .filter button[aria-pressed='true'] { background: var(--ch); color: var(--void); border-color: var(--ch); }
+  .filter button[aria-pressed='true'] .n { color: var(--void); }
 
-  .grid {
-    margin-top: 24px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px 20px;
-  }
+  .grid { margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } }
 
   .empty { margin-top: 24px; display: grid; gap: 16px; }
   .empty-screen { width: min(100%, 520px); aspect-ratio: 4 / 3; }
-  .empty p { margin: 0; max-width: 40ch; }
+  .empty p { margin: 0; max-width: 42ch; color: var(--cream-soft); }
+  .empty strong { color: var(--cream); font-family: var(--font-display); font-weight: 400; text-transform: uppercase; }
 </style>

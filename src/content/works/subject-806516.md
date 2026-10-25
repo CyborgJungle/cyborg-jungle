@@ -1,0 +1,57 @@
+---
+title: "Subject806516"
+kana: "被写体八〇六五一六"
+kind: image
+year: 2024
+order: 4
+date: 2024-01-05
+tags:
+  - "portrait"
+  - "window"
+  - "checkerboard"
+  - "colour key"
+image: "/media/Final art/subject-806516/subject-806516-01-5017.jpg"
+gallery:
+  - "/media/Final art/subject-806516/subject-806516-02-5018.jpg"
+  - "/media/Final art/subject-806516/subject-806516-03-5020.jpg"
+  - "/media/Final art/subject-806516/subject-806516-04-5021.jpg"
+  - "/media/Final art/subject-806516/subject-806516-05-5022.jpg"
+  - "/media/Final art/subject-806516/subject-806516-06-5024.jpg"
+  - "/media/Final art/subject-806516/subject-806516-07-5027-2.jpg"
+  - "/media/Final art/subject-806516/subject-806516-08-5039.jpg"
+  - "/media/Final art/subject-806516/subject-806516-09-5042.jpg"
+  - "/media/Final art/subject-806516/subject-806516-10-5045.jpg"
+  - "/media/Final art/subject-806516/subject-806516-11-5028.jpg"
+  - "/media/Final art/subject-806516/subject-806516-12-5030.jpg"
+  - "/media/Final art/subject-806516/subject-806516-13-5032.jpg"
+  - "/media/Final art/subject-806516/subject-806516-14-5037.jpg"
+  - "/media/Final art/subject-806516/subject-806516-15-7931.jpg"
+  - "/media/Final art/subject-806516/subject-806516-16-7935.jpg"
+  - "/media/Final art/subject-806516/subject-806516-17-7937.jpg"
+  - "/media/Final art/subject-806516/subject-806516-18-7944.jpg"
+  - "/media/Final art/subject-806516/subject-806516-19-7950.jpg"
+  - "/media/Final art/subject-806516/subject-806516-20-7952.jpg"
+  - "/media/Final art/subject-806516/subject-806516-21-7953.jpg"
+  - "/media/Final art/subject-806516/subject-806516-22-7960.jpg"
+  - "/media/Final art/subject-806516/subject-806516-23-7962.jpg"
+  - "/media/Final art/subject-806516/subject-806516-24-7967.jpg"
+  - "/media/Final art/subject-806516/subject-806516-25-7974.jpg"
+  - "/media/Final art/subject-806516/subject-806516-26-7984.jpg"
+  - "/media/Final art/subject-806516/subject-806516-27-7991.jpg"
+  - "/media/Final art/subject-806516/subject-806516-28-7996.jpg"
+  - "/media/Final art/subject-806516/subject-806516-29-7998.jpg"
+  - "/media/Final art/subject-806516/subject-806516-30-7999.jpg"
+  - "/media/Final art/subject-806516/subject-806516-31-8002.jpg"
+  - "/media/Final art/subject-806516/subject-806516-32-8005.jpg"
+  - "/media/Final art/subject-806516/subject-806516-33-8016.jpg"
+  - "/media/Final art/subject-806516/subject-806516-34-8017.jpg"
+  - "/media/Final art/subject-806516/subject-806516-35-8024.jpg"
+  - "/media/Final art/subject-806516/subject-806516-36-8025.jpg"
+  - "/media/Final art/subject-806516/subject-806516-37-8026.jpg"
+slideshow: true
+interval: 1
+alt: "Uniformed officer in a peaked cap framed by white inserts"
+medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
+format: "37 stills from analog video"
+description: "A uniformed officer in a peaked cap, framed by white inserts and then by borders of green, blue and red. In the second half the picture is cut into a lilac checkerboard of shifting blocks.\n\n37 stills from analog video, recorded on 5 January 2024. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+---

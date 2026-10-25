@@ -1,62 +1,97 @@
 ---
+// A work as a poster card: a Bauhaus colour block with the screen, the title in vertical katakana,
+// the work's constructed glyph and its English title.
 import TestPattern from './TestPattern.astro';
 import Img from './Img.astro';
 import Frames from './Frames.astro';
+import Glyph from './Glyph.astro';
 import { channelFor } from '../data/channels';
-import type { ResolvedWork } from '../data/works';
+import { POSTERS, type ResolvedWork } from '../data/works';
 
 interface Props {
   work: ResolvedWork;
-  size?: 'normal' | 'big';
+  /** Show one still image instead of the slideshow (the home page). */
+  still?: boolean;
 }
 
-const { work, size = 'normal' } = Astro.props;
+const { work, still = false } = Astro.props;
 const ch = channelFor(work.kind);
-const sizes = size === 'big' ? '(max-width: 999px) 100vw, 66vw' : '(max-width: 639px) 100vw, (max-width: 999px) 50vw, 33vw';
+const p = POSTERS[work.poster];
+const sizes = '(max-width: 639px) 90vw, (max-width: 999px) 45vw, 30vw';
 const frameCount = work.frames.length;
 ---
 
-<a href={`/work/${work.slug}`} class:list={['tile', size]} data-tile data-tags={work.tags.join('|')} style={{ '--ch': ch.color }}>
+<a
+  href={`/work/${work.slug}`}
+  class="card"
+  data-tile
+  data-tags={work.tags.join('|')}
+  style={{ '--bg': p.bg, '--fg': p.ink, '--acc': p.accent, '--ch': ch.color }}
+>
   <span class="tv screen">
-    {work.slideshow && frameCount > 1 ? (
-      <Frames frames={work.frames} alt="" interval={work.interval} widths={[480, 800, 1200]} sizes={sizes} max={10} />
+    {!still && work.slideshow && frameCount > 1 ? (
+      <Frames frames={work.frames} alt="" interval={work.interval} widths={[480, 800]} sizes={sizes} max={10} />
     ) : work.thumb ? (
-      <Img src={work.thumb} alt="" widths={[480, 800, 1200]} sizes={sizes} />
+      <Img src={work.thumb} alt="" widths={[480, 800]} sizes={sizes} />
     ) : (
       <TestPattern pattern={work.pattern} seed={work.slug} />
     )}
   </span>
-  <span class="cap">
-    <span class="title">{work.title}</span>
-    <span class="meta">
-      <span class="dot" aria-hidden="true"></span>
-      {ch.label} · {work.year}{frameCount > 1 && ` · ${frameCount} frames`}
+  {work.kana && <span class="kana tategaki" lang="ja" aria-hidden="true">{work.kana}</span>}
+  <span class="foot">
+    <Glyph seed={work.slug} size="52px" accent="var(--acc)" />
+    <span class="txt">
+      <span class="title">{work.title}</span>
+      <span class="meta">{ch.label} · {work.year}{frameCount > 1 && ` · ${frameCount} frames`}</span>
     </span>
   </span>
 </a>
 
 <style>
-  .tile {
+  .card {
     display: grid;
-    gap: 10px;
-    align-content: start;
-    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'screen kana' 'foot kana';
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg);
+    color: var(--fg);
     text-decoration: none;
-    color: var(--ink);
+    min-width: 0;
+    transition: transform 0.15s, box-shadow 0.15s;
+    container-type: inline-size;
   }
-  .screen { aspect-ratio: 4 / 3; transition: border-color 0.15s; }
-  .tile:hover .screen, .tile:focus-visible .screen { border-color: var(--ch); }
-  .tile:focus-visible { outline: none; }
+  .screen { grid-area: screen; aspect-ratio: 4 / 3; border-color: var(--void); }
+  .kana {
+    grid-area: kana;
+    font-size: 1.15rem;
+    color: var(--fg);
+    align-self: start;
+    max-height: 100%;
+    overflow: hidden;
+  }
+  .foot { grid-area: foot; display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .foot :global(.glyph) { color: var(--fg); }
+  .txt { display: grid; gap: 2px; min-width: 0; }
+  /* Sized to the card, so a 13-character title like SUBJECT861649 stays on one line */
+  .title {
+    font-family: var(--font-display);
+    font-size: clamp(0.9rem, calc(8.6cqi - 12px), 1.4rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .meta { font-family: var(--font-pixel); font-size: var(--step--1); opacity: 0.8; }
 
-  .cap { display: grid; gap: 2px; padding-inline: 2px; }
-  .title { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.05; text-transform: uppercase; }
-  .meta { display: flex; align-items: center; gap: 8px; font-size: var(--step--1); color: var(--ink-soft); }
-  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ch); flex: none; }
-
-  /* Lead tile: two columns wide and two rows tall where the grid has three columns */
-  @media (min-width: 1000px) {
-    .big { grid-column: span 2; grid-row: span 2; grid-template-rows: 1fr auto; align-content: stretch; }
-    .big .screen { aspect-ratio: auto; height: 100%; }
-    .big .title { font-size: var(--step-2); }
+  /* Lift onto an offset block; the picture misregisters */
+  .card:hover, .card:focus-visible { transform: translate(-4px, -4px); box-shadow: 4px 4px 0 var(--cream); outline: none; }
+  .card:hover .screen :global(img), .card:focus-visible .screen :global(img) { filter: url(#rgb-split); animation: jolt 0.3s steps(3) 1; }
+  @keyframes jolt {
+    0% { transform: translateX(0); }
+    33% { transform: translateX(-6px); }
+    66% { transform: translateX(4px); }
+    100% { transform: translateX(0); }
   }
 </style>

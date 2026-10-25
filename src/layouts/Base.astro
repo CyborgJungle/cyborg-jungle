@@ -1,16 +1,17 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import Wordmark from '../components/Wordmark.astro';
+import Glyph from '../components/Glyph.astro';
 
 interface Props {
   title?: string;
   description?: string;
   /** Channel id to mark as current in the menu. */
   active?: string;
-  home?: boolean;
 }
 
-const { home = false, title, description = 'Cyborg Jungle — analog video art. Video broken through mixers and effect modules, filmed off a CRT.', active } = Astro.props;
+const { title, description = 'Cyborg Jungle — analog video art. Video broken through mixers and effect modules, filmed off a CRT.', active } = Astro.props;
 const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Analog Video Art';
 ---
 
@@ -21,20 +22,40 @@ const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Anal
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#efe9dc" />
+    <meta name="theme-color" content="#0b0a09" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/aliens-among-us.woff" as="font" type="font/woff" crossorigin />
   </head>
   <body>
     <a class="skip sr-only" href="#main">Skip to content</a>
-    <Header active={active} home={home} />
+    <Header active={active} />
     <main id="main">
       <slot />
     </main>
-    <footer class="wrap foot">
-      <span class="dot" aria-hidden="true"></span>
-      <span>© {new Date().getFullYear()} Cyborg Jungle</span>
-      <span>Analog video art · Made with mixers, effect modules and a CRT</span>
+    <footer class="wrap site-foot">
+      <div class="marks" aria-hidden="true">
+        <Glyph seed="cyborg" size="40px" />
+        <Glyph seed="jungle" size="40px" accent="var(--mint)" />
+        <Glyph seed="analog" size="40px" accent="var(--mustard)" />
+      </div>
+      <Wordmark kana />
+      <p>Analog video art. Video mixers, effect modules, a CRT and a phone.</p>
+      <p class="label">© {new Date().getFullYear()} Cyborg Jungle</p>
     </footer>
+
+    <!-- Splits an image into red / green / blue channels and pulls red and blue apart. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <filter id="rgb-split" color-interpolation-filters="sRGB">
+        <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" />
+        <feOffset in="r" dx="-6" dy="0" result="r2" />
+        <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g" />
+        <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b" />
+        <feOffset in="b" dx="6" dy="0" result="b2" />
+        <feBlend in="r2" in2="g" mode="screen" result="rg" />
+        <feBlend in="rg" in2="b2" mode="screen" />
+      </filter>
+    </svg>
+
     <script>
       import '../scripts/site';
     </script>
@@ -50,21 +71,20 @@ const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Anal
     height: auto;
     clip: auto;
     z-index: 10;
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--mint);
+    color: var(--void);
     padding: 6px 12px;
   }
-  main { padding-block: 24px 48px; }
-  .foot {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px 16px;
-    padding-top: 24px;
+  main { padding-block: 16px 56px; }
+  .site-foot {
+    display: grid;
+    gap: 12px;
+    padding-top: 32px;
     padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
-    border-top: var(--stroke) solid var(--ink);
+    border-top: var(--stroke) solid var(--rule);
+    color: var(--cream-soft);
     font-size: var(--step--1);
-    color: var(--ink-soft);
   }
-  .foot .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--red); }
+  .site-foot .marks { display: flex; gap: 12px; }
+  .site-foot p { margin: 0; }
 </style>

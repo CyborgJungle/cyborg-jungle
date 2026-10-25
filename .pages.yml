@@ -8,6 +8,21 @@ media:
   categories: [image]
 
 content:
+  - name: home
+    label: Home page
+    type: file
+    path: src/content/home.json
+    format: json
+    fields:
+      - name: heroImage
+        label: Hero image
+        type: image
+        description: "The one big image at the top of the home page. Pick any frame from Final art (it links to its project) or upload a new image."
+        options:
+          path: src/assets/media/Final art
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+
   - name: works
     label: Works
     type: collection
@@ -26,6 +41,10 @@ content:
         label: Title
         type: string
         required: true
+      - name: kana
+        label: Title in katakana
+        type: string
+        description: "Shown vertically on the project's poster card, e.g. スワンシグナル."
       - name: kind
         label: Channel
         type: select
@@ -42,6 +61,10 @@ content:
         label: Year
         type: number
         required: true
+      - name: order
+        label: Order
+        type: number
+        description: "Position on the site: 1 comes first. Leave empty to sort by date."
       - name: date
         label: Date (optional)
         type: date
@@ -81,7 +104,7 @@ content:
       - name: interval
         label: Seconds per image
         type: number
-        description: "Slideshow speed. Leave empty for 0.8 seconds."
+        description: "Slideshow speed. Leave empty for 1 second."
       - name: alt
         label: Image description (alt text)
         type: string

@@ -1,25 +1,39 @@
-/* TEST CARD design tokens — see DESIGN.md for usage rules.
-   One printed look: black ink on warm paper, a red signal dot, a muted retro palette. */
+/* NEO TOKYO design tokens — see DESIGN.md for usage rules.
+   Cyber Bauhaus: black ground, cream ink, flat spot colours, constructed glyphs, glitches on images and type. */
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  /* Paper and ink */
-  --paper: #efe9dc;
-  --paper-deep: #e3dccb;
-  --ink: #151413;
-  --ink-soft: #5c574e;
+  /* Ground and ink */
+  --void: #0b0a09;
+  --panel: #171513;
+  --cream: #efe6cf;
+  --cream-soft: #a39b8b;
+  --rule: #3a3631;
 
-  /* The signal dot — power light, record light, the dot in the wordmark */
-  --red: #e2412f;
+  /* Signal dot and the cyber accent */
+  --red: #ec3b2c;
+  --mint: #36f2a8;
 
-  /* Channel colours, printed as flat spot colours */
-  --ch-image: #e2412f;
-  --ch-video: #2f7f72;
-  --ch-installation: #d9a21b;
-  --ch-about: #6b3f6e;
+  /* Bauhaus spot colours */
+  --teal: #1fa08f;
+  --mustard: #e0ad1f;
+  --plum: #8a55b0;
+  --lime: #c3d633;
+
+  /* Channel colours */
+  --ch-image: var(--red);
+  --ch-video: var(--teal);
+  --ch-installation: var(--mustard);
+  --ch-about: var(--plum);
+
+  /* Glitch: the two offset channels used on type and images */
+  --glitch-a: rgb(236 59 44 / 0.85);
+  --glitch-b: rgb(54 242 168 / 0.75);
 
   /* Type */
-  --font-display: 'Dela Gothic One', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --font-logo: 'Aliens Among Us', 'Dela Gothic One', 'Arial Black', sans-serif;
+  --font-display: 'Dela Gothic One', 'Arial Black', sans-serif;
+  --font-pixel: 'DotGothic16', 'Courier New', monospace;
   --font-text: 'Zen Kaku Gothic New', 'Helvetica Neue', Arial, sans-serif;
 
   --step--2: 0.75rem;
@@ -27,15 +41,15 @@
   --step-0: 1rem;
   --step-1: 1.25rem;
   --step-2: 1.625rem;
-  --step-3: clamp(2rem, 8vw, 3rem);
-  --step-4: clamp(3rem, 15vw, 7.5rem);
+  --step-3: clamp(2rem, 9vw, 3.25rem);
+  --step-4: clamp(3rem, 16vw, 8rem);
 
   /* Layout */
   --max: 1200px;
   --gutter: max(16px, 4vw);
 
-  /* Shape: the TV pictogram */
-  --tv-radius: 22px;
-  --tv-bezel: 6px;
+  /* Shape */
+  --tv-radius: 20px;
+  --tv-bezel: 5px;
   --stroke: 1.5px;
 }

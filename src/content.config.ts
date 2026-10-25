@@ -13,8 +13,15 @@ const works = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/works' }),
   schema: z.object({
     title: z.string(),
+    /** The title in katakana, set vertically on posters. */
+    kana: text,
     kind: z.enum(['image', 'video', 'installation']),
     year: z.coerce.number().int(),
+    /** Position on the site: 1 comes first. Works without a number follow, newest first. */
+    order: z
+      .union([z.number(), z.string()])
+      .nullish()
+      .transform((v) => (Number(v) > 0 ? Number(v) : undefined)),
     /** Optional exact date (YYYY-MM-DD), used to order works within a year. */
     // YAML turns 2022-11-06 into a Date; Pages CMS may also write a string.
     date: z
@@ -43,7 +50,7 @@ const works = defineCollection({
     interval: z
       .union([z.number(), z.string()])
       .nullish()
-      .transform((v) => (Number(v) > 0 ? Number(v) : 0.8)),
+      .transform((v) => (Number(v) > 0 ? Number(v) : 1)),
     medium: text,
     format: text,
     duration: text,

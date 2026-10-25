@@ -1,7 +1,9 @@
 ---
 title: "Swan Signal"
+kana: "スワンシグナル"
 kind: image
 year: 2024
+order: 12
 date: 2024-01-21
 tags:
   - "dance"
@@ -43,7 +45,7 @@ gallery:
   - "/media/Final art/swan-signal/swan-signal-32-8233.jpg"
   - "/media/Final art/swan-signal/swan-signal-33-8234.jpg"
 slideshow: true
-interval: 0.8
+interval: 1
 alt: "Ballet dancer in a white tutu on a lake, ghosted by the signal"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "33 stills from analog video"

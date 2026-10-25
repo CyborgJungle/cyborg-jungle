@@ -4,15 +4,13 @@ import { channels } from '../data/channels';
 
 interface Props {
   active?: string;
-  /** The home page shows the big wordmark itself, so the header leaves it out. */
-  home?: boolean;
 }
 
-const { active, home = false } = Astro.props;
+const { active } = Astro.props;
 ---
 
 <header class="site-header wrap">
-  {!home && <a href="/" class="home" aria-label="Cyborg Jungle, home"><Wordmark /></a>}
+  <a href="/" class="home" aria-label="Cyborg Jungle, home"><Wordmark /></a>
   <nav aria-label="Channels">
     <ul>
       {channels.map((c) => (
@@ -20,6 +18,7 @@ const { active, home = false } = Astro.props;
           <a href={c.path} aria-current={active === c.id ? 'page' : undefined} style={{ '--ch': c.color }}>
             <span class="circled">{Number(c.num)}</span>
             <span class="name">{c.label}</span>
+            <span class="jp" lang="ja">{c.jp}</span>
           </a>
         </li>
       ))}
@@ -34,7 +33,7 @@ const { active, home = false } = Astro.props;
     align-items: center;
     justify-content: space-between;
     gap: 12px 24px;
-    padding-top: max(16px, env(safe-area-inset-top, 0px));
+    padding-top: max(14px, env(safe-area-inset-top, 0px));
     padding-bottom: 12px;
   }
   .home { text-decoration: none; padding: 6px 0; }
@@ -45,17 +44,16 @@ const { active, home = false } = Astro.props;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    border-top: var(--stroke) solid var(--ink);
-    border-bottom: var(--stroke) solid var(--ink);
+    border-top: var(--stroke) solid var(--rule);
+    border-bottom: var(--stroke) solid var(--rule);
   }
-  li + li { border-left: var(--stroke) solid var(--ink); }
+  li + li { border-left: var(--stroke) solid var(--rule); }
   a[href]:not(.home) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    min-height: 64px;
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 3px;
+    min-height: 72px;
     padding: 8px 2px;
     text-decoration: none;
     font-size: var(--step--1);
@@ -64,15 +62,17 @@ const { active, home = false } = Astro.props;
     text-align: center;
   }
   .circled { color: var(--ch); }
-  a[aria-current='page'] { background: var(--ink); color: var(--paper); }
-  a[aria-current='page'] .circled { background: var(--ch); border-color: var(--ch); color: var(--paper); }
+  .jp { font-family: var(--font-pixel); font-size: var(--step--2); color: var(--cream-soft); font-weight: 400; }
+  a[aria-current='page'] { background: var(--ch); color: var(--void); }
+  a[aria-current='page'] .circled { background: var(--void); border-color: var(--void); color: var(--ch); }
+  a[aria-current='page'] .jp { color: var(--void); }
 
-  @media (min-width: 760px) {
-    nav { width: auto; margin-left: auto; }
+  @media (min-width: 820px) {
+    nav { width: auto; }
     ul { border: 0; gap: 4px; }
     li + li { border-left: 0; }
-    a[href]:not(.home) { flex-direction: row; gap: 8px; min-height: 44px; padding: 6px 14px 6px 8px; border-radius: 999px; }
-    a[href]:not(.home):hover { background: var(--paper-deep); }
-    a[aria-current='page']:hover { background: var(--ink) !important; }
+    a[href]:not(.home) { grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 8px; row-gap: 0; justify-items: start; min-height: 48px; padding: 6px 14px 6px 8px; border-radius: 999px; text-align: left; }
+    .circled { grid-row: span 2; }
+    a[href]:not(.home):not([aria-current]):hover { background: var(--panel); }
   }
 </style>

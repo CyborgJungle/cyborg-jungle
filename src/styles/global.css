@@ -1,14 +1,22 @@
-@import '@fontsource/dela-gothic-one/latin-400.css';
+@import '@fontsource/dela-gothic-one/400.css';
+@import '@fontsource/dotgothic16/400.css';
 @import '@fontsource/zen-kaku-gothic-new/latin-400.css';
 @import '@fontsource/zen-kaku-gothic-new/latin-500.css';
 @import '@fontsource/zen-kaku-gothic-new/latin-700.css';
 @import './tokens.css';
 
+/* Logo face: "Aliens Among Us" by Darrell Flood (personal-use licence; see README). Logo only. */
+@font-face {
+  font-family: 'Aliens Among Us';
+  src: url('/fonts/aliens-among-us.woff') format('woff');
+  font-display: swap;
+}
+
 * { box-sizing: border-box; }
 
 html {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--void);
+  color: var(--cream);
   font-family: var(--font-text);
   font-size: 16px;
   line-height: 1.6;
@@ -20,11 +28,11 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--paper);
+  background: var(--void);
 }
 
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
@@ -36,6 +44,9 @@ h1, h2, h3 {
   margin: 0;
 }
 
+/* Display type carries a slight two-channel misregistration, like a badly synced signal */
+.glitch-type { text-shadow: -2px 0 var(--glitch-a), 2px 0 var(--glitch-b); }
+
 img { max-width: 100%; display: block; }
 [hidden] { display: none !important; }
 
@@ -46,16 +57,25 @@ img { max-width: 100%; display: block; }
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
 }
 
-/* Small print label: uppercase, tracked, soft ink */
+/* Pixel label: small Japanese / Latin readout in a dot-matrix face */
 .label {
-  font-size: var(--step--2);
-  font-weight: 700;
-  color: var(--ink-soft);
+  font-family: var(--font-pixel);
+  font-size: var(--step--1);
+  color: var(--cream-soft);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
 }
 
-/* Circled number, as on printed packaging: ① ② ③ */
+/* Vertical Japanese, as on poster edges */
+.tategaki {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+/* Circled number */
 .circled {
   display: inline-grid;
   place-items: center;
@@ -70,16 +90,17 @@ img { max-width: 100%; display: block; }
   flex: none;
 }
 
-/* The TV pictogram: a thick black bezel with rounded corners around a screen */
+/* The TV pictogram: a cream bezel on black, scanlines inside the screen only */
 .tv {
   position: relative;
   display: block;
   overflow: hidden;
-  border: var(--tv-bezel) solid var(--ink);
+  border: var(--tv-bezel) solid var(--cream);
   border-radius: var(--tv-radius);
-  background: var(--ink);
+  background: var(--panel);
+  isolation: isolate;
 }
-.tv > img, .tv > svg, .tv > iframe {
+.tv > img, .tv > svg, .tv > iframe, .tv > picture {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -87,24 +108,31 @@ img { max-width: 100%; display: block; }
   object-fit: cover;
   border: 0;
 }
+.tv::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.16) 0 1px, transparent 1px 3px);
+}
 
-/* Thin ink rule */
-.rule { border: 0; border-top: var(--stroke) solid var(--ink); margin: 0; }
+.rule { border: 0; border-top: var(--stroke) solid var(--cream); margin: 0; }
 
-/* Stamp-style tag: outlined rounded label */
+/* Stamp-style tag */
 .stamp {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
+  min-height: 34px;
   padding: 2px 12px;
-  border: var(--stroke) solid var(--ink);
+  border: var(--stroke) solid var(--cream);
   border-radius: 8px;
   font-size: var(--step--1);
   font-weight: 500;
   line-height: 1.2;
   text-decoration: none;
   white-space: nowrap;
-  color: var(--ink);
+  color: var(--cream);
   background: transparent;
 }
 
@@ -118,5 +146,5 @@ img { max-width: 100%; display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }

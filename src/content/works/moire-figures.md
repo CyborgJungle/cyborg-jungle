@@ -1,7 +1,9 @@
 ---
 title: "Moiré Figures"
+kana: "モアレフィギュア"
 kind: image
 year: 2022
+order: 10
 date: 2022-11-06
 tags:
   - "figure"
@@ -16,7 +18,7 @@ gallery:
   - "/media/Final art/moire-figures/moire-figures-05-9844.jpg"
   - "/media/Final art/moire-figures/moire-figures-06-9845.jpg"
 slideshow: true
-interval: 0.8
+interval: 1
 alt: "Black silhouettes of figures against a wall of moiré lines"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "6 stills from analog video"

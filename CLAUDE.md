@@ -12,6 +12,6 @@
   footage. Describe the work this way; never as synthesised, digital, or "rescanned" stills.
 - A project with several variations of one image is ONE work with a slideshow, not several works.
 - Tags come from the fixed vocabulary in `src/data/tags.ts`; keep the `.pages.yml` picker in sync.
-  Every work gets tags and an `alt` sentence. Slideshows default to 0.8 s per frame.
+  Every work gets tags and an `alt` sentence. Slideshows default to 1 s per frame.
 - About 95% of visitors use a phone: design and test at 375px first. No screen-UI effects
   (no blue HUD, scanlines, RGB offsets, glow); the artworks are the only glitchy thing.

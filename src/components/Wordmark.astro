@@ -1,41 +1,31 @@
 ---
-// CYB●RG JUNGLE — the O is the red signal dot (power light / record light).
+// The Cyborg Jungle logo, set in "Aliens Among Us" with a two-channel signal offset.
 interface Props {
   size?: 'small' | 'large';
   tag?: 'span' | 'h1';
+  /** Show the katakana name under the logo. */
+  kana?: boolean;
 }
 
-const { size = 'small', tag: Tag = 'span' } = Astro.props;
+const { size = 'small', tag: Tag = 'span', kana = false } = Astro.props;
 ---
 
-<Tag class:list={['wordmark', size]} aria-label="Cyborg Jungle">
-  <span aria-hidden="true">CYB<span class="dot"></span>RG</span>
-  <span aria-hidden="true">JUNGLE</span>
+<Tag class:list={['wordmark', size]}>
+  <span class="logo glitch-type">Cyborg Jungle</span>
+  {kana && <span class="kana" lang="ja">サイボーグ・ジャングル</span>}
 </Tag>
 
 <style>
-  .wordmark {
-    display: inline-flex;
-    flex-wrap: wrap;
-    column-gap: 0.28em;
-    font-family: var(--font-display);
+  .wordmark { display: inline-grid; gap: 0.35em; margin: 0; color: var(--cream); }
+  .logo {
+    font-family: var(--font-logo);
     font-weight: 400;
-    line-height: 0.9;
-    letter-spacing: 0.01em;
     text-transform: uppercase;
-    color: var(--ink);
-    margin: 0;
+    line-height: 0.85;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
   }
-  .wordmark > span { white-space: nowrap; }
-  .small { font-size: var(--step-1); }
-  .large { flex-direction: column; font-size: var(--step-4); }
-  .dot {
-    display: inline-block;
-    width: 0.74em;
-    height: 0.74em;
-    margin: 0 0.03em;
-    border-radius: 50%;
-    background: var(--red);
-    vertical-align: -0.04em;
-  }
+  .small .logo { font-size: 1.5rem; text-shadow: -1px 0 var(--glitch-a), 1px 0 var(--glitch-b); }
+  .large .logo { font-size: clamp(3rem, 17vw, 9rem); white-space: normal; text-wrap: balance; text-shadow: -3px 0 var(--glitch-a), 3px 0 var(--glitch-b); }
+  .kana { font-family: var(--font-pixel); font-size: clamp(0.9rem, 4vw, 1.25rem); color: var(--mint); letter-spacing: 0.2em; }
 </style>

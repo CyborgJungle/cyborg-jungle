@@ -1,7 +1,9 @@
 ---
 title: "Goggles"
+kana: "ゴーグル"
 kind: image
 year: 2023
+order: 3
 date: 2023-11-10
 tags:
   - "figure"
@@ -51,7 +53,7 @@ gallery:
   - "/media/Final art/goggles/goggles-40-7243-2.jpg"
   - "/media/Final art/goggles/goggles-41-7244-2.jpg"
 slideshow: true
-interval: 0.8
+interval: 1
 alt: "Figure in a striped suit and a mask with round goggles, split by diagonal blocks of colour"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "41 stills from analog video"

@@ -2,50 +2,111 @@
 import Base from '../layouts/Base.astro';
 import WorkTile from '../components/WorkTile.astro';
 import Wordmark from '../components/Wordmark.astro';
-import DotRing from '../components/DotRing.astro';
+import Glyph from '../components/Glyph.astro';
+import Img from '../components/Img.astro';
 import { resolvedWorks } from '../data/works';
+import { resolveImage } from '../lib/media';
+import home from '../content/home.json';
 
 const all = await resolvedWorks();
+
+// The hero is chosen in Pages CMS ("Home page" → Hero image). It links to the work it belongs to.
+const heroSrc = resolveImage(home.heroImage) ?? all[0]?.thumb;
+const heroWork = all.find((w) => w.image && [w.image, ...w.gallery].some((f) => f === heroSrc)) ?? all[0];
+const heroAlt = heroWork?.alt ?? 'Analog video still by Cyborg Jungle';
+const sizes = '(max-width: 999px) 100vw, 1100px';
 ---
 
-<Base home>
+<Base>
   <section class="wrap hero">
-    <Wordmark size="large" tag="h1" />
-    <div class="intro">
-      <DotRing size="72px" />
-      <p>Analog video art. Video fed through a chain of mixers and effect modules onto a CRT, then filmed straight off the screen.</p>
-    </div>
+    {heroSrc && (
+      <a class="hero-link" href={heroWork ? `/work/${heroWork.slug}` : '/image'}>
+        <div class="tv hero-screen">
+          <Img src={heroSrc} alt={heroAlt} widths={[640, 960, 1400]} sizes={sizes} loading="eager" />
+          <Img src={heroSrc} alt="" widths={[640, 960, 1400]} sizes={sizes} loading="eager" class="slice s1" />
+          <Img src={heroSrc} alt="" widths={[640, 960, 1400]} sizes={sizes} loading="eager" class="slice s2" />
+        </div>
+        {heroWork && (
+          <>
+            <span class="hero-kana tategaki" lang="ja" aria-hidden="true">{heroWork.kana ?? 'サイボーグ'}</span>
+            <span class="hero-tag">
+              <Glyph seed={heroWork.slug} size="44px" />
+              <span><span class="label">Now showing</span><b>{heroWork.title}</b></span>
+            </span>
+          </>
+        )}
+      </a>
+    )}
+  </section>
+
+  <section class="wrap intro">
+    <Wordmark size="large" tag="h1" kana />
+    <p>Analog video art. Video fed through a chain of mixers and effect modules onto a CRT, then filmed straight off the screen.</p>
   </section>
 
   <section class="wrap" aria-labelledby="works-h">
     <div class="section-head">
-      <h2 id="works-h">Work</h2>
+      <h2 id="works-h" class="glitch-type">Work <span lang="ja">作品</span></h2>
       <span class="label">{all.length} projects</span>
     </div>
-    <hr class="rule" />
     <div class="grid">
-      {all.map((w, i) => <WorkTile work={w} size={i === 0 ? 'big' : 'normal'} />)}
+      {all.map((w) => <WorkTile work={w} still />)}
     </div>
   </section>
 </Base>
 
 <style>
-  .hero { display: grid; gap: 20px; padding-block: 8px 40px; }
-  .intro { display: flex; align-items: center; gap: 16px; max-width: 34rem; }
-  .intro p { margin: 0; font-size: var(--step-0); }
+  .hero { padding-top: 4px; }
+  .hero-link { position: relative; display: block; text-decoration: none; color: var(--cream); }
+  .hero-screen { aspect-ratio: 4 / 5; border-width: 6px; }
+  @media (min-width: 700px) { .hero-screen { aspect-ratio: 16 / 9; } }
 
-  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 10px; }
+  /* Periodic signal failure: two slices of the picture slip sideways and split into colour */
+  .hero-screen :global(.slice) { opacity: 0; animation: burst 6s steps(1) infinite; }
+  .hero-screen :global(.s1) { clip-path: inset(28% 0 58% 0); }
+  .hero-screen :global(.s2) { clip-path: inset(63% 0 24% 0); animation-delay: 0.15s; }
+  @keyframes burst {
+    0%, 86%, 100% { opacity: 0; transform: none; filter: none; }
+    87% { opacity: 1; transform: translateX(-18px); filter: url(#rgb-split); }
+    89% { opacity: 1; transform: translateX(12px); filter: url(#rgb-split); }
+    91% { opacity: 1; transform: translateX(-6px); filter: none; }
+    93% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-screen :global(.slice) { display: none; } }
+
+  .hero-kana {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 4;
+    font-size: clamp(1.1rem, 5vw, 1.8rem);
+    color: var(--cream);
+    background: var(--void);
+    padding: 10px 6px;
+  }
+  .hero-tag {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px 8px 8px;
+    background: var(--void);
+  }
+  .hero-tag > span { display: grid; }
+  .hero-tag b { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: var(--step-1); line-height: 1.05; }
+  .hero-tag .label { font-size: var(--step--2); color: var(--mint); }
+
+  .intro { display: grid; gap: 16px; padding-block: 28px 40px; }
+  .intro p { margin: 0; max-width: 36rem; color: var(--cream-soft); }
+
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: var(--stroke) solid var(--rule); }
   .section-head h2 { font-size: var(--step-2); }
+  .section-head h2 span { font-size: 0.8em; color: var(--red); text-shadow: none; }
 
-  .grid {
-    margin-top: 24px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px 20px;
-  }
+  .grid { margin-top: 24px; display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1000px) {
-    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-flow: dense; gap: 40px 24px; }
-    .hero { grid-template-columns: 1fr auto; align-items: end; }
-  }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } }
 </style>
