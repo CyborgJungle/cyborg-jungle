@@ -58,9 +58,10 @@ Japanese faces load only the subsets the page uses (unicode-range), so phones fe
 
 ## Shapes and marks
 
-- **Logo** — `CYBORG JUNGLE` in Aliens Among Us with a red/mint offset; the large version sits on
-  two lines with a small gap (the face's caps overlap at tight line-height), with
-  `サイボーグ・ジャングル` in mint DotGothic16 under it.
+- **Logo** — `CYBORG JUNGLE` in Aliens Among Us, plain white (`#fff`) on black, **no effects**.
+  The large version sits on two lines at line-height 1.15 (the face's capitals fill 1.03em and
+  collide at tighter leading), with `サイボーグ・ジャングル` in mint DotGothic16 under it.
+  The app icon, favicon and launch screen use the same white-on-black logo, traced from the font.
 - **TV pictogram** (`.tv`) — 5px cream bezel (void on cards), 20px corners, faint scanlines *inside*
   the screen only.
 - **Poster card** — a work: black card with a 2px accent edge, TV screen, vertical katakana in the
@@ -93,6 +94,15 @@ image; channel pages and work pages play the slideshows.
 
 ① Image `/image` · ② Video `/video` · ③ Interactive `/installations` · ④ About `/about`, each with
 its Japanese name. Phones: a row of four 72px tabs under the logo. Wide screens: pills beside the logo.
+
+## Web app (iPhone)
+
+The site installs to the home screen ("Add to Home Screen" in Safari's share menu) and opens
+fullscreen like an app: `public/manifest.webmanifest`, `apple-touch-icon.png`, icons in
+`public/icons/` (192, 512, maskable 512) and an iPhone 13 launch screen (1170×2532). The status bar
+is black-translucent; the header clears it with `env(safe-area-inset-top)` and a black band
+(`body::before`) sits behind it so scrolled content never runs under the clock. Zoom is locked
+(viewport `user-scalable=no`, double-tap via `touch-action`, pinch via `gesturestart` in `site.ts`).
 
 ## Mobile first
 

@@ -1,5 +1,10 @@
 const pad = (n: number) => String(n).padStart(2, '0');
 
+// Lock pinch-zoom on iOS Safari, which ignores user-scalable=no in the viewport tag.
+for (const type of ['gesturestart', 'gesturechange', 'gestureend']) {
+  document.addEventListener(type, (e) => e.preventDefault(), { passive: false });
+}
+
 // Keyboard: 0–4 jump to a channel, ← → step through a channel's works.
 const keyPaths: Record<string, string> = { '0': '/', '1': '/image', '2': '/video', '3': '/installations', '4': '/about' };
 addEventListener('keydown', (e) => {

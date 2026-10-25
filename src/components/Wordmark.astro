@@ -1,5 +1,5 @@
 ---
-// The Cyborg Jungle logo, set in "Aliens Among Us" with a two-channel signal offset.
+// The Cyborg Jungle logo: plain white "Aliens Among Us" on black. No effects.
 interface Props {
   size?: 'small' | 'large';
   tag?: 'span' | 'h1';
@@ -12,15 +12,15 @@ const { size = 'small', tag: Tag = 'span', kana = false } = Astro.props;
 
 <Tag class:list={['wordmark', size]}>
   {size === 'large' ? (
-    <span class="logo glitch-type"><span>Cyborg</span><span>Jungle</span></span>
+    <span class="logo"><span>Cyborg</span><span>Jungle</span></span>
   ) : (
-    <span class="logo glitch-type">Cyborg Jungle</span>
+    <span class="logo">Cyborg Jungle</span>
   )}
   {kana && <span class="kana" lang="ja">サイボーグ・ジャングル</span>}
 </Tag>
 
 <style>
-  .wordmark { display: inline-grid; gap: 0.35em; margin: 0; color: var(--cream); }
+  .wordmark { display: inline-grid; gap: 0.35em; margin: 0; color: #fff; }
   .logo {
     font-family: var(--font-logo);
     font-weight: 400;
@@ -29,8 +29,8 @@ const { size = 'small', tag: Tag = 'span', kana = false } = Astro.props;
     letter-spacing: 0.02em;
     white-space: nowrap;
   }
-  .small .logo { font-size: 1.5rem; text-shadow: -1px 0 var(--glitch-a), 1px 0 var(--glitch-b); }
-  /* Two lines with room between them: this face's caps sit high, so a tight line-height makes them overlap */
-  .large .logo { display: grid; font-size: clamp(3rem, 15vw, 8rem); line-height: 1; row-gap: 0.06em; white-space: nowrap; text-shadow: -3px 0 var(--glitch-a), 3px 0 var(--glitch-b); }
+  .small .logo { font-size: 1.5rem; line-height: 1.15; }
+  /* Two lines with clear air between them: this face's capitals fill 1.03em, so tight leading makes them collide */
+  .large .logo { display: grid; font-size: clamp(3rem, 15vw, 8rem); line-height: 1.15; row-gap: 0.04em; white-space: nowrap; }
   .kana { font-family: var(--font-pixel); font-size: clamp(0.9rem, 4vw, 1.25rem); color: var(--mint); letter-spacing: 0.2em; }
 </style>

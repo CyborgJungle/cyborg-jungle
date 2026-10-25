@@ -18,11 +18,24 @@ const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Anal
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- Zoom is locked: the site behaves as a fixed-scale web app on phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0b0a09" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Home-screen web app (iPhone): fullscreen, black status bar, logo icon and launch screen -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Cyborg Jungle" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash-1170x2532.png"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
     <link rel="preload" href="/fonts/aliens-among-us.woff" as="font" type="font/woff" crossorigin />
   </head>
   <body>
