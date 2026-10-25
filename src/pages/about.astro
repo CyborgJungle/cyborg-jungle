@@ -16,6 +16,9 @@ const profile = (
   ] as [string, string | undefined][]
 ).filter((r): r is [string, string] => Boolean(r[1]?.trim()));
 const portrait = resolveImage(about.portrait || undefined);
+const photos = (about.photos ?? [])
+  .filter((p) => p.image)
+  .map((p) => ({ src: resolveImage(p.image)!, caption: p.caption }));
 const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
 // The signal chain cycles through the palette, one colour per stage.
 const hues = ['--ch-video', '--ch-image', '--ch-installation', '--ch-about', '--phosphor', '--thermal'];
@@ -26,6 +29,7 @@ const chain = (about.chain ?? []).map((s, i) => ({ ...s, n: String(i + 1).padSta
   <section class="wrap" style={{ '--ch': 'var(--ch-about)' }}>
     <div class="card panel">
       <span class="reg" style="top:-9px;right:-9px"></span>
+      <div class="side">
       <div class="portrait crt">
         {portrait ? (
           <Img src={portrait} alt={`Portrait of ${about.name}`} widths={[400, 720]} sizes="(max-width: 900px) 320px, 360px" loading="eager" />
@@ -33,6 +37,8 @@ const chain = (about.chain ?? []).map((s, i) => ({ ...s, n: String(i + 1).padSta
           <TestPattern pattern="rings" seed="operator" label="Portrait placeholder" />
         )}
         <span class="frame" aria-hidden="true"></span>
+      </div>
+      {about.portraitCredit && <p class="credit">{about.portraitCredit}</p>}
       </div>
       <div class="info">
         <span class="label">Operator profile</span>
@@ -45,6 +51,21 @@ const chain = (about.chain ?? []).map((s, i) => ({ ...s, n: String(i + 1).padSta
         <div class="bio">{bio.map((p) => <p>{p}</p>)}</div>
       </div>
     </div>
+
+    {photos.length > 0 && (
+      <section class="live" aria-labelledby="live-h">
+        <h2 id="live-h" class="label">Live</h2>
+        <div class="ruler"></div>
+        <ul>
+          {photos.map((p) => (
+            <li>
+              <div class="crt"><Img src={p.src} alt={p.caption || `${about.name} live`} widths={[480, 900]} sizes="(max-width: 900px) 100vw, 33vw" /></div>
+              {p.caption && <p class="label cap">{p.caption}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     <section class="chain" aria-labelledby="chain-h">
       <h2 id="chain-h" class="label">Signal chain</h2>
@@ -70,6 +91,24 @@ const chain = (about.chain ?? []).map((s, i) => ({ ...s, n: String(i + 1).padSta
     padding: 32px;
   }
   .portrait { aspect-ratio: 3 / 4; position: relative; }
+  /* Crop the landscape photo to the face; the tracking box sits around the head */
+  .portrait > :global(img) { object-position: 75% 0; }
+  .side { display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .credit { margin: 0; font-size: var(--step--2); color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .live { margin-top: 64px; }
+  .live h2, .chain h2 { font-family: var(--font-mono); font-weight: 400; }
+  .live ul {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 32px 24px;
+  }
+  .live li { display: grid; gap: 10px; min-width: 0; }
+  .live .crt { aspect-ratio: 4 / 3; }
+  .live .cap::before, .live .cap::after { content: none; }
   .portrait::before {
     content: '';
     position: absolute;
@@ -79,7 +118,7 @@ const chain = (about.chain ?? []).map((s, i) => ({ ...s, n: String(i + 1).padSta
   }
   .frame {
     position: absolute;
-    inset: 14%;
+    inset: 7% 22% 50% 22%;
     z-index: 3;
     border: 1px solid var(--thermal);
   }
@@ -109,7 +148,6 @@ const chain = (about.chain ?? []).map((s, i) => ({ ...s, n: String(i + 1).padSta
   .bio p { max-width: 65ch; margin: 0 0 12px; }
 
   .chain { margin-top: 64px; }
-  .chain h2 { font-family: var(--font-mono); font-weight: 400; }
   .chain ol {
     list-style: none;
     margin: 32px 0 0;
@@ -153,7 +191,7 @@ const chain = (about.chain ?? []).map((s, i) => ({ ...s, n: String(i + 1).padSta
 
   @media (max-width: 900px) {
     .card { grid-template-columns: 1fr; padding: 20px; }
-    .portrait { max-width: 320px; }
+    .side { max-width: 320px; }
     .chain ol { grid-template-columns: 1fr; gap: 20px; }
     .chain li:not(:last-child)::after { top: auto; bottom: -21px; right: auto; left: 32px; width: 2px; height: 20px; }
     .chain li:not(:last-child)::before { top: auto; bottom: -25px; right: auto; left: 29px; }

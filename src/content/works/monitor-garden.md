@@ -2,7 +2,7 @@
 title: "Monitor Garden"
 kind: installation
 year: 2025
-medium: "Motion sensor, oscillators, 16 CRT monitors"
+medium: "Analog video mixers, effect modules, CRT monitor"
 location: "Placeholder venue"
 description: "Placeholder."
 pattern: rings

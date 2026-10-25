@@ -130,6 +130,10 @@ content:
         options:
           extensions: [jpg, jpeg, png, webp]
           rename: safe
+      - name: portraitCredit
+        label: Portrait credit
+        type: string
+        description: "Shown under the portrait, e.g. Photo: RayRay"
       - name: bio
         label: Bio
         type: text
@@ -149,3 +153,22 @@ content:
           - name: detail
             label: Equipment
             type: string
+      - name: photos
+        label: Live photos
+        description: "Photos of you at work, shown under your profile."
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{index}. {caption}"
+        fields:
+          - name: image
+            label: Photo
+            type: image
+            options:
+              extensions: [jpg, jpeg, png, webp]
+              rename: safe
+          - name: caption
+            label: Caption
+            type: string
+            description: "e.g. Live set · 10.12.2022 · Photo: RayRay"
