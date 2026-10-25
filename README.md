@@ -12,7 +12,7 @@ npm run dev    # http://localhost:4321
 
 ## Design
 
-The look and feel is documented in [DESIGN.md](DESIGN.md) (the "TEST CARD" design language) with
+The look and feel is documented in [DESIGN.md](DESIGN.md) (the "NEO TOKYO" design language) with
 tokens in `src/styles/tokens.css`. Read it before changing anything visual.
 
 ## Adding work — Pages CMS
