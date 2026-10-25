@@ -1,6 +1,7 @@
 ---
 // Generated op-art test pattern, used as a placeholder until a work has real media.
-// Deterministic per seed, so a work always shows the same pattern.
+// Deterministic per seed, so a work always shows the same pattern. Drawn in the
+// channel colour (--ch) via currentColor; the bars pattern uses the full palette.
 import type { Pattern } from '../data/works';
 
 interface Props {
@@ -17,7 +18,7 @@ const rand = () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) ^ Math.imul(h ^ (
 
 const W = 400;
 const H = 300;
-const fg = '#8fdcff';
+const fg = 'currentColor';
 const parts: string[] = [];
 
 if (pattern === 'stripes') {
@@ -60,14 +61,15 @@ if (pattern === 'stripes') {
     parts.push(`<rect x="${40 + off}" y="${y}" width="${W - 80}" height="3" fill="${fg}" opacity="${0.4 + rand() * 0.6}"/>`);
   }
 } else {
-  const shades = ['#d6e4ff', '#8fdcff', '#5fb0ff', '#3d7bff', '#2a56c0', '#1a3a8a', '#0d1f4f'];
-  shades.forEach((c, i) => parts.push(`<rect x="${(i * W) / 7}" y="0" width="${W / 7 + 1}" height="${H * 0.72}" fill="${c}"/>`));
-  shades.reverse().forEach((c, i) => parts.push(`<rect x="${(i * W) / 7}" y="${H * 0.72}" width="${W / 7 + 1}" height="${H * 0.08}" fill="${c}"/>`));
-  for (let i = 0; i < 4; i++) parts.push(`<rect x="${(i * W) / 4}" y="${H * 0.8}" width="${W / 4}" height="${H * 0.2}" fill="${i % 2 ? '#081022' : '#d6e4ff'}"/>`);
+  const bars = ['--ink', '--thermal', '--ch-video', '--ch-image', '--ch-installation', '--ch-about', '--phosphor'];
+  bars.forEach((c, i) => parts.push(`<rect x="${(i * W) / 7}" y="0" width="${W / 7 + 1}" height="${H * 0.72}" style="fill:var(${c})"/>`));
+  [...bars].reverse().forEach((c, i) => parts.push(`<rect x="${(i * W) / 7}" y="${H * 0.72}" width="${W / 7 + 1}" height="${H * 0.08}" style="fill:var(${c})" opacity="0.7"/>`));
+  for (let i = 0; i < 4; i++) parts.push(`<rect x="${(i * W) / 4}" y="${H * 0.8}" width="${W / 4}" height="${H * 0.2}" style="fill:var(${i % 2 ? '--panel' : '--ink'})"/>`);
 }
 ---
 
-<svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" role="img" aria-label={label}>
-  <rect width={W} height={H} fill="#06102a" />
+<svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" role="img" aria-label={label} style="color: var(--ch, var(--glow))">
+  <rect width={W} height={H} fill="#05070f" />
+  <rect width={W} height={H} fill="currentColor" opacity="0.1" />
   <g set:html={parts.join('')} />
 </svg>

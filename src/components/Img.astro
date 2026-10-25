@@ -1,0 +1,24 @@
+---
+// Renders an uploaded image resized by Astro, or a plain <img> for remote URLs
+// (e.g. Vimeo/YouTube thumbnails).
+import { Image } from 'astro:assets';
+import type { Img } from '../lib/media';
+
+interface Props {
+  src: Img;
+  alt: string;
+  widths: number[];
+  sizes: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const { src, alt, widths, sizes, loading = 'lazy' } = Astro.props;
+// Never upscale: keep only widths the original can provide.
+const fit = typeof src === 'string' ? [] : widths.filter((w) => w <= src.width).concat(src.width < Math.max(...widths) ? [src.width] : []);
+---
+
+{typeof src === 'string' ? (
+  <img src={src} alt={alt} loading={loading} />
+) : (
+  <Image src={src} alt={alt} widths={fit} width={Math.max(...fit)} sizes={sizes} loading={loading} />
+)}

@@ -4,10 +4,8 @@ import WorkTile from '../components/WorkTile.astro';
 import { channels } from '../data/channels';
 import { resolvedWorks } from '../data/works';
 
-const all = (await resolvedWorks()).sort((a, b) => b.year - a.year);
+const all = await resolvedWorks();
 const count = (id: string) => all.filter((w) => w.kind === id).length;
-// A rhythm of tile sizes so the wall doesn't read as a uniform grid.
-const sizes = ['big', 'normal', 'normal', 'normal', 'wide', 'normal', 'normal', 'wide', 'normal'] as const;
 ---
 
 <Base>
@@ -22,7 +20,7 @@ const sizes = ['big', 'normal', 'normal', 'normal', 'wide', 'normal', 'normal', 
       </div>
       <nav class="tuner" aria-label="Channels">
         {channels.map((c) => (
-          <a href={c.path}>
+          <a href={c.path} style={{ '--ch': c.color }}>
             <span class="n">{c.num}</span>
             <span class="t">{c.label}</span>
             <span class="dots" aria-hidden="true"></span>
@@ -40,7 +38,7 @@ const sizes = ['big', 'normal', 'normal', 'normal', 'wide', 'normal', 'normal', 
     </div>
     <div class="ruler"></div>
     <div class="wall">
-      {all.map((w, i) => <WorkTile work={w} index={i} size={sizes[i % sizes.length]} />)}
+      {all.map((w, i) => <WorkTile work={w} index={i} size={i === 0 ? 'big' : 'normal'} />)}
     </div>
   </section>
 </Base>
@@ -76,13 +74,14 @@ const sizes = ['big', 'normal', 'normal', 'normal', 'wide', 'normal', 'normal', 
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
-  .n { font-family: var(--font-crt); font-size: var(--step-2); line-height: 1; color: var(--phosphor); }
+  .n { font-family: var(--font-crt); font-size: var(--step-2); line-height: 1; color: var(--ch); }
   .t { font-family: var(--font-display); font-weight: 600; font-size: var(--step-1); }
   .dots { border-bottom: 1px dotted var(--line); align-self: center; }
   .c { color: var(--dim); font-size: var(--step--2); font-variant-numeric: tabular-nums; }
-  .tuner a:hover { background: rgb(61 123 255 / 0.08); }
-  .tuner a:hover .n { color: var(--signal); }
-  .tuner a:hover .t { color: var(--glow); text-shadow: var(--glow-shadow); }
+  .tuner a { border-left: 2px solid transparent; transition: background var(--snap), border-color var(--snap); }
+  .tuner a:hover { background: color-mix(in srgb, var(--ch) 10%, transparent); border-left-color: var(--ch); }
+  .tuner a:hover .n { text-shadow: 0 0 12px var(--ch); }
+  .tuner a:hover .t { color: var(--ch); }
 
   .wall-head { display: flex; justify-content: space-between; }
   .wall-head h2 { font-family: var(--font-mono); font-weight: 400; }

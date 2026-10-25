@@ -15,7 +15,7 @@ const { active } = Astro.props;
     </a>
     <nav class="channels" aria-label="Channels">
       {channels.map((c) => (
-        <a href={c.path} aria-current={active === c.id ? 'page' : undefined} aria-keyshortcuts={c.key}>
+        <a href={c.path} aria-current={active === c.id ? 'page' : undefined} aria-keyshortcuts={c.key} style={{ '--ch': c.color }}>
           <span class="num">{c.num}</span>
           <span class="lbl">{c.label}</span>
         </a>
@@ -26,6 +26,7 @@ const { active } = Astro.props;
       <span class="tc" data-tc>00:00:00:00</span>
     </div>
   </div>
+  <div class="colour-burst" aria-hidden="true"></div>
 </header>
 
 <style>
@@ -68,9 +69,22 @@ const { active } = Astro.props;
     border: 1px solid transparent;
   }
   .channels a:hover { color: var(--ink); border-color: var(--line); }
-  .num { font-family: var(--font-crt); font-size: var(--step-1); line-height: 1; color: var(--phosphor); }
-  .channels a[aria-current='page'] { color: var(--ink); border-color: var(--phosphor); box-shadow: inset 0 0 18px rgb(61 123 255 / 0.25); }
-  .channels a[aria-current='page'] .num { color: var(--signal); }
+  .num { font-family: var(--font-crt); font-size: var(--step-1); line-height: 1; color: var(--ch); }
+  .channels a[aria-current='page'] {
+    color: var(--ink);
+    border-color: var(--ch);
+    box-shadow: inset 0 0 18px color-mix(in srgb, var(--ch) 30%, transparent);
+  }
+  .channels a[aria-current='page'] .num { text-shadow: 0 0 10px color-mix(in srgb, var(--ch) 60%, transparent); }
+
+  /* Colour burst: a thin test-card strip of the channel colours */
+  .colour-burst {
+    height: 2px;
+    background: linear-gradient(to right,
+      var(--ch-image) 0 18%, var(--ch-video) 0 41%, var(--ch-installation) 0 57%,
+      var(--ch-about) 0 72%, var(--phosphor) 0 88%, var(--thermal) 0 94%, var(--signal) 0);
+    opacity: 0.85;
+  }
 
   .status { display: flex; align-items: center; gap: 12px; font-variant-numeric: tabular-nums; }
   .tc { font-family: var(--font-crt); font-size: var(--step-1); color: var(--glow); letter-spacing: 0.05em; min-width: 11ch; }

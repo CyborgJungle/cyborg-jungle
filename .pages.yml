@@ -1,0 +1,143 @@
+# Pages CMS configuration — https://app.pagescms.org
+# Every save commits to GitHub, and Vercel redeploys the site automatically.
+
+media:
+  # Uploads land in src/assets/media; the site resizes them at build time.
+  input: src/assets/media
+  output: /media
+  categories: [image]
+
+content:
+  - name: works
+    label: Works
+    type: collection
+    path: src/content/works
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, kind, year]
+      primary: title
+      sort: [year, title]
+      default:
+        sort: year
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: kind
+        label: Channel
+        type: select
+        required: true
+        options:
+          values:
+            - name: image
+              label: "CH.01 Image"
+            - name: video
+              label: "CH.02 Video"
+            - name: installation
+              label: "CH.03 Interactive installation"
+      - name: year
+        label: Year
+        type: number
+        required: true
+      - name: video
+        label: Video link
+        type: string
+        description: "Vimeo or YouTube link, as copied from the browser (e.g. https://vimeo.com/123456789). The video must allow embedding."
+      - name: image
+        label: Main image
+        type: image
+        description: "Shown large on the work's page and as its tile. For videos it replaces the Vimeo/YouTube thumbnail. JPEG, PNG or WebP; under 10 MB please, the site resizes it."
+        options:
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+      - name: gallery
+        label: Extra images
+        type: image
+        description: "More views, e.g. installation shots. Shown under the main image."
+        options:
+          multiple:
+            max: 12
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+      - name: description
+        label: Description
+        type: text
+        description: "Plain text. Leave an empty line between paragraphs."
+      - name: medium
+        label: Medium
+        type: string
+        description: "Equipment / process, e.g. Video synthesizer, CRT rescan"
+      - name: format
+        label: Format
+        type: string
+        description: "e.g. PAL 4:3 · Hi8, or Archival pigment print · 60 × 80 cm"
+      - name: duration
+        label: Duration
+        type: string
+        description: "Videos, e.g. 06:12"
+      - name: location
+        label: Location
+        type: string
+        description: "Installations: where it was shown"
+      - name: aspect
+        label: Frame shape (optional)
+        type: string
+        description: "Override the screen shape, e.g. 4 / 3 or 16 / 9. Usually leave empty."
+      - name: pattern
+        label: Placeholder pattern
+        type: select
+        description: "Test pattern shown when there is no image or video yet."
+        options:
+          values: [stripes, rings, grid, tunnel, scan, bars]
+
+  - name: about
+    label: About page
+    type: file
+    path: src/content/about.json
+    format: json
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: practice
+        label: Practice
+        type: string
+      - name: based
+        label: Based in
+        type: string
+      - name: active
+        label: Active since
+        type: string
+      - name: contact
+        label: Contact
+        type: string
+        description: "Email address or link, shown as text"
+      - name: portrait
+        label: Portrait
+        type: image
+        options:
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+      - name: bio
+        label: Bio
+        type: text
+        description: "Plain text. Leave an empty line between paragraphs."
+      - name: chain
+        label: Signal chain
+        description: "The stages your image travels through, in order."
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{index}. {name}"
+        fields:
+          - name: name
+            label: Stage
+            type: string
+          - name: detail
+            label: Equipment
+            type: string

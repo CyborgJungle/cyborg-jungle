@@ -13,6 +13,12 @@
   --signal: #ff715e;
   --thermal: #ffd23f;
   --paper: #bab9ad;
+
+  /* Channel colours — each channel tunes the interface to its own hue */
+  --ch-image: #ff4fa3;
+  --ch-video: #2ee6c9;
+  --ch-installation: #ff8a3d;
+  --ch-about: #a98bff;
   --glow-shadow: 0 0 12px rgb(143 220 255 / 0.35);
 
   /* Type */

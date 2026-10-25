@@ -15,23 +15,21 @@ npm run dev    # http://localhost:4321
 The look and feel is documented in [DESIGN.md](DESIGN.md) (the "SIGNAL" design language) with
 tokens in `src/styles/tokens.css`. Read it before changing anything visual.
 
-## Adding work
+## Adding work — Pages CMS
 
-Edit `src/data/works.ts`. Each entry becomes a CRT screen on the home page monitor wall, a tile on
-its channel page, and its own page at `/work/<slug>`.
+Content is edited at **https://app.pagescms.org** (sign in with GitHub, open `CyborgJungle/cyborg-jungle`).
+Every save is a commit to `main`, and Vercel redeploys the site in about a minute.
 
-- `kind`: `image` (CH.01), `video` (CH.02) or `installation` (CH.03 Interactive).
-- **Images:** export web-sized files (WebP/AVIF/JPEG, ~2000px long edge, a few hundred KB) into
-  `public/media/images/`, then set `src` to `/media/images/<file>`.
-- **Video:** upload to Vimeo or YouTube, then set `video` to the normal link you'd share
-  (e.g. `https://vimeo.com/123456789` or `https://youtu.be/abc123`). At build time the site
-  looks up the embeddable player, thumbnail and aspect ratio automatically. Unlisted videos
-  work; the video must allow embedding. Don't commit video files to this repo.
-- **Installations:** use `video` and/or `src` for the main view and `gallery` for extra photos.
-- Optional details shown in the spec panel: `medium`, `format`, `duration`, `location`, `description`.
-- Without any media, a work shows a generated test pattern (`pattern`).
+- **Works** — one entry per work, stored as `src/content/works/<title>.md`.
+  - *Channel*: Image (CH.01), Video (CH.02) or Interactive installation (CH.03).
+  - *Video link*: paste the normal Vimeo/YouTube link; the site finds the player, thumbnail and
+    aspect ratio. Unlisted works; embedding must be allowed. Never upload video files.
+  - *Main image* / *Extra images*: JPEG, PNG or WebP. Uploads go to `src/assets/media/` and the site
+    makes web-sized WebP versions at build time, so full-size exports are fine (keep them under ~10 MB).
+  - Without media a work shows a generated test pattern.
+- **About page** — name, details, portrait, bio and signal chain (`src/content/about.json`).
 
-The About page text is at the top of `src/pages/about.astro`.
+Field definitions live in `.pages.yml`; the matching schema is `src/content.config.ts`.
 
 ## Media hosting limits (why video lives elsewhere)
 

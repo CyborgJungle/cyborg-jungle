@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import TestPattern from '../../components/TestPattern.astro';
+import Img from '../../components/Img.astro';
 import { channelFor } from '../../data/channels';
 import { resolvedWorks, type ResolvedWork } from '../../data/works';
 
@@ -32,10 +33,16 @@ interface Props {
 
 const { work, position, total, prev, next } = Astro.props;
 const ch = channelFor(work.kind);
-const aspect = work.aspect ?? '4 / 3';
+const aspect =
+  work.aspect ?? (work.image && typeof work.image !== 'string' ? `${work.image.width} / ${work.image.height}` : '4 / 3');
 const [w, h] = aspect.split('/').map(Number);
 // Cap the screen at 75% of the viewport height while keeping its shape.
 const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(75vh * ${w / h}))` };
+const paragraphs = work.description?.split(/\n\s*\n/) ?? [];
+// Spec-sheet aspect: "4:3" for simple ratios, "1.78:1" otherwise.
+const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
+const g = gcd(w, h);
+const aspectLabel = w / g <= 32 && h / g <= 32 ? `${w / g}:${h / g}` : `${(w / h).toFixed(2)}:1`;
 
 const rows = [
   ['Channel', `CH.${ch.num} ${ch.label}`],
@@ -44,26 +51,26 @@ const rows = [
   ['Format', work.format],
   ['Duration', work.duration],
   ['Location', work.location],
-  ['Aspect', aspect.replace(/\s/g, '')],
+  ['Aspect', aspectLabel],
 ].filter((r): r is [string, string] => Boolean(r[1]));
 ---
 
-<Base title={work.title} description={work.description} active={ch.id}>
-  <article class="wrap viewer">
+<Base title={work.title} description={paragraphs[0]} active={ch.id}>
+  <article class="wrap viewer" style={{ '--ch': ch.color }}>
     <div class="stage">
       <div class="crt screen" style={frameStyle}>
         {work.embed ? (
           <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
-        ) : work.src ? (
-          <img src={work.src} alt={work.title} />
+        ) : work.image ? (
+          <Img src={work.image} alt={work.title} widths={[800, 1400, 2000]} sizes="(max-width: 980px) 100vw, 70vw" loading="eager" />
         ) : (
           <TestPattern pattern={work.pattern} seed={work.slug} />
         )}
       </div>
-      {work.gallery && work.gallery.length > 0 && (
+      {work.gallery.length > 0 && (
         <ul class="gallery">
           {work.gallery.map((src, i) => (
-            <li class="crt"><img src={src} alt={`${work.title}, view ${i + 1}`} loading="lazy" /></li>
+            <li class="crt"><Img src={src} alt={`${work.title}, view ${i + 1}`} widths={[400, 800]} sizes="(max-width: 640px) 50vw, 200px" /></li>
           ))}
         </ul>
       )}
@@ -76,7 +83,7 @@ const rows = [
         <circle cx="24" cy="60" r="3" fill="currentColor" />
         <rect x="52" y="96" width="8" height="8" fill="currentColor" />
       </svg>
-      <span class="label">CH.{ch.num} · {String(position).padStart(2, '0')}/{String(total).padStart(2, '0')}</span>
+      <span class="label ch-label">CH.{ch.num} · {String(position).padStart(2, '0')}/{String(total).padStart(2, '0')}</span>
       <h1>{work.title}</h1>
       <dl>
         {rows.map(([k, v]) => (
@@ -86,7 +93,7 @@ const rows = [
           </div>
         ))}
       </dl>
-      {work.description && <p class="desc">{work.description}</p>}
+      {paragraphs.length > 0 && <div class="desc">{paragraphs.map((p) => <p>{p}</p>)}</div>}
       <nav class="step" aria-label={`More on channel ${ch.num}`}>
         <a href={`/work/${prev.slug}`} data-step="prev"><span aria-hidden="true">◄</span> {prev.title}</a>
         <a href={`/work/${next.slug}`} data-step="next">{next.title} <span aria-hidden="true">►</span></a>
@@ -104,8 +111,8 @@ const rows = [
     align-items: start;
   }
   .stage { min-width: 0; display: grid; gap: 16px; justify-items: center; }
-  .screen { width: 100%; box-shadow: 0 0 60px rgb(61 123 255 / 0.12); }
-  .screen > img { object-fit: contain; background: #000; }
+  .screen { width: 100%; box-shadow: 0 0 60px color-mix(in srgb, var(--ch) 18%, transparent); }
+  .screen > :global(img) { object-fit: contain; background: #000; }
   .gallery {
     list-style: none;
     margin: 0;
@@ -124,8 +131,9 @@ const rows = [
     top: 24px;
     width: 60px;
     height: 120px;
-    color: var(--phosphor);
+    color: var(--ch);
   }
+  .ch-label { color: var(--ch); }
   h1 { font-size: var(--step-3); color: var(--ink); text-shadow: -2px 0 rgb(255 0 80 / 0.45), 2px 0 rgb(0 220 255 / 0.45); }
   dl { margin: 0; display: grid; }
   .row {
@@ -137,7 +145,7 @@ const rows = [
     align-items: baseline;
   }
   dd { margin: 0; font-size: var(--step--1); min-width: 0; }
-  .desc { margin: 0; color: var(--ink); font-size: var(--step--1); max-width: 65ch; }
+  .desc p { margin: 0 0 10px; color: var(--ink); font-size: var(--step--1); max-width: 65ch; }
   .step {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -148,9 +156,9 @@ const rows = [
   }
   .step a { border: 1px solid var(--line); padding: 10px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .step a:last-child { text-align: right; }
-  .step a:hover { border-color: var(--phosphor); }
+  .step a:hover { border-color: var(--ch); color: var(--ch); }
   .back { font-size: var(--step--2); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); }
-  .back:hover { color: var(--glow); }
+  .back:hover { color: var(--ch); }
 
   @media (max-width: 980px) {
     .viewer { grid-template-columns: 1fr; gap: 32px; }

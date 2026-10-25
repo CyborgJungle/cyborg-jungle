@@ -8,13 +8,15 @@ export type Channel = {
   /** Keyboard shortcut, like a TV remote. */
   key: string;
   blurb: string;
+  /** CSS colour for this channel (a token from tokens.css). */
+  color: string;
 };
 
 export const channels: Channel[] = [
-  { id: 'image', num: '01', label: 'Image', path: '/image', key: '1', blurb: 'Stills captured from the signal.' },
-  { id: 'video', num: '02', label: 'Video', path: '/video', key: '2', blurb: 'Moving image, synthesised and rescanned.' },
-  { id: 'installation', num: '03', label: 'Interactive', path: '/installations', key: '3', blurb: 'Installations that respond to the people in front of them.' },
-  { id: 'about', num: '04', label: 'About', path: '/about', key: '4', blurb: 'Operator profile.' },
+  { id: 'image', num: '01', label: 'Image', path: '/image', key: '1', blurb: 'Stills captured from the signal.', color: 'var(--ch-image)' },
+  { id: 'video', num: '02', label: 'Video', path: '/video', key: '2', blurb: 'Moving image, synthesised and rescanned.', color: 'var(--ch-video)' },
+  { id: 'installation', num: '03', label: 'Interactive', path: '/installations', key: '3', blurb: 'Installations that respond to the people in front of them.', color: 'var(--ch-installation)' },
+  { id: 'about', num: '04', label: 'About', path: '/about', key: '4', blurb: 'Operator profile.', color: 'var(--ch-about)' },
 ];
 
 export const channelFor = (id: string) => channels.find((c) => c.id === id)!;

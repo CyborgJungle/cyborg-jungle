@@ -13,7 +13,7 @@ const list = await worksIn(Astro.props.id);
 ---
 
 <Base title={ch.label} description={`${ch.label} — ${ch.blurb}`} active={ch.id}>
-  <section class="wrap">
+  <section class="wrap" style={{ '--ch': ch.color }}>
     <header class="head">
       <span class="big-num" aria-hidden="true">{ch.num}</span>
       <div class="titles">
@@ -46,13 +46,14 @@ const list = await worksIn(Astro.props.id);
     font-family: var(--font-crt);
     font-size: clamp(5rem, 16vw, 11rem);
     line-height: 0.75;
-    color: var(--signal);
-    text-shadow: 0 0 24px rgb(255 113 94 / 0.35);
+    color: var(--ch);
+    text-shadow: 0 0 28px color-mix(in srgb, var(--ch) 45%, transparent);
   }
   h1 { font-size: var(--step-4); text-shadow: -3px 0 rgb(255 0 80 / 0.45), 3px 0 rgb(0 220 255 / 0.45); }
   .titles p { margin: 8px 0 0; color: var(--dim); max-width: 50ch; }
   .count { text-align: right; }
-  .count b { display: block; font-family: var(--font-crt); font-weight: 400; font-size: var(--step-3); line-height: 1; color: var(--glow); }
+  .count b { display: block; font-family: var(--font-crt); font-weight: 400; font-size: var(--step-3); line-height: 1; color: var(--ch); }
+  .ruler { border-bottom-color: color-mix(in srgb, var(--ch) 50%, var(--line)); }
   .grid {
     margin-top: 40px;
     display: grid;

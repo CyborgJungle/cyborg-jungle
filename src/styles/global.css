@@ -68,7 +68,7 @@ img { max-width: 100%; display: block; }
   position: absolute;
   inset: -3px;
   pointer-events: none;
-  --n: linear-gradient(var(--phosphor), var(--phosphor));
+  --n: linear-gradient(var(--ch, var(--phosphor)), var(--ch, var(--phosphor)));
   background:
     var(--n) top left / 5px 5px no-repeat,
     var(--n) top right / 5px 5px no-repeat,
@@ -122,15 +122,6 @@ img { max-width: 100%; display: block; }
   object-fit: cover;
   display: block;
   border: 0;
-}
-
-/* Fixed scanline overlay across the whole page */
-.scanlines {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 90;
-  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.18) 0 1px, transparent 1px 3px);
 }
 
 .sr-only {

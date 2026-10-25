@@ -1,12 +1,13 @@
 ---
 import TestPattern from './TestPattern.astro';
+import Img from './Img.astro';
 import { channelFor } from '../data/channels';
 import type { ResolvedWork } from '../data/works';
 
 interface Props {
   work: ResolvedWork;
   index: number;
-  size?: 'normal' | 'wide' | 'big';
+  size?: 'normal' | 'big';
 }
 
 const { work, index, size = 'normal' } = Astro.props;
@@ -14,10 +15,14 @@ const ch = channelFor(work.kind);
 const target = `TARGET_${String(index + 1).padStart(2, '0')}XX`;
 ---
 
-<a href={`/work/${work.slug}`} class:list={['tile', size]} data-tile>
+<a href={`/work/${work.slug}`} class:list={['tile', size]} data-tile style={{ '--ch': ch.color }}>
   <span class="frame">
     <span class="crt screen">
-      {work.thumb ? <img src={work.thumb} alt="" loading="lazy" /> : <TestPattern pattern={work.pattern} seed={work.slug} />}
+      {work.thumb ? (
+        <Img src={work.thumb} alt="" widths={[480, 800, 1200]} sizes={size === 'big' ? '(max-width: 640px) 100vw, 50vw' : '(max-width: 640px) 100vw, 25vw'} />
+      ) : (
+        <TestPattern pattern={work.pattern} seed={work.slug} />
+      )}
     </span>
     <span class="lock" aria-hidden="true"><span class="lock-label">{target}</span></span>
   </span>
@@ -33,13 +38,13 @@ const target = `TARGET_${String(index + 1).padStart(2, '0')}XX`;
     position: relative;
     display: grid;
     gap: 10px;
+    align-content: start;
     color: var(--ink);
     min-width: 0;
   }
-  .wide { grid-column: span 2; }
-  .big { grid-column: span 2; grid-row: span 2; }
+  .big { grid-column: span 2; grid-row: span 2; align-content: stretch; }
   @media (max-width: 640px) {
-    .wide, .big { grid-column: auto; grid-row: auto; }
+    .big { grid-column: auto; grid-row: auto; }
   }
 
   .frame { position: relative; display: block; min-height: 0; }
@@ -95,7 +100,7 @@ const target = `TARGET_${String(index + 1).padStart(2, '0')}XX`;
     font-size: var(--step--1);
     min-width: 0;
   }
-  .ch { color: var(--phosphor); font-size: var(--step--2); letter-spacing: 0.08em; }
+  .ch { color: var(--ch); font-size: var(--step--2); letter-spacing: 0.08em; }
   .title {
     font-family: var(--font-display);
     font-weight: 600;
@@ -106,7 +111,7 @@ const target = `TARGET_${String(index + 1).padStart(2, '0')}XX`;
     white-space: nowrap;
   }
   .year { color: var(--dim); font-variant-numeric: tabular-nums; }
-  .tile:hover .title { color: var(--glow); text-shadow: var(--glow-shadow); }
+  .tile:hover .title, .tile:focus-visible .title { color: var(--ch); text-shadow: 0 0 12px color-mix(in srgb, var(--ch) 50%, transparent); }
 
   @keyframes jitter {
     0% { transform: translateX(0); }
