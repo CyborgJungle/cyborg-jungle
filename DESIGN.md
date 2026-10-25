@@ -32,7 +32,7 @@ Dark only, by design.
 |---|---|---|
 | `--void` | `#0b0a09` | Page background; ink on light poster cards. |
 | `--panel` | `#171513` | Raised dark surfaces, dark poster card. |
-| `--cream` | `#efe6cf` | Text, TV bezels, glyph strokes on dark. |
+| `--cream` | `#efe6cf` | Text, TV bezels and rules on dark. |
 | `--cream-soft` | `#a39b8b` | Secondary text and labels (7:1 on void). |
 | `--rule` | `#3a3631` | Hairline rules on void. |
 | `--red` | `#ec3b2c` | Signal dot, Image channel, glitch channel A. |
