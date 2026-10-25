@@ -1,52 +1,159 @@
 ---
 import Base from '../../layouts/Base.astro';
+import TestPattern from '../../components/TestPattern.astro';
+import { channelFor } from '../../data/channels';
 import { resolvedWorks, type ResolvedWork } from '../../data/works';
 
 export async function getStaticPaths() {
   const works = await resolvedWorks();
-  return works.map((work) => ({ params: { slug: work.slug }, props: { work } }));
+  return works.map((work) => {
+    const siblings = works.filter((w) => w.kind === work.kind);
+    const i = siblings.indexOf(work);
+    return {
+      params: { slug: work.slug },
+      props: {
+        work,
+        position: i + 1,
+        total: siblings.length,
+        prev: siblings[(i - 1 + siblings.length) % siblings.length],
+        next: siblings[(i + 1) % siblings.length],
+      },
+    };
+  });
 }
 
-const { work } = Astro.props as { work: ResolvedWork };
+interface Props {
+  work: ResolvedWork;
+  position: number;
+  total: number;
+  prev: ResolvedWork;
+  next: ResolvedWork;
+}
+
+const { work, position, total, prev, next } = Astro.props;
+const ch = channelFor(work.kind);
 const aspect = work.aspect ?? '4 / 3';
 const [w, h] = aspect.split('/').map(Number);
-// Cap the frame at 80% of the screen height while keeping its shape.
-const frameStyle = { aspectRatio: aspect, maxWidth: `calc(80vh * ${w / h})` };
+// Cap the screen at 75% of the viewport height while keeping its shape.
+const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(75vh * ${w / h}))` };
+
+const rows = [
+  ['Channel', `CH.${ch.num} ${ch.label}`],
+  ['Year', String(work.year)],
+  ['Medium', work.medium],
+  ['Format', work.format],
+  ['Duration', work.duration],
+  ['Location', work.location],
+  ['Aspect', aspect.replace(/\s/g, '')],
+].filter((r): r is [string, string] => Boolean(r[1]));
 ---
 
-<Base title={work.title} description={work.description}>
-  <article>
-    <div class="media" style={frameStyle}>
-      {work.embed ? (
-        <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
-      ) : work.src ? (
-        <img src={work.src} alt={work.title} />
-      ) : (
-        <div class="bars" />
+<Base title={work.title} description={work.description} active={ch.id}>
+  <article class="wrap viewer">
+    <div class="stage">
+      <div class="crt screen" style={frameStyle}>
+        {work.embed ? (
+          <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
+        ) : work.src ? (
+          <img src={work.src} alt={work.title} />
+        ) : (
+          <TestPattern pattern={work.pattern} seed={work.slug} />
+        )}
+      </div>
+      {work.gallery && work.gallery.length > 0 && (
+        <ul class="gallery">
+          {work.gallery.map((src, i) => (
+            <li class="crt"><img src={src} alt={`${work.title}, view ${i + 1}`} loading="lazy" /></li>
+          ))}
+        </ul>
       )}
     </div>
-    <h1>{work.title}</h1>
-    <p class="sub">{work.year}{work.medium && ` · ${work.medium}`}</p>
-    {work.description && <p>{work.description}</p>}
-    <p><a href="/">← All work</a></p>
+
+    <aside class="spec panel">
+      <svg class="trace" viewBox="0 0 60 120" aria-hidden="true">
+        <path d="M0 20H24V100H60" fill="none" stroke="currentColor" stroke-width="2" />
+        <circle cx="0" cy="20" r="4" fill="currentColor" />
+        <circle cx="24" cy="60" r="3" fill="currentColor" />
+        <rect x="52" y="96" width="8" height="8" fill="currentColor" />
+      </svg>
+      <span class="label">CH.{ch.num} · {String(position).padStart(2, '0')}/{String(total).padStart(2, '0')}</span>
+      <h1>{work.title}</h1>
+      <dl>
+        {rows.map(([k, v]) => (
+          <div class="row">
+            <dt class="label">{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+      {work.description && <p class="desc">{work.description}</p>}
+      <nav class="step" aria-label={`More on channel ${ch.num}`}>
+        <a href={`/work/${prev.slug}`} data-step="prev"><span aria-hidden="true">◄</span> {prev.title}</a>
+        <a href={`/work/${next.slug}`} data-step="next">{next.title} <span aria-hidden="true">►</span></a>
+      </nav>
+      <a class="back" href={ch.path}>All of CH.{ch.num} {ch.label}</a>
+    </aside>
   </article>
 </Base>
 
 <style>
-  .media {
-    width: 100%;
-    margin: 0 auto;
-    background: #000;
-    border: 1px solid var(--line);
+  .viewer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+    gap: 56px;
+    align-items: start;
   }
-  .media iframe, .media img {
+  .stage { min-width: 0; display: grid; gap: 16px; justify-items: center; }
+  .screen { width: 100%; box-shadow: 0 0 60px rgb(61 123 255 / 0.12); }
+  .screen > img { object-fit: contain; background: #000; }
+  .gallery {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-    object-fit: contain;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
   }
-  h1 { margin: 24px 0 0; font-size: 1.4rem; letter-spacing: 0.05em; }
-  .sub { color: var(--dim); margin-top: 4px; }
-  article p { max-width: 65ch; }
+  .gallery .crt { aspect-ratio: 4 / 3; }
+
+  .spec { padding: 24px; display: grid; gap: 16px; position: relative; }
+  .trace {
+    position: absolute;
+    left: -58px;
+    top: 24px;
+    width: 60px;
+    height: 120px;
+    color: var(--phosphor);
+  }
+  h1 { font-size: var(--step-3); color: var(--ink); text-shadow: -2px 0 rgb(255 0 80 / 0.45), 2px 0 rgb(0 220 255 / 0.45); }
+  dl { margin: 0; display: grid; }
+  .row {
+    display: grid;
+    grid-template-columns: 10ch 1fr;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  dd { margin: 0; font-size: var(--step--1); min-width: 0; }
+  .desc { margin: 0; color: var(--ink); font-size: var(--step--1); max-width: 65ch; }
+  .step {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: var(--step--2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .step a { border: 1px solid var(--line); padding: 10px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .step a:last-child { text-align: right; }
+  .step a:hover { border-color: var(--phosphor); }
+  .back { font-size: var(--step--2); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); }
+  .back:hover { color: var(--glow); }
+
+  @media (max-width: 980px) {
+    .viewer { grid-template-columns: 1fr; gap: 32px; }
+    .trace { display: none; }
+  }
 </style>

@@ -1,0 +1,118 @@
+---
+import TestPattern from './TestPattern.astro';
+import { channelFor } from '../data/channels';
+import type { ResolvedWork } from '../data/works';
+
+interface Props {
+  work: ResolvedWork;
+  index: number;
+  size?: 'normal' | 'wide' | 'big';
+}
+
+const { work, index, size = 'normal' } = Astro.props;
+const ch = channelFor(work.kind);
+const target = `TARGET_${String(index + 1).padStart(2, '0')}XX`;
+---
+
+<a href={`/work/${work.slug}`} class:list={['tile', size]} data-tile>
+  <span class="frame">
+    <span class="crt screen">
+      {work.thumb ? <img src={work.thumb} alt="" loading="lazy" /> : <TestPattern pattern={work.pattern} seed={work.slug} />}
+    </span>
+    <span class="lock" aria-hidden="true"><span class="lock-label">{target}</span></span>
+  </span>
+  <span class="meta">
+    <span class="ch">CH.{ch.num}</span>
+    <span class="title">{work.title}</span>
+    <span class="year">{work.year}</span>
+  </span>
+</a>
+
+<style>
+  .tile {
+    position: relative;
+    display: grid;
+    gap: 10px;
+    color: var(--ink);
+    min-width: 0;
+  }
+  .wide { grid-column: span 2; }
+  .big { grid-column: span 2; grid-row: span 2; }
+  @media (max-width: 640px) {
+    .wide, .big { grid-column: auto; grid-row: auto; }
+  }
+
+  .frame { position: relative; display: block; min-height: 0; }
+  .screen { display: block; aspect-ratio: 4 / 3; max-width: 100%; }
+  .big .screen { aspect-ratio: auto; height: 100%; }
+  .big { grid-template-rows: 1fr auto; }
+
+  .screen > :global(img), .screen > :global(svg) {
+    transition: transform var(--snap), filter var(--snap);
+  }
+  .tile:hover .screen > :global(*), .tile:focus-visible .screen > :global(*) {
+    filter: url(#rgb-split) saturate(1.4) brightness(1.1);
+    animation: jitter 320ms steps(4) 1;
+  }
+
+  /* Thermal lock-on brackets */
+  .lock {
+    position: absolute;
+    inset: -8px;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity var(--snap), transform var(--snap), inset var(--snap);
+    --c: var(--thermal);
+    background:
+      linear-gradient(var(--c), var(--c)) top left / 18px 2px no-repeat,
+      linear-gradient(var(--c), var(--c)) top left / 2px 18px no-repeat,
+      linear-gradient(var(--c), var(--c)) top right / 18px 2px no-repeat,
+      linear-gradient(var(--c), var(--c)) top right / 2px 18px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom left / 18px 2px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom left / 2px 18px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom right / 18px 2px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom right / 2px 18px no-repeat;
+  }
+  .tile:hover .lock, .tile:focus-visible .lock { opacity: 1; transform: scale(1); }
+  .lock-label {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: var(--step--2);
+    letter-spacing: 0.08em;
+    color: var(--void);
+    background: var(--thermal);
+    padding: 0 6px;
+    line-height: 18px;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    align-items: baseline;
+    font-size: var(--step--1);
+    min-width: 0;
+  }
+  .ch { color: var(--phosphor); font-size: var(--step--2); letter-spacing: 0.08em; }
+  .title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .year { color: var(--dim); font-variant-numeric: tabular-nums; }
+  .tile:hover .title { color: var(--glow); text-shadow: var(--glow-shadow); }
+
+  @keyframes jitter {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-4px) skewX(-2deg); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-1px) skewX(1deg); }
+    100% { transform: translateX(0); }
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+// Generated op-art test pattern, used as a placeholder until a work has real media.
+// Deterministic per seed, so a work always shows the same pattern.
+import type { Pattern } from '../data/works';
+
+interface Props {
+  pattern?: Pattern;
+  seed: string;
+  label?: string;
+}
+
+const { pattern = 'stripes', seed, label = 'NO SIGNAL' } = Astro.props;
+
+let h = 2166136261;
+for (const c of seed) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+const rand = () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) ^ Math.imul(h ^ (h >>> 13), 3266489909)) >>> 0) / 4294967296;
+
+const W = 400;
+const H = 300;
+const fg = '#8fdcff';
+const parts: string[] = [];
+
+if (pattern === 'stripes') {
+  let x = 0;
+  const band = 120 + rand() * 80;
+  while (x < W) {
+    const w = 2 + rand() * 7;
+    parts.push(`<rect x="${x}" y="0" width="${w}" height="${band}" fill="${fg}"/>`);
+    parts.push(`<rect x="${x + (rand() - 0.5) * 14}" y="${band + 20}" width="${w}" height="${H - band - 20}" fill="${fg}" opacity="0.8"/>`);
+    x += w * 2 + rand() * 4;
+  }
+  for (let y = band; y < band + 20; y += 3) {
+    parts.push(`<rect x="${rand() * -40}" y="${y}" width="${W + 80}" height="1.5" fill="${fg}" opacity="${0.3 + rand() * 0.7}"/>`);
+  }
+} else if (pattern === 'rings') {
+  const cx = 120 + rand() * 160;
+  const cy = 100 + rand() * 100;
+  for (let r = 6; r < 420; r += 9) {
+    parts.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${fg}" stroke-width="4"/>`);
+  }
+} else if (pattern === 'grid') {
+  const s = 26;
+  for (let y = 0; y < H + s; y += s) {
+    for (let x = 0; x < W + s; x += s) {
+      const k = 0.35 + 0.65 * Math.abs(Math.sin((x - W / 2) / 70) * Math.cos((y - H / 2) / 60));
+      const d = (s / 2) * k;
+      parts.push(`<path d="M${x} ${y - d}L${x + d} ${y}L${x} ${y + d}L${x - d} ${y}Z" fill="${fg}"/>`);
+    }
+  }
+} else if (pattern === 'tunnel') {
+  const vx = W / 2 + (rand() - 0.5) * 120;
+  const vy = 40 + rand() * 60;
+  for (let i = -30; i <= 30; i++) {
+    const bx = W / 2 + i * 22 + Math.sin(i) * 6;
+    parts.push(`<path d="M${vx} ${vy}L${bx} ${H + 10}" stroke="${fg}" stroke-width="${1 + Math.abs(i) / 12}" fill="none"/>`);
+  }
+} else if (pattern === 'scan') {
+  for (let y = 0; y < H; y += 6) {
+    const off = Math.sin(y / 23 + rand()) * 30 + (rand() > 0.9 ? rand() * 90 : 0);
+    parts.push(`<rect x="${40 + off}" y="${y}" width="${W - 80}" height="3" fill="${fg}" opacity="${0.4 + rand() * 0.6}"/>`);
+  }
+} else {
+  const shades = ['#d6e4ff', '#8fdcff', '#5fb0ff', '#3d7bff', '#2a56c0', '#1a3a8a', '#0d1f4f'];
+  shades.forEach((c, i) => parts.push(`<rect x="${(i * W) / 7}" y="0" width="${W / 7 + 1}" height="${H * 0.72}" fill="${c}"/>`));
+  shades.reverse().forEach((c, i) => parts.push(`<rect x="${(i * W) / 7}" y="${H * 0.72}" width="${W / 7 + 1}" height="${H * 0.08}" fill="${c}"/>`));
+  for (let i = 0; i < 4; i++) parts.push(`<rect x="${(i * W) / 4}" y="${H * 0.8}" width="${W / 4}" height="${H * 0.2}" fill="${i % 2 ? '#081022' : '#d6e4ff'}"/>`);
+}
+---
+
+<svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" role="img" aria-label={label}>
+  <rect width={W} height={H} fill="#06102a" />
+  <g set:html={parts.join('')} />
+</svg>

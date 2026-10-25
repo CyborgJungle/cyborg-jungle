@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import WorkTile from './WorkTile.astro';
+import { channelFor, type ChannelId } from '../data/channels';
+import { worksIn } from '../data/works';
+
+interface Props {
+  id: ChannelId;
+}
+
+const ch = channelFor(Astro.props.id);
+const list = await worksIn(Astro.props.id);
+---
+
+<Base title={ch.label} description={`${ch.label} — ${ch.blurb}`} active={ch.id}>
+  <section class="wrap">
+    <header class="head">
+      <span class="big-num" aria-hidden="true">{ch.num}</span>
+      <div class="titles">
+        <span class="label">Channel</span>
+        <h1>{ch.label}</h1>
+        <p>{ch.blurb}</p>
+      </div>
+      <div class="count">
+        <span class="label">Signals</span>
+        <b>{String(list.length).padStart(2, '0')}</b>
+      </div>
+    </header>
+    <div class="ruler"></div>
+    <div class="grid">
+      {list.map((w, i) => <WorkTile work={w} index={i} />)}
+    </div>
+    {list.length === 0 && <p class="empty">NO SIGNAL — nothing on this channel yet.</p>}
+  </section>
+</Base>
+
+<style>
+  .head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 12px;
+  }
+  .big-num {
+    font-family: var(--font-crt);
+    font-size: clamp(5rem, 16vw, 11rem);
+    line-height: 0.75;
+    color: var(--signal);
+    text-shadow: 0 0 24px rgb(255 113 94 / 0.35);
+  }
+  h1 { font-size: var(--step-4); text-shadow: -3px 0 rgb(255 0 80 / 0.45), 3px 0 rgb(0 220 255 / 0.45); }
+  .titles p { margin: 8px 0 0; color: var(--dim); max-width: 50ch; }
+  .count { text-align: right; }
+  .count b { display: block; font-family: var(--font-crt); font-weight: 400; font-size: var(--step-3); line-height: 1; color: var(--glow); }
+  .grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 48px 32px;
+  }
+  .empty { color: var(--dim); margin-top: 40px; }
+  @media (max-width: 640px) {
+    .head { grid-template-columns: auto 1fr; }
+    .count { display: none; }
+  }
+</style>
