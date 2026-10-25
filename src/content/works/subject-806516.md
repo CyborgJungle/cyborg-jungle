@@ -1,57 +1,67 @@
 ---
-title: "Subject806516"
-kana: "被写体八〇六五一六"
+title: Subject806516
+kana: 被写体八〇六五一六
 kind: image
 year: 2024
 order: 4
 date: 2024-01-05
 tags:
-  - "portrait"
-  - "window"
-  - "checkerboard"
-  - "colour key"
-image: "/media/Final art/subject-806516/subject-806516-01-5017.jpg"
+  - portrait
+  - window
+  - checkerboard
+  - colour key
+image: /media/Final art/subject-806516/subject-806516-20-7952.jpg
 gallery:
-  - "/media/Final art/subject-806516/subject-806516-02-5018.jpg"
-  - "/media/Final art/subject-806516/subject-806516-03-5020.jpg"
-  - "/media/Final art/subject-806516/subject-806516-04-5021.jpg"
-  - "/media/Final art/subject-806516/subject-806516-05-5022.jpg"
-  - "/media/Final art/subject-806516/subject-806516-06-5024.jpg"
-  - "/media/Final art/subject-806516/subject-806516-07-5027-2.jpg"
-  - "/media/Final art/subject-806516/subject-806516-08-5039.jpg"
-  - "/media/Final art/subject-806516/subject-806516-09-5042.jpg"
-  - "/media/Final art/subject-806516/subject-806516-10-5045.jpg"
-  - "/media/Final art/subject-806516/subject-806516-11-5028.jpg"
-  - "/media/Final art/subject-806516/subject-806516-12-5030.jpg"
-  - "/media/Final art/subject-806516/subject-806516-13-5032.jpg"
-  - "/media/Final art/subject-806516/subject-806516-14-5037.jpg"
-  - "/media/Final art/subject-806516/subject-806516-15-7931.jpg"
-  - "/media/Final art/subject-806516/subject-806516-16-7935.jpg"
-  - "/media/Final art/subject-806516/subject-806516-17-7937.jpg"
-  - "/media/Final art/subject-806516/subject-806516-18-7944.jpg"
-  - "/media/Final art/subject-806516/subject-806516-19-7950.jpg"
-  - "/media/Final art/subject-806516/subject-806516-20-7952.jpg"
-  - "/media/Final art/subject-806516/subject-806516-21-7953.jpg"
-  - "/media/Final art/subject-806516/subject-806516-22-7960.jpg"
-  - "/media/Final art/subject-806516/subject-806516-23-7962.jpg"
-  - "/media/Final art/subject-806516/subject-806516-24-7967.jpg"
-  - "/media/Final art/subject-806516/subject-806516-25-7974.jpg"
-  - "/media/Final art/subject-806516/subject-806516-26-7984.jpg"
-  - "/media/Final art/subject-806516/subject-806516-27-7991.jpg"
-  - "/media/Final art/subject-806516/subject-806516-28-7996.jpg"
-  - "/media/Final art/subject-806516/subject-806516-29-7998.jpg"
-  - "/media/Final art/subject-806516/subject-806516-30-7999.jpg"
-  - "/media/Final art/subject-806516/subject-806516-31-8002.jpg"
-  - "/media/Final art/subject-806516/subject-806516-32-8005.jpg"
-  - "/media/Final art/subject-806516/subject-806516-33-8016.jpg"
-  - "/media/Final art/subject-806516/subject-806516-34-8017.jpg"
-  - "/media/Final art/subject-806516/subject-806516-35-8024.jpg"
-  - "/media/Final art/subject-806516/subject-806516-36-8025.jpg"
-  - "/media/Final art/subject-806516/subject-806516-37-8026.jpg"
+  - /media/Final art/subject-806516/subject-806516-02-5018.jpg
+  - /media/Final art/subject-806516/subject-806516-03-5020.jpg
+  - /media/Final art/subject-806516/subject-806516-04-5021.jpg
+  - /media/Final art/subject-806516/subject-806516-05-5022.jpg
+  - /media/Final art/subject-806516/subject-806516-06-5024.jpg
+  - /media/Final art/subject-806516/subject-806516-07-5027-2.jpg
+  - /media/Final art/subject-806516/subject-806516-08-5039.jpg
+  - /media/Final art/subject-806516/subject-806516-09-5042.jpg
+  - /media/Final art/subject-806516/subject-806516-10-5045.jpg
+  - /media/Final art/subject-806516/subject-806516-11-5028.jpg
+  - /media/Final art/subject-806516/subject-806516-12-5030.jpg
+  - /media/Final art/subject-806516/subject-806516-13-5032.jpg
+  - /media/Final art/subject-806516/subject-806516-14-5037.jpg
+  - /media/Final art/subject-806516/subject-806516-15-7931.jpg
+  - /media/Final art/subject-806516/subject-806516-16-7935.jpg
+  - /media/Final art/subject-806516/subject-806516-17-7937.jpg
+  - /media/Final art/subject-806516/subject-806516-18-7944.jpg
+  - /media/Final art/subject-806516/subject-806516-19-7950.jpg
+  - /media/Final art/subject-806516/subject-806516-20-7952.jpg
+  - /media/Final art/subject-806516/subject-806516-21-7953.jpg
+  - /media/Final art/subject-806516/subject-806516-22-7960.jpg
+  - /media/Final art/subject-806516/subject-806516-23-7962.jpg
+  - /media/Final art/subject-806516/subject-806516-24-7967.jpg
+  - /media/Final art/subject-806516/subject-806516-25-7974.jpg
+  - /media/Final art/subject-806516/subject-806516-26-7984.jpg
+  - /media/Final art/subject-806516/subject-806516-27-7991.jpg
+  - /media/Final art/subject-806516/subject-806516-28-7996.jpg
+  - /media/Final art/subject-806516/subject-806516-29-7998.jpg
+  - /media/Final art/subject-806516/subject-806516-30-7999.jpg
+  - /media/Final art/subject-806516/subject-806516-31-8002.jpg
+  - /media/Final art/subject-806516/subject-806516-32-8005.jpg
+  - /media/Final art/subject-806516/subject-806516-33-8016.jpg
+  - /media/Final art/subject-806516/subject-806516-34-8017.jpg
+  - /media/Final art/subject-806516/subject-806516-35-8024.jpg
+  - /media/Final art/subject-806516/subject-806516-36-8025.jpg
+  - /media/Final art/subject-806516/subject-806516-37-8026.jpg
 slideshow: true
 interval: 1
-alt: "Uniformed officer in a peaked cap framed by white inserts"
-medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
-format: "37 stills from analog video"
-description: "A uniform is already a kind of signal. It tells you what a person is meant to be before it tells you who they are. Subject 806516 is framed, re-framed and finally divided into a checkerboard, as if the system were trying to file him into squares it understood.\n\nWhat resists filing is the gaze. Through every insert and every block, the eyes keep returning. Whether that is the man, or only the persistence of his image, the archive does not say."
+alt: Uniformed officer in a peaked cap framed by white inserts
+description: >-
+  A uniform is already a kind of signal. It tells you what a person is meant to
+  be before it tells you who they are. Subject 806516 is framed, re-framed and
+  finally divided into a checkerboard, as if the system were trying to file him
+  into squares it understood.
+
+
+  What resists filing is the gaze. Through every insert and every block, the
+  eyes keep returning. Whether that is the man, or only the persistence of his
+  image, the archive does not say.
+medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed
+  off the screen with a phone"
+format: 37 stills from analog video
 ---
