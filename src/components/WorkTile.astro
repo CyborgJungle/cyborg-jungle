@@ -21,7 +21,7 @@ const sizes = size === 'big' ? '(max-width: 640px) 100vw, 50vw' : '(max-width: 6
   <span class="frame">
     <span class="crt screen">
       {work.slideshow && work.frames.length > 1 ? (
-        <Frames frames={work.frames} alt="" interval={work.interval} widths={[480, 800]} sizes={sizes} />
+        <Frames frames={work.frames} alt="" interval={work.interval} widths={[480, 800]} sizes={sizes} max={10} />
       ) : work.thumb ? (
         <Img src={work.thumb} alt="" widths={[480, 800, 1200]} sizes={sizes} />
       ) : (

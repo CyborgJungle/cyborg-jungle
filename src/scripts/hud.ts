@@ -76,10 +76,19 @@ function initSlideshows() {
     let paused = reduceMotion.matches;
     let timer = 0;
 
-    const show = (k: number) => {
+    // Hidden frames aren't decoded until shown, which flashes black on a cut;
+    // decode the next frame first, and the one after it ahead of time.
+    const decode = (k: number) =>
+      frames[(k + frames.length) % frames.length].querySelector('img')?.decode().catch(() => {}) ?? Promise.resolve();
+    let pending = 0;
+    const show = async (k: number) => {
+      const ticket = ++pending;
+      await decode(k);
+      if (ticket !== pending) return;
       frames[i].removeAttribute('data-active');
       thumbs[i]?.removeAttribute('aria-current');
       i = (k + frames.length) % frames.length;
+      decode(i + 1);
       frames[i].setAttribute('data-active', '');
       thumbs[i]?.setAttribute('aria-current', 'true');
       if (count) count.textContent = pad(i + 1);
@@ -118,6 +127,7 @@ function initSlideshows() {
 
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      if (visible) decode(i + 1);
       schedule();
     });
     // Stagger the wall's screens so they don't all cut at the same moment.

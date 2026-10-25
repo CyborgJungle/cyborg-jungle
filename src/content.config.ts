@@ -15,6 +15,12 @@ const works = defineCollection({
     title: z.string(),
     kind: z.enum(['image', 'video', 'installation']),
     year: z.coerce.number().int(),
+    /** Optional exact date (YYYY-MM-DD), used to order works within a year. */
+    // YAML turns 2022-11-06 into a Date; Pages CMS may also write a string.
+    date: z
+      .union([z.date(), z.string()])
+      .nullish()
+      .transform((v) => (v instanceof Date ? v.toISOString() : v)?.slice(0, 10) || undefined),
     video: text,
     image: text,
     gallery: z

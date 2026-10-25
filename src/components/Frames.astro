@@ -13,9 +13,13 @@ interface Props {
   sizes: string;
   fit?: 'cover' | 'contain';
   eager?: boolean;
+  /** Show at most this many frames, sampled evenly across the series (keeps the wall light). */
+  max?: number;
 }
 
-const { frames, alt, interval, widths, sizes, fit = 'cover', eager = false } = Astro.props;
+const { frames: all, alt, interval, widths, sizes, fit = 'cover', eager = false, max } = Astro.props;
+const frames =
+  max && all.length > max ? Array.from({ length: max }, (_, k) => all[Math.round((k * (all.length - 1)) / (max - 1))]) : all;
 ---
 
 <span class="frames" data-slideshow data-interval={Math.round(interval * 1000)} style={{ '--fit': fit }}>

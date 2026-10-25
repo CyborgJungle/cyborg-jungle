@@ -42,6 +42,11 @@ content:
         label: Year
         type: number
         required: true
+      - name: date
+        label: Date (optional)
+        type: date
+        description: "Orders works within the same year, newest first."
+
       - name: video
         label: Video link
         type: string

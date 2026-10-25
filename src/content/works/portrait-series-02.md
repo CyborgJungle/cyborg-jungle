@@ -1,0 +1,45 @@
+---
+title: "Portrait Series 02"
+kind: image
+year: 2022
+date: 2022-10-20
+image: "/media/Final art/portrait-series-02/img-9404.jpg"
+gallery:
+  - "/media/Final art/portrait-series-02/img-9409.jpg"
+  - "/media/Final art/portrait-series-02/img-9410.jpg"
+  - "/media/Final art/portrait-series-02/img-9411.jpg"
+  - "/media/Final art/portrait-series-02/img-9414.jpg"
+  - "/media/Final art/portrait-series-02/img-9415.jpg"
+  - "/media/Final art/portrait-series-02/img-9419.jpg"
+  - "/media/Final art/portrait-series-02/img-9420.jpg"
+  - "/media/Final art/portrait-series-02/img-9421.jpg"
+  - "/media/Final art/portrait-series-02/img-9425.jpg"
+  - "/media/Final art/portrait-series-02/img-9432.jpg"
+  - "/media/Final art/portrait-series-02/img-9403.jpg"
+  - "/media/Final art/portrait-series-02/img-9430.jpg"
+  - "/media/Final art/portrait-series-02/img-9439.jpg"
+  - "/media/Final art/portrait-series-02/img-9440.jpg"
+  - "/media/Final art/portrait-series-02/img-9441.jpg"
+  - "/media/Final art/portrait-series-02/img-9442.jpg"
+  - "/media/Final art/portrait-series-02/img-9445.jpg"
+  - "/media/Final art/portrait-series-02/img-9448.jpg"
+  - "/media/Final art/portrait-series-02/img-9450.jpg"
+  - "/media/Final art/portrait-series-02/img-9451.jpg"
+  - "/media/Final art/portrait-series-02/img-9458.jpg"
+  - "/media/Final art/portrait-series-02/img-9459.jpg"
+  - "/media/Final art/portrait-series-02/img-9466.jpg"
+  - "/media/Final art/portrait-series-02/img-9467.jpg"
+  - "/media/Final art/portrait-series-02/img-9475.jpg"
+  - "/media/Final art/portrait-series-02/img-9476.jpg"
+  - "/media/Final art/portrait-series-02/img-9460.jpg"
+  - "/media/Final art/portrait-series-02/img-9462.jpg"
+  - "/media/Final art/portrait-series-02/img-9463.jpg"
+  - "/media/Final art/portrait-series-02/img-9465.jpg"
+  - "/media/Final art/portrait-series-02/img-9469.jpg"
+  - "/media/Final art/portrait-series-02/img-9474.jpg"
+slideshow: true
+interval: 1.5
+medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
+format: "33 stills from analog video"
+description: "33 stills from analog video, recorded on 20 October 2022. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone.\n\nThe frames are grouped by what the signal did to the image, so similar variations play together."
+---

@@ -4,8 +4,20 @@
     {
       "name": "site",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "source ~/.nvm/nvm.sh && nvm use >/dev/null && npm run dev"],
+      "runtimeArgs": [
+        "-c",
+        "source ~/.nvm/nvm.sh && nvm use >/dev/null && npm run dev"
+      ],
       "port": 4321
+    },
+    {
+      "name": "prod",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "source ~/.nvm/nvm.sh && nvm use >/dev/null && npm run build >/dev/null && npx astro preview --port 4322"
+      ],
+      "port": 4322
     }
   ]
 }
