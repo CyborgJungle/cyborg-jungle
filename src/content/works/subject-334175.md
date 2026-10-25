@@ -49,5 +49,5 @@ interval: 1
 alt: "Ballet dancer in a white tutu on a lake, ghosted by the signal"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "33 stills from analog video"
-description: "A ballet dancer on a lake, alone and then in a duet. The dancers ghost and double, their tutus flood with red, gold and violet, and the water breaks into interference.\n\n33 stills from analog video, recorded on 21 January 2024. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "A dancer on dark water, alone and then doubled. Ballet is the human body disciplined into pure form, and the signal takes that discipline at its word: the dancers ghost, repeat and flood with colours no stage light ever made.\n\nSubject 334175 closes the archive. It asks whether the body, translated into electricity, is extended into a new medium or merely imitated by one. The swan does not answer. It keeps dancing, a fraction of a second behind itself."
 ---

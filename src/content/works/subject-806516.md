@@ -53,5 +53,5 @@ interval: 1
 alt: "Uniformed officer in a peaked cap framed by white inserts"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "37 stills from analog video"
-description: "A uniformed officer in a peaked cap, framed by white inserts and then by borders of green, blue and red. In the second half the picture is cut into a lilac checkerboard of shifting blocks.\n\n37 stills from analog video, recorded on 5 January 2024. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "A uniform is already a kind of signal. It tells you what a person is meant to be before it tells you who they are. Subject 806516 is framed, re-framed and finally divided into a checkerboard, as if the system were trying to file him into squares it understood.\n\nWhat resists filing is the gaze. Through every insert and every block, the eyes keep returning. Whether that is the man, or only the persistence of his image, the archive does not say."
 ---

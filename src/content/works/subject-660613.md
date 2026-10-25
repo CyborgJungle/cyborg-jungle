@@ -45,5 +45,5 @@ interval: 1
 alt: "Portrait of a woman with 1940s curls looking up, washed in shifting colour"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "29 stills from analog video"
-description: "A 1940s-style portrait looking up toward a few points of light. The signal washes her in shifting colour and cold blue, strips her to black and white, then tears her apart vertically.\n\n29 stills from analog video, recorded on 3 June 2023. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "She looks up, toward a few points of light that may be stars or may be the phosphor of another screen. Colour washes over her in waves, cold, then warm, then gone, until only the outline remains, torn vertically as if the image were being drawn up into the sky she is watching.\n\nThere is a romance in Subject 660613 that the others lack: the sense that she is not being dissolved but transmitted. Whether she arrives anywhere, and as whom, lies outside the scope of the record."
 ---

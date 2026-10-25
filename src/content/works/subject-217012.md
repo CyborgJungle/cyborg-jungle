@@ -36,5 +36,5 @@ interval: 1
 alt: "Man's face behind a static-filled screen with a window keyed over his eyes"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "20 stills from analog video"
-description: "A man's face behind a static-filled screen, with a window keyed in over his eyes. The windows multiply into blocks and slits, and finally into diamonds cut into the face.\n\n20 stills from analog video, recorded on 3 February 2023. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "Every window is a decision about what may be seen. The first is placed over his eyes; the others follow, cutting the face into slits, blocks and finally diamonds, until the man is assembled entirely out of openings.\n\nThe early theorists of the electronic image believed the screen would be a window onto the world. Subject 217012 suggests something less comfortable: that the window was never transparent, and that whatever looks back through it has been arranged."
 ---

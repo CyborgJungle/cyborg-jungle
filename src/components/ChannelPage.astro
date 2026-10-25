@@ -4,7 +4,6 @@ import WorkTile from './WorkTile.astro';
 import TestPattern from './TestPattern.astro';
 import { channelFor, type ChannelId } from '../data/channels';
 import { worksIn } from '../data/works';
-import { tagCounts } from '../data/tags';
 
 interface Props {
   id: ChannelId;
@@ -12,7 +11,6 @@ interface Props {
 
 const ch = channelFor(Astro.props.id);
 const list = await worksIn(Astro.props.id);
-const tags = tagCounts(list);
 ---
 
 <Base title={ch.label} description={`${ch.label} — ${ch.blurb}`} active={ch.id}>
@@ -26,19 +24,8 @@ const tags = tagCounts(list);
       <span class="jp tategaki" lang="ja">{ch.jp}</span>
     </header>
     <div class="bar">
-      <span class="label"><span data-count>{list.length}</span> {list.length === 1 ? 'project' : 'projects'}</span>
+      <span class="label">{list.length} {list.length === 1 ? 'project' : 'projects'}</span>
     </div>
-
-    {tags.length > 1 && (
-      <div class="filter" role="group" aria-label="Filter by tag" data-filter>
-        <button type="button" class="stamp" data-tag="" aria-pressed="true">All</button>
-        {tags.map(([t, n]) => (
-          <button type="button" class="stamp" data-tag={t} aria-pressed="false">
-            {t}<span class="n">{n}</span>
-          </button>
-        ))}
-      </div>
-    )}
 
     {list.length > 0 ? (
       <div class="grid">
@@ -49,44 +36,12 @@ const tags = tagCounts(list);
         <div class="tv empty-screen">
           <TestPattern pattern="bars" seed={ch.id} label="Colour bars" />
         </div>
-        <p><strong class="glitch-type">No signal yet.</strong> New work for this channel is on its way. <span lang="ja" class="label">信号なし</span></p>
+        <p><strong class="glitch-type">No signal yet.</strong> Something is being transmitted on this channel. It has not arrived. <span lang="ja" class="label">信号なし</span></p>
       </div>
     )}
   </section>
 </Base>
 
-<script>
-  // Tag filter: show only works carrying the chosen tag. ?tag=… preselects one (links from work pages).
-  const bar = document.querySelector<HTMLElement>('[data-filter]');
-  if (bar) {
-    const buttons = [...bar.querySelectorAll<HTMLButtonElement>('[data-tag]')];
-    const tiles = [...document.querySelectorAll<HTMLElement>('[data-tile]')];
-    const count = document.querySelector('[data-count]');
-    const apply = (tag: string) => {
-      let shown = 0;
-      for (const t of tiles) {
-        const on = !tag || (t.dataset.tags ?? '').split('|').includes(tag);
-        t.hidden = !on;
-        if (on) shown++;
-      }
-      for (const b of buttons) b.setAttribute('aria-pressed', String(b.dataset.tag === tag));
-      if (count) count.textContent = String(shown);
-      const url = new URL(location.href);
-      if (tag) url.searchParams.set('tag', tag);
-      else url.searchParams.delete('tag');
-      history.replaceState(history.state, '', url);
-    };
-    bar.addEventListener('click', (e) => {
-      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-tag]');
-      if (b) apply(b.dataset.tag ?? '');
-    });
-    const wanted = new URL(location.href).searchParams.get('tag') ?? '';
-    if (buttons.some((b) => b.dataset.tag === wanted)) {
-      apply(wanted);
-      bar.querySelector('[aria-pressed="true"]')?.scrollIntoView({ inline: 'center', block: 'nearest' });
-    }
-  }
-</script>
 
 <style>
   .head {
@@ -117,20 +72,6 @@ const tags = tagCounts(list);
   .jp { grid-area: jp; font-size: clamp(1.4rem, 6vw, 2.2rem); color: var(--ch); justify-self: center; }
   .bar { padding-bottom: 10px; border-bottom: var(--stroke) solid var(--rule); }
 
-  .filter {
-    display: flex;
-    gap: 8px;
-    margin: 16px calc(-1 * var(--gutter)) 0;
-    padding: 2px var(--gutter) 8px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .filter::-webkit-scrollbar { display: none; }
-  .filter button { cursor: pointer; font-family: inherit; min-height: 40px; }
-  .filter .n { margin-left: 6px; font-family: var(--font-pixel); font-size: var(--step--2); color: var(--cream-soft); }
-  .filter button[aria-pressed='true'] { background: var(--ch); color: var(--void); border-color: var(--ch); }
-  .filter button[aria-pressed='true'] .n { color: var(--void); }
 
   .grid { margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

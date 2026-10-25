@@ -50,5 +50,5 @@ interval: 1
 alt: "Portrait of a man with a bob haircut melting into streaks of blue and white"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "33 stills from analog video"
-description: "A man with a bob haircut melting through the signal: the image runs like liquid in cold blue and white, flares into orange and red, and finally dissolves into grainy black-and-white noise.\n\n33 stills from analog video, recorded on 20 October 2022. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "Sync is the agreement between a signal and a screen about where each line begins. In Subject 811024 that agreement breaks down, and the man starts to run, cold and white, down the face of the tube like something poured.\n\nLater frames bring back colour, then grain, as if the system were searching for the settings under which he made sense. It never quite finds them. The fault may lie in the machine, or in the assumption that a human being has a single correct setting."
 ---

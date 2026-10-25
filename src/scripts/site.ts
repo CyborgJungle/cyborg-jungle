@@ -67,7 +67,6 @@ document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((el, n) => {
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(p));
       toggle.setAttribute('aria-label', p ? 'Play slideshow' : 'Pause slideshow');
-      toggle.textContent = p ? '▶' : '❚❚';
     }
     schedule();
   };

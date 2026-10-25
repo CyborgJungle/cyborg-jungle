@@ -39,5 +39,5 @@ interval: 1
 alt: "Glitched portrait of a woman with a clear band of colour over her eyes"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "23 stills from analog video"
-description: "A portrait broken three ways. First a clean band of colour holds the eyes while the face around it smears into interference, then the band itself breaks into mosaic blocks, then the whole face tears apart in colour and sync. The last frame is the contact sheet of the series.\n\n23 stills from analog video, recorded on 8 September 2022. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "The first of the series, and the simplest. A band of clear signal holds the eyes while the rest of the face dissolves around it. Then the band itself breaks into blocks. Then nothing holds.\n\nIt was here that the central question was first put: how much of a person must survive the passage into current before we stop calling the result a person? The eyes, it turns out, are enough to keep us looking. Whether they are enough to make her real is another matter."
 ---

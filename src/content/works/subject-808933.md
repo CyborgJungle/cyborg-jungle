@@ -52,5 +52,5 @@ interval: 1
 alt: "Portrait of a woman with a bob haircut sliced by horizontal bands of noise"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "36 stills from analog video"
-description: "A woman with a bob haircut, sliced by horizontal bands of noise where the picture loses its hold. Later frames cut a window around her eyes and flood the face with red and blue.\n\n36 stills from analog video, recorded on 21 November 2022. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "On old televisions, horizontal hold was the dial that kept the picture from slipping sideways out of itself. Here no one turns it. The bands of noise come and go, and between them a face holds on.\n\nSubject 808933 is the clearest case for the argument that a human being can be carried by a signal and still be recognised. It is also the clearest case against: what we recognise may be only the shape of our own expectation, returned to us by a machine that learned it from us."
 ---

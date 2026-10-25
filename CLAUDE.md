@@ -11,8 +11,8 @@
   effect modules onto a CRT monitor, and the CRT is filmed with a phone. Stills are frames from that
   footage. Describe the work this way; never as synthesised, digital, or "rescanned" stills.
 - A project with several variations of one image is ONE work with a slideshow, not several works.
-- Tags come from the fixed vocabulary in `src/data/tags.ts`; keep the `.pages.yml` picker in sync.
-  Every work gets tags and an `alt` sentence. Slideshows default to 1 s per frame.
+- Tags are not shown on the site (the CMS field remains). Every work gets an `alt` sentence and may
+  set a `cover` (preview frame number). Descriptions are philosophical archive texts, not image captions. Slideshows default to 1 s per frame.
 - About 95% of visitors use a phone: design and test at 375px first. Glitches go on images and
   display type only — never a filter or overlay across the whole page; no blue HUD.
 - Works are ordered by their `order` field; every project is named `Subject` + six digits. No glyph marks.

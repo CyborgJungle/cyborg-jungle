@@ -17,12 +17,14 @@ const { work, still = false } = Astro.props;
 const ch = channelFor(work.kind);
 const sizes = '(max-width: 639px) 90vw, (max-width: 999px) 45vw, 30vw';
 const frameCount = work.frames.length;
+// The card's slideshow starts on the series' preview frame
+const fromCover = [...work.frames.slice(work.coverIndex), ...work.frames.slice(0, work.coverIndex)];
 ---
 
-<a href={`/work/${work.slug}`} class="card" data-tile data-tags={work.tags.join('|')} style={{ '--edge': POSTERS[work.poster] }}>
+<a href={`/work/${work.slug}`} class="card" data-tile style={{ '--edge': POSTERS[work.poster] }}>
   <span class="tv screen">
     {!still && work.slideshow && frameCount > 1 ? (
-      <Frames frames={work.frames} alt="" interval={work.interval} widths={[480, 800]} sizes={sizes} max={10} />
+      <Frames frames={fromCover} alt="" interval={work.interval} widths={[480, 800]} sizes={sizes} max={10} />
     ) : work.thumb ? (
       <Img src={work.thumb} alt="" widths={[480, 800]} sizes={sizes} />
     ) : (

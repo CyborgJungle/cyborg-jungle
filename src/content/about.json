@@ -6,7 +6,7 @@
   "contact": "",
   "portrait": "/media/about/portrait-rayray-0910.jpg",
   "portraitCredit": "Photo: RayRay",
-  "bio": "I love exploring the boundaries of analog video: breaking it, and by breaking it, creating a beautiful, unique, weird and crunchy analog glitch aesthetic that reminds me of a fictional cyberpunk future.\n\nEvery piece starts as video. I feed it through a chain of analog video mixers and effect modules onto a CRT monitor, then film the screen with my phone. The stills on this site are frames from that footage, so the whole workflow stays analog.",
+  "bio": "I love exploring the boundaries of analog video: breaking it, and by breaking it, creating a beautiful, unique, weird and crunchy analog glitch aesthetic that reminds me of a fictional cyberpunk future.\n\nMy work is an exploration of humanity at the point where it becomes signal. When a face is turned into voltage, pushed through mixers and effect modules and redrawn line by line on a cathode-ray tube, is it still a face? Can we still recognise a person when they are made of nothing but electricity?\n\nEvery image crosses a border: from the physical world into the electronic one, and back out onto the glass. I am interested in what happens at that crossing. Perhaps the signal extends our reality into a new medium. Perhaps it only mimics it, holding up a convincing copy of a world it will never touch. I keep filming the screen to find out.\n\nEvery piece starts as video and stays analog all the way: a chain of video mixers and effect modules, a CRT monitor, and a phone held up to the glass. The stills on this site are frames from that footage.",
   "photos": [
     {
       "image": "/media/about/live-2023-12-02-crt-wall.jpg",
@@ -24,5 +24,6 @@
       "image": "/media/about/live-2022-12-10-projection-2.jpg",
       "caption": "Projection set · 10.12.2022"
     }
-  ]
+  ],
+  "instagram": "cyborgjungle"
 }

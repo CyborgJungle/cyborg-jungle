@@ -19,6 +19,10 @@ const photos = (about.photos ?? [])
   .filter((p) => p.image)
   .map((p) => ({ src: resolveImage(p.image)!, caption: p.caption }));
 const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
+const instagram = (about.instagram ?? '').replace(/^@/, '').trim();
+// Messages go to this address through FormSubmit (formsubmit.co); see README "Contact form".
+const CONTACT_EMAIL = 'cyborgjungle@gmail.com';
+const formEndpoint = `https://formsubmit.co/${CONTACT_EMAIL}`;
 ---
 
 <Base title="About" description="About Cyborg Jungle, analog video artist." active="about">
@@ -42,11 +46,15 @@ const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
         <span class="jp tategaki" lang="ja">紹介</span>
       </div>
       <div class="bio">{bio.map((p) => <p>{p}</p>)}</div>
-      {profile.length > 0 && (
+      {(profile.length > 0 || instagram) && (
         <dl class="spec">
           {profile.map(([k, v]) => (
             <div><dt class="label">{k}</dt><dd>{v}</dd></div>
           ))}
+          {instagram && (
+            <div><dt class="label">Instagram</dt><dd><a href={`https://www.instagram.com/${instagram}/`} rel="me noopener" target="_blank">@{instagram}</a></dd></div>
+          )}
+          <div><dt class="label">Contact</dt><dd><a href="#contact">Send a message</a></dd></div>
         </dl>
       )}
     </div>
@@ -70,7 +78,64 @@ const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
       </ul>
     </section>
   )}
+  <section class="wrap contact" id="contact" aria-labelledby="contact-h" style={{ '--ch': 'var(--ch-about)' }}>
+    <div class="section-head">
+      <h2 id="contact-h" class="glitch-type">Contact <span lang="ja">連絡</span></h2>
+      {instagram && <a class="label" href={`https://www.instagram.com/${instagram}/`} rel="me noopener" target="_blank">@{instagram}</a>}
+    </div>
+    <form class="form" action={formEndpoint} method="POST" data-contact data-endpoint={`https://formsubmit.co/ajax/${CONTACT_EMAIL}`}>
+      <input type="hidden" name="_subject" value="New message from cyborg-jungle.vercel.app" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value="https://cyborg-jungle.vercel.app/about?sent=1#contact" />
+      <!-- Spam trap: people never see or fill this field -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="honey" aria-hidden="true" />
+
+      <label for="cf-name">Name</label>
+      <input id="cf-name" name="name" type="text" autocomplete="name" required />
+
+      <label for="cf-email">Email</label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" required />
+
+      <label for="cf-message">Message</label>
+      <textarea id="cf-message" name="message" rows="6" required></textarea>
+
+      <button type="submit">Send message</button>
+      <p class="status" role="status" aria-live="polite" data-status></p>
+    </form>
+  </section>
 </Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact]');
+  const status = form?.querySelector<HTMLElement>('[data-status]');
+  if (new URLSearchParams(location.search).has('sent') && status) status.textContent = 'Message received. Thank you.';
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!status) return;
+    const button = form.querySelector('button')!;
+    button.disabled = true;
+    status.dataset.state = '';
+    status.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.dataset.endpoint!, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === 'false' || data.success === false) throw new Error(data.message || 'Send failed');
+      form.reset();
+      status.dataset.state = 'ok';
+      status.textContent = 'Message received. Thank you.';
+    } catch {
+      status.dataset.state = 'error';
+      status.textContent = 'The message could not be sent. Please try again, or write on Instagram @cyborgjungle.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>
 
 <style>
   .about { display: grid; gap: 24px; grid-template-columns: minmax(0, 1fr); }
@@ -104,4 +169,44 @@ const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
     .about { grid-template-columns: 380px minmax(0, 1fr); gap: 48px; }
   }
   @media (min-width: 1000px) { .live ul { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .spec a { color: var(--cream); }
+  .spec a:hover { color: var(--mint); }
+
+  .contact { margin-top: 56px; scroll-margin-top: 24px; }
+  .section-head a.label { text-decoration: none; color: var(--mint); padding: 8px 0; }
+  .form { display: grid; gap: 8px; margin-top: 24px; max-width: 36rem; }
+  .form label { font-family: var(--font-pixel); font-size: var(--step--1); color: var(--cream-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 8px; }
+  .form input, .form textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 16px; /* 16px keeps iOS from zooming into the field */
+    color: var(--cream);
+    background: var(--panel);
+    border: var(--stroke) solid var(--rule);
+    border-radius: 10px;
+    padding: 12px 14px;
+    min-height: 48px;
+  }
+  .form textarea { resize: vertical; min-height: 140px; }
+  .form input:focus, .form textarea:focus { outline: none; border-color: var(--mint); }
+  .form button {
+    margin-top: 12px;
+    justify-self: start;
+    min-height: 48px;
+    padding: 0 24px;
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--void);
+    background: var(--ch);
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .form button:disabled { opacity: 0.6; cursor: progress; }
+  .honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .status { margin: 4px 0 0; min-height: 1.6em; font-family: var(--font-pixel); color: var(--cream-soft); }
+  .status[data-state='ok'] { color: var(--mint); }
+  .status[data-state='error'] { color: var(--red); }
 </style>

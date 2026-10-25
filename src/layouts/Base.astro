@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Wordmark from '../components/Wordmark.astro';
+import about from '../content/about.json';
 
 interface Props {
   title?: string;
@@ -10,8 +11,9 @@ interface Props {
   active?: string;
 }
 
-const { title, description = 'Cyborg Jungle — analog video art. Video broken through mixers and effect modules, filmed off a CRT.', active } = Astro.props;
+const { title, description = 'Cyborg Jungle — analog video art about human beings made of electric signals, and whether we still recognise them.', active } = Astro.props;
 const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Analog Video Art';
+const instagram = (about.instagram ?? '').replace(/^@/, '').trim();
 ---
 
 <!doctype html>
@@ -24,6 +26,8 @@ const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Anal
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0b0a09" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
     <!-- Home-screen web app (iPhone): fullscreen, black status bar, logo icon and launch screen -->
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -46,7 +50,11 @@ const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Anal
     </main>
     <footer class="wrap site-foot">
       <Wordmark kana />
-      <p>Analog video art. Video mixers, effect modules, a CRT and a phone.</p>
+      <p>Human beings, translated into current. Analog video: mixers, effect modules, a CRT and a phone.</p>
+      <p class="links">
+        {instagram && <a href={`https://www.instagram.com/${instagram}/`} rel="me noopener" target="_blank">Instagram @{instagram}</a>}
+        <a href="/about#contact">Contact</a>
+      </p>
       <p class="label">© {new Date().getFullYear()} Cyborg Jungle</p>
     </footer>
 
@@ -93,4 +101,7 @@ const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Anal
     font-size: var(--step--1);
   }
   .site-foot p { margin: 0; }
+  .site-foot .links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  .site-foot .links a { color: var(--cream); text-decoration: none; padding: 10px 0; border-bottom: var(--stroke) solid var(--rule); }
+  .site-foot .links a:hover { border-color: var(--mint); }
 </style>

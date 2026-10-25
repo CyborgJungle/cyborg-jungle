@@ -41,6 +41,11 @@ const works = defineCollection({
       .array(z.string())
       .nullish()
       .transform((v) => v?.filter(Boolean) ?? []),
+    /** Which frame represents the series on its card (1 = the main image). */
+    cover: z
+      .union([z.number(), z.string()])
+      .nullish()
+      .transform((v) => (Number(v) >= 1 ? Math.floor(Number(v)) : undefined)),
     /** Cycle the main image and extra images on a timer. */
     slideshow: z
       .boolean()

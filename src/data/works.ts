@@ -13,6 +13,8 @@ export type ResolvedWork = Omit<CollectionEntry<'works'>['data'], 'image' | 'gal
   gallery: Img[];
   /** Main image followed by the extra images: the frames of a slideshow. */
   frames: Img[];
+  /** Index into frames of the series' preview frame (from the "Preview frame" field). */
+  coverIndex: number;
   /** Grid thumbnail: the image, else the video's thumbnail. */
   thumb?: Img;
   embed?: string;
@@ -29,10 +31,11 @@ async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWor
   const image = resolveImage(d.image);
   const gallery = d.gallery.map((g) => resolveImage(g)!);
   const frames = image ? [image, ...gallery] : gallery;
-  const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, thumb: image, poster: 0 };
+  const coverIndex = d.cover && d.cover <= frames.length ? d.cover - 1 : 0;
+  const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, coverIndex, thumb: frames[coverIndex], poster: 0 };
   if (!d.video) return work;
   const v = await resolveVideo(d.video);
-  return { ...work, embed: v.embed, thumb: image ?? v.thumb, aspect: d.aspect ?? v.aspect };
+  return { ...work, embed: v.embed, thumb: work.thumb ?? v.thumb, aspect: d.aspect ?? v.aspect };
 }
 
 let cache: Promise<ResolvedWork[]> | undefined;

@@ -22,5 +22,5 @@ interval: 1
 alt: "Black silhouettes of figures against a wall of moiré lines"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "6 stills from analog video"
-description: "Film stills pushed to their limits: figures reduced to black silhouettes against a wall of moiré lines, faces split by horizontal tears, and finally pure op-art stripes.\n\n6 stills from analog video, recorded on 6 November 2022. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "At the end of a long transmission, figures become silhouettes and silhouettes become pattern. Subject 433316 records that descent in six frames: bodies, then faces split by the line, then only stripes, the moiré that remains when nothing is left to interfere with.\n\nIt is tempting to read this as an ending. It may be the opposite. The pattern is what the signal looks like once it no longer needs to imitate us."
 ---

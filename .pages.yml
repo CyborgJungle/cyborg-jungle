@@ -97,6 +97,10 @@ content:
             max: 40
           extensions: [jpg, jpeg, png, webp]
           rename: safe
+      - name: cover
+        label: Preview frame
+        type: number
+        description: "The frame shown on this series' card. Use the number from the counter on the project page (e.g. 06 / 22 → 6). Leave empty for the main image."
       - name: slideshow
         label: Play as slideshow
         type: boolean
@@ -159,10 +163,14 @@ content:
       - name: active
         label: Active since
         type: string
-      - name: contact
-        label: Contact
+      - name: instagram
+        label: Instagram
         type: string
-        description: "Email address or link, shown as text"
+        description: "Handle without @, e.g. cyborgjungle. Shown in the footer and on About."
+      - name: contact
+        label: Contact (extra line)
+        type: string
+        description: "Optional extra contact line on About. Messages from the contact form go to cyborgjungle@gmail.com."
       - name: portrait
         label: Portrait
         type: image

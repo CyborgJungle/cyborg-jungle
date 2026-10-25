@@ -70,7 +70,6 @@ Japanese faces load only the subsets the page uses (unicode-range), so phones fe
   (画像 映像 体験 紹介), 紹介 on About.
 - **Circled numbers** — ① ② ③ ④ for channels; the current channel is a filled tab in its colour.
 - **Channel disc** — big filled circle with the channel number.
-- **Stamps** — outlined labels for tags and filters; filled in the channel colour when selected.
 - **Dimension line** — `← 4:3 →` under a work's screen.
 
 ## Glitch
@@ -95,6 +94,14 @@ image; channel pages and work pages play the slideshows.
 ① Image `/image` · ② Video `/video` · ③ Interactive `/installations` · ④ About `/about`, each with
 its Japanese name. Phones: a row of four 72px tabs under the logo. Wide screens: pills beside the logo.
 
+## Favicon, contact, Instagram
+
+- Favicon: **CJ** in Aliens Among Us, white on black (`public/favicon.svg`, 32/48px PNG fallbacks).
+  The home-screen icon and launch screen keep the full CYBORG JUNGLE logo.
+- Contact form on About (`#contact`), styled like the rest: pixel labels, dark fields, 16px text,
+  a pill button in the About colour. Delivered by FormSubmit to cyborgjungle@gmail.com.
+- Instagram @cyborgjungle in the footer and in the About details (from `about.json` → `instagram`).
+
 ## Web app (iPhone)
 
 The site installs to the home screen ("Add to Home Screen" in Safari's share menu) and opens
@@ -108,7 +115,8 @@ is black-translucent; the header clears it with `env(safe-area-inset-top)` and a
 
 About 95% of visitors are on a phone; everything is designed and tested at 375px first.
 - One card per row; two from 640px; three from 1000px.
-- Tap targets ≥ 44px; slideshow controls 48px; filters and thumbnails swipe sideways.
+- Tap targets ≥ 44px; slideshow controls 48px (drawn line icons, never emoji); thumbnails swipe sideways.
+- No tags are shown on the site.
 - Card titles are compact (0.95rem, one line) so `SUBJECT861649` fits at every width.
 - No horizontal scroll at any width.
 
@@ -129,8 +137,7 @@ About 95% of visitors are on a phone; everything is designed and tested at 375px
 | Slideshow frames / timer / cut jolt | `src/components/Frames.astro`, `src/scripts/site.ts` |
 | RGB-split SVG filter, footer | `src/layouts/Base.astro` |
 | Hero (picked in Pages CMS) | `src/pages/index.astro`, `src/content/home.json` |
-| Channel page, tag filter, empty state | `src/components/ChannelPage.astro` |
+| Channel page, empty state | `src/components/ChannelPage.astro` |
 | Channels (labels, numbers, colours, Japanese) | `src/data/channels.ts` |
-| Tag vocabulary | `src/data/tags.ts`, `.pages.yml` |
 | Works / About content | `src/content/works/*.md`, `src/content/about.json`, schema `src/content.config.ts` |
 | Uploaded images (resized at build) | `src/assets/media/` via `src/lib/media.ts` + `src/components/Img.astro` |

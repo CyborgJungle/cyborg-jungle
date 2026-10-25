@@ -51,5 +51,5 @@ interval: 1
 alt: "Woman lit in red emerging from black, her face dragged sideways by horizontal tears"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "35 stills from analog video"
-description: "A woman lit in red, emerging from black. Horizontal tears drag her face sideways, the colour shifts from red to teal, and in the heaviest frames the image collapses into noise.\n\n35 stills from analog video, recorded on 5 October 2023. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "She surfaces out of black the way a memory surfaces: partially, and already distorting. Each horizontal tear is the moment the signal loses its grip on her; each recovery is an act of faith by the machine, which reassembles her because it has been told she is there.\n\nWhen the red drains into teal, nothing about her geometry changes. Only the frequency. One is left to wonder whether identity was ever more than a frequency we agreed to call by a name."
 ---

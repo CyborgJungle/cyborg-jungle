@@ -29,7 +29,8 @@ Every save is a commit to `main`, and Vercel redeploys the site in about a minut
   - *Play as slideshow*: for variations of one image. The main image and extra images cycle on
     the home wall and the work page; *Seconds per image* sets the speed (default 1).
   - Without media a work shows a generated test pattern.
-  - *Tags*: pick from the fixed list; visitors can filter a channel by tag.
+  - *Preview frame*: the frame shown on the series' card (the number from the counter on the
+    project page, e.g. `06 / 22` → 6). Channel-page slideshows start on it.
   - *Image description*: one sentence of alt text for screen readers and search.
 - **About page** — name, details, portrait, bio and live photos (`src/content/about.json`).
 
@@ -37,6 +38,14 @@ Media files are named `<project>-<frame>-<original IMG number>.jpg`, e.g. `eye-b
 so every file traces back to the original export.
 
 Field definitions live in `.pages.yml`; the matching schema is `src/content.config.ts`.
+
+## Contact form
+
+The form on the About page (`/about#contact`) sends messages to **cyborgjungle@gmail.com** through
+[FormSubmit](https://formsubmit.co) (free, no account). The very first message triggers a one-time
+activation email from FormSubmit to that inbox: click the link in it, and from then on every message
+is delivered. A hidden honeypot field filters simple spam bots. To hide the address from the page
+source, replace it in `src/pages/about.astro` with the random alias FormSubmit gives you after activation.
 
 ## Fonts
 

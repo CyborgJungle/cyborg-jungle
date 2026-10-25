@@ -38,5 +38,5 @@ interval: 1
 alt: "Blonde woman in a green jacket against red, with windows of another signal keyed over her eyes"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "22 stills from analog video"
-description: "A blonde woman in a green jacket against red. Windows of other signals are keyed over her eyes and grow into diamonds that reveal a second, darker face underneath.\n\n22 stills from analog video, recorded on 7 March 2023. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "The first window opened over her eyes, and through it came another signal entirely. By the time the diamonds had spread across her face, it was no longer clear which of the two images was the original and which the intrusion.\n\nSubject 861649 asks the oldest question in the archive in its simplest form: if a face can be overwritten one cut at a time, at what point does it stop being hers? The tube does not hesitate. It draws whatever voltage it is given, and it draws every version of her with the same conviction."
 ---

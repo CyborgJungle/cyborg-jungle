@@ -57,5 +57,5 @@ interval: 1
 alt: "Figure in a striped suit and a mask with round goggles, split by diagonal blocks of colour"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "41 stills from analog video"
-description: "A figure in a mask with round goggles. Diagonal splits and blocks of keyed colour cut across the striped suit, the image drains to grey, and the colour comes back in pink and blue.\n\n41 stills from analog video, recorded on 10 November 2023. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+description: "The mask came first; the signal merely completed it. Behind the goggles there is, presumably, a face, but the frames offer no proof, and after a while the question begins to feel impolite.\n\nSubject 928856 is the one most often filed as non-human. The records support that conclusion no better than its opposite. They show only a figure the machine renders with perfect confidence: colour keyed against colour, a suit of light worn over nothing we can verify."
 ---
