@@ -13,7 +13,8 @@ export type Img = ImageMetadata | string;
 export function resolveImage(path: string | undefined): Img | undefined {
   if (!path) return undefined;
   if (path.startsWith('/media/')) {
-    const found = files[`/src/assets${path}`];
+    // Folder names may contain spaces ("Final art"), written plain or URL-encoded.
+    const found = files[`/src/assets${path}`] ?? files[`/src/assets${decodeURI(path)}`];
     if (!found) throw new Error(`Image not found: ${path} (expected at src/assets${path})`);
     return found;
   }
