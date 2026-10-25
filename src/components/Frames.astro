@@ -1,0 +1,39 @@
+---
+// Slideshow frames stacked inside a CRT screen. The script in src/scripts/hud.ts cycles
+// them every `interval` seconds while the screen is visible (paused with reduced motion).
+import Img from './Img.astro';
+import type { Img as ImgSrc } from '../lib/media';
+
+interface Props {
+  frames: ImgSrc[];
+  alt: string;
+  /** Seconds per frame. */
+  interval: number;
+  widths: number[];
+  sizes: string;
+  fit?: 'cover' | 'contain';
+  eager?: boolean;
+}
+
+const { frames, alt, interval, widths, sizes, fit = 'cover', eager = false } = Astro.props;
+---
+
+<span class="frames" data-slideshow data-interval={Math.round(interval * 1000)} style={{ '--fit': fit }}>
+  {frames.map((src, i) => (
+    <span class="frame" data-frame data-active={i === 0 ? '' : undefined}>
+      <Img src={src} alt={i === 0 ? alt : ''} widths={widths} sizes={sizes} loading={i === 0 && eager ? 'eager' : 'lazy'} />
+    </span>
+  ))}
+</span>
+
+<style>
+  .frames, .frame { position: absolute; inset: 0; display: block; }
+  .frame { opacity: 0; }
+  .frame[data-active] { opacity: 1; }
+  .frame :global(img) { width: 100%; height: 100%; object-fit: var(--fit); display: block; background: #000; }
+  /* A frame change reads as a signal cut: one bright, slightly displaced field */
+  .frames:global(.tick) { animation: cut 140ms steps(2) 1; }
+  @keyframes cut {
+    50% { filter: brightness(1.5) contrast(1.2); transform: translateX(3px); }
+  }
+</style>

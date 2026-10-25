@@ -21,6 +21,16 @@ const works = defineCollection({
       .array(z.string())
       .nullish()
       .transform((v) => v?.filter(Boolean) ?? []),
+    /** Cycle the main image and extra images on a timer. */
+    slideshow: z
+      .boolean()
+      .nullish()
+      .transform((v) => v ?? false),
+    /** Seconds per image in a slideshow. */
+    interval: z
+      .union([z.number(), z.string()])
+      .nullish()
+      .transform((v) => (Number(v) > 0 ? Number(v) : 1.5)),
     medium: text,
     format: text,
     duration: text,

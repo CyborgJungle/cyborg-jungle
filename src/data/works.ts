@@ -11,6 +11,8 @@ export type ResolvedWork = Omit<CollectionEntry<'works'>['data'], 'image' | 'gal
   kind: ChannelId;
   image?: Img;
   gallery: Img[];
+  /** Main image followed by the extra images: the frames of a slideshow. */
+  frames: Img[];
   /** Grid thumbnail: the image, else the video's thumbnail. */
   thumb?: Img;
   embed?: string;
@@ -20,7 +22,9 @@ export type ResolvedWork = Omit<CollectionEntry<'works'>['data'], 'image' | 'gal
 async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWork> {
   const d = entry.data;
   const image = resolveImage(d.image);
-  const work: ResolvedWork = { ...d, slug: entry.id, image, gallery: d.gallery.map((g) => resolveImage(g)!), thumb: image };
+  const gallery = d.gallery.map((g) => resolveImage(g)!);
+  const frames = image ? [image, ...gallery] : gallery;
+  const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, thumb: image };
   if (!d.video) return work;
   const v = await resolveVideo(d.video);
   return { ...work, embed: v.embed, thumb: image ?? v.thumb, aspect: d.aspect ?? v.aspect };

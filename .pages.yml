@@ -59,9 +59,17 @@ content:
         description: "More views, e.g. installation shots. Shown under the main image."
         options:
           multiple:
-            max: 12
+            max: 40
           extensions: [jpg, jpeg, png, webp]
           rename: safe
+      - name: slideshow
+        label: Play as slideshow
+        type: boolean
+        description: "Cycle the main image and extra images on a timer, on the home wall and the work's page. Use for variations of one image."
+      - name: interval
+        label: Seconds per image
+        type: number
+        description: "Slideshow speed. Leave empty for 1.5 seconds."
       - name: description
         label: Description
         type: text

@@ -1,6 +1,7 @@
 ---
 import TestPattern from './TestPattern.astro';
 import Img from './Img.astro';
+import Frames from './Frames.astro';
 import { channelFor } from '../data/channels';
 import type { ResolvedWork } from '../data/works';
 
@@ -13,13 +14,16 @@ interface Props {
 const { work, index, size = 'normal' } = Astro.props;
 const ch = channelFor(work.kind);
 const target = `TARGET_${String(index + 1).padStart(2, '0')}XX`;
+const sizes = size === 'big' ? '(max-width: 640px) 100vw, 50vw' : '(max-width: 640px) 100vw, 25vw';
 ---
 
 <a href={`/work/${work.slug}`} class:list={['tile', size]} data-tile style={{ '--ch': ch.color }}>
   <span class="frame">
     <span class="crt screen">
-      {work.thumb ? (
-        <Img src={work.thumb} alt="" widths={[480, 800, 1200]} sizes={size === 'big' ? '(max-width: 640px) 100vw, 50vw' : '(max-width: 640px) 100vw, 25vw'} />
+      {work.slideshow && work.frames.length > 1 ? (
+        <Frames frames={work.frames} alt="" interval={work.interval} widths={[480, 800]} sizes={sizes} />
+      ) : work.thumb ? (
+        <Img src={work.thumb} alt="" widths={[480, 800, 1200]} sizes={sizes} />
       ) : (
         <TestPattern pattern={work.pattern} seed={work.slug} />
       )}

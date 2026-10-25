@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import TestPattern from '../../components/TestPattern.astro';
 import Img from '../../components/Img.astro';
+import Frames from '../../components/Frames.astro';
 import { channelFor } from '../../data/channels';
 import { resolvedWorks, type ResolvedWork } from '../../data/works';
 
@@ -39,6 +40,8 @@ const [w, h] = aspect.split('/').map(Number);
 // Cap the screen at 75% of the viewport height while keeping its shape.
 const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(75vh * ${w / h}))` };
 const paragraphs = work.description?.split(/\n\s*\n/) ?? [];
+const isShow = work.slideshow && work.frames.length > 1;
+const pad2 = (n: number) => String(n).padStart(2, '0');
 // Spec-sheet aspect: "4:3" for simple ratios, "1.78:1" otherwise.
 const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
 const g = gcd(w, h);
@@ -57,9 +60,11 @@ const rows = [
 
 <Base title={work.title} description={paragraphs[0]} active={ch.id}>
   <article class="wrap viewer" style={{ '--ch': ch.color }}>
-    <div class="stage">
+    <div class="stage" data-show-root={isShow ? '' : undefined}>
       <div class="crt screen" style={frameStyle}>
-        {work.embed ? (
+        {isShow ? (
+          <Frames frames={work.frames} alt={work.title} interval={work.interval} widths={[800, 1400, 2000]} sizes="(max-width: 980px) 100vw, 70vw" fit="contain" eager />
+        ) : work.embed ? (
           <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
         ) : work.image ? (
           <Img src={work.image} alt={work.title} widths={[800, 1400, 2000]} sizes="(max-width: 980px) 100vw, 70vw" loading="eager" />
@@ -67,7 +72,25 @@ const rows = [
           <TestPattern pattern={work.pattern} seed={work.slug} />
         )}
       </div>
-      {work.gallery.length > 0 && (
+      {isShow && (
+        <div class="show-ui">
+          <button type="button" data-show="prev" aria-label="Previous image">◄</button>
+          <button type="button" data-show="toggle" aria-label="Pause slideshow" aria-pressed="false">❚❚</button>
+          <button type="button" data-show="next" aria-label="Next image">►</button>
+          <span class="count"><span class="label">Frame</span> <b data-show-count>01</b>/{pad2(work.frames.length)}</span>
+          <span class="label rate">{work.interval} s / frame</span>
+        </div>
+        <ul class="gallery thumbs">
+          {work.frames.map((src, i) => (
+            <li>
+              <button type="button" class="crt" data-show-goto={i} aria-label={`Show image ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}>
+                <Img src={src} alt="" widths={[240]} sizes="120px" />
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      {!isShow && work.gallery.length > 0 && (
         <ul class="gallery">
           {work.gallery.map((src, i) => (
             <li class="crt"><Img src={src} alt={`${work.title}, view ${i + 1}`} widths={[400, 800]} sizes="(max-width: 640px) 50vw, 200px" /></li>
@@ -123,6 +146,42 @@ const rows = [
     gap: 12px;
   }
   .gallery .crt { aspect-ratio: 4 / 3; }
+
+  .show-ui {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .show-ui button {
+    font: inherit;
+    font-size: var(--step--1);
+    width: 40px;
+    height: 32px;
+    color: var(--ch);
+    background: transparent;
+    border: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .show-ui button:hover { border-color: var(--ch); }
+  .count { margin-left: 8px; font-size: var(--step--1); }
+  .count b { font-family: var(--font-crt); font-weight: 400; font-size: var(--step-1); color: var(--ch); }
+  .rate { margin-left: auto; }
+  .thumbs { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 8px; }
+  .thumbs button.crt {
+    display: block;
+    width: 100%;
+    aspect-ratio: 5 / 6;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    opacity: 0.45;
+    transition: opacity var(--snap);
+  }
+  .thumbs button > :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .thumbs button:hover, .thumbs button[aria-current] { opacity: 1; }
+  .thumbs button[aria-current] { outline: 1px solid var(--ch); outline-offset: 2px; }
 
   .spec { padding: 24px; display: grid; gap: 16px; position: relative; }
   .trace {

@@ -54,3 +54,81 @@ addEventListener('keydown', (e) => {
   const link = step && document.querySelector<HTMLAnchorElement>(`[data-step="${step}"]`);
   if (link) navigate(link.href);
 });
+
+// Slideshows: cycle a work's frames on its timer, only while the screen is visible.
+// Reduced motion starts them paused; the work page has pause / step / thumbnail controls.
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let stopShows: (() => void)[] = [];
+
+function initSlideshows() {
+  stopShows.forEach((stop) => stop());
+  stopShows = [];
+  document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((el, n) => {
+    const frames = [...el.querySelectorAll<HTMLElement>('[data-frame]')];
+    if (frames.length < 2) return;
+    const root = el.closest<HTMLElement>('[data-show-root]') ?? el;
+    const count = root.querySelector('[data-show-count]');
+    const toggle = root.querySelector<HTMLButtonElement>('[data-show="toggle"]');
+    const thumbs = [...root.querySelectorAll<HTMLElement>('[data-show-goto]')];
+    const ms = Number(el.dataset.interval) || 1500;
+    let i = 0;
+    let visible = false;
+    let paused = reduceMotion.matches;
+    let timer = 0;
+
+    const show = (k: number) => {
+      frames[i].removeAttribute('data-active');
+      thumbs[i]?.removeAttribute('aria-current');
+      i = (k + frames.length) % frames.length;
+      frames[i].setAttribute('data-active', '');
+      thumbs[i]?.setAttribute('aria-current', 'true');
+      if (count) count.textContent = pad(i + 1);
+      el.classList.remove('tick');
+      void el.offsetWidth;
+      el.classList.add('tick');
+    };
+    const schedule = () => {
+      clearInterval(timer);
+      if (!paused && visible) timer = window.setInterval(() => !document.hidden && show(i + 1), ms);
+    };
+    const setPaused = (p: boolean) => {
+      paused = p;
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', String(p));
+        toggle.setAttribute('aria-label', p ? 'Play slideshow' : 'Pause slideshow');
+        toggle.textContent = p ? '►' : '❚❚';
+      }
+      schedule();
+    };
+
+    if (root !== el) {
+      root.addEventListener('click', (e) => {
+        const b = (e.target as HTMLElement).closest<HTMLElement>('[data-show], [data-show-goto]');
+        if (!b) return;
+        if (b.dataset.showGoto !== undefined) {
+          show(Number(b.dataset.showGoto));
+          setPaused(true);
+        } else if (b.dataset.show === 'toggle') setPaused(!paused);
+        else {
+          show(i + (b.dataset.show === 'next' ? 1 : -1));
+          schedule();
+        }
+      });
+    }
+
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      schedule();
+    });
+    // Stagger the wall's screens so they don't all cut at the same moment.
+    const start = window.setTimeout(() => io.observe(el), (n % 4) * (ms / 4));
+    setPaused(paused);
+    stopShows.push(() => {
+      clearTimeout(start);
+      clearInterval(timer);
+      io.disconnect();
+    });
+  });
+}
+
+document.addEventListener('astro:page-load', initSlideshows);
