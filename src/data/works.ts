@@ -32,10 +32,14 @@ async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWor
 
 let cache: Promise<ResolvedWork[]> | undefined;
 
-/** All works, newest first. */
+const hasMedia = (w: ResolvedWork) => (w.frames.length > 0 || w.embed ? 1 : 0);
+
+/** All works: real media before placeholders, then newest first. */
 export function resolvedWorks(): Promise<ResolvedWork[]> {
   cache ??= getCollection('works').then(async (entries) =>
-    (await Promise.all(entries.map(resolveWork))).sort((a, b) => b.year - a.year || a.title.localeCompare(b.title)),
+    (await Promise.all(entries.map(resolveWork))).sort(
+      (a, b) => hasMedia(b) - hasMedia(a) || b.year - a.year || a.title.localeCompare(b.title),
+    ),
   );
   return cache;
 }
