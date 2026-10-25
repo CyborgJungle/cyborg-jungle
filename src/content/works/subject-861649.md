@@ -37,7 +37,7 @@ slideshow: true
 interval: 1
 alt: Blonde woman in a green jacket against red, with windows of another signal
   keyed over her eyes
-description: >-
+description: "If a face can be overwritten one cut at a time, at what point does it stop being hers? The machine does not hesitate. It renders every version with the same conviction, and leaves the question of which one is real to us."
   The first window opened over her eyes, and through it came another signal
   entirely. By the time the diamonds had spread across her face, it was no
   longer clear which of the two images was the original and which the intrusion.

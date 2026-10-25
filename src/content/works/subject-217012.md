@@ -34,7 +34,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Man's face behind a static-filled screen with a window keyed over his eyes
-description: >-
+description: "We once believed the screen would be a window onto the world. Perhaps the window was never transparent, and whatever looks back through it has been arranged."
   Every window is a decision about what may be seen. The first is placed over
   his eyes; the others follow, cutting the face into slits, blocks and finally
   diamonds, until the man is assembled entirely out of openings.

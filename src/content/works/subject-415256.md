@@ -20,7 +20,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: A man in a suit and tie broken into blocks of colour and rising half-circles
-description: >-
+description: "Authority is an arrangement of fields held together by agreement. Broken into its primaries, it is hard to say whether the signal mocks that arrangement or simply reveals it."
   A man in a suit and tie, composed for an official photograph, is taken apart
   by blocks of colour that do not care about his composure. Half-circles rise
   behind him like a sun he did not ask for.

@@ -34,5 +34,5 @@ interval: 1
 alt: "Woman in a white helmet, her face cut open by diamond-shaped keys"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "18 stills from analog video"
-description: "The visor was meant to protect her from her surroundings. In the signal it becomes the opposite: an opening through which the surroundings enter. Diamond cuts lift sections of her face away, and colour pours in behind them.\n\nSubject 869420 belongs to the period in which the border between the body and its image was treated as a door rather than a wall. Doors open in both directions. The frames do not reveal which way she went."
+description: "The border between the body and its image may be a door rather than a wall. Doors open in both directions: into the signal, and back out of it. We do not know which way anyone has gone."
 ---

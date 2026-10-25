@@ -20,7 +20,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Black silhouettes of figures against a wall of moiré lines
-description: >-
+description: "When nothing is left to interfere with, what remains is pattern. It is tempting to call this an ending. It may be the opposite: the moment the signal no longer needs to imitate us."
   At the end of a long transmission, figures become silhouettes and silhouettes
   become pattern. Subject 433316 records that descent in six frames: bodies,
   then faces split by the line, then only stripes, the moiré that remains when

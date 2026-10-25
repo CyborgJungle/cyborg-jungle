@@ -19,5 +19,5 @@ interval: 1
 alt: "A skateboarder caught in a disc of clear picture while the frame around him smears"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "4 stills from analog video"
-description: "Motion was the first thing the signal learned to love. A skater crosses the frame, caught in a disc of clear picture while the world around him smears; in the darker frames a figure scatters into points of light, a body made of falling snow.\n\nSubject 792678 asks whether movement is what makes a recording feel alive. Freeze the skater and he becomes a shape. Let the signal tear at him mid-flight, and for a moment he is more present than the screen around him."
+description: "Is movement what makes a recording feel alive? Freeze a body and it becomes a shape. Tear at it mid-flight, and for a moment it is more present than everything around it."
 ---

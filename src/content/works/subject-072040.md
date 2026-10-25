@@ -20,7 +20,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Grey negative figures and liquid abstract fields of signal
-description: >-
+description: "A body, a pattern, a number: to the machine they are all the same voltage. Only we insist on the difference, and it is not obvious that insisting makes it true."
   In January the archive went quiet and grey. Figures appear only as negatives,
   as silhouettes against a mixer's channel readout, as fragments of a face
   caught in the edge of another signal. Between them, the image sometimes gives

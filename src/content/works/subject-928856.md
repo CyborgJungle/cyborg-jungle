@@ -56,7 +56,7 @@ slideshow: true
 interval: 1
 alt: Figure in a striped suit and a mask with round goggles, split by diagonal
   blocks of colour
-description: >-
+description: "The record supports no conclusion about what lies behind the signal. It shows only something the machine renders with perfect confidence, worn over nothing we can verify. Perhaps that has always been true of people."
   The mask came first; the signal merely completed it. Behind the goggles there
   is, presumably, a face, but the frames offer no proof, and after a while the
   question begins to feel impolite.

@@ -47,7 +47,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Ballet dancer in a white tutu on a lake, ghosted by the signal
-description: >-
+description: "Translated into electricity, is the body extended into a new medium, or merely imitated by one? The archive closes without an answer: only a movement that keeps going, a fraction of a second behind itself."
   A dancer on dark water, alone and then doubled. Ballet is the human body
   disciplined into pure form, and the signal takes that discipline at its word:
   the dancers ghost, repeat and flood with colours no stage light ever made.

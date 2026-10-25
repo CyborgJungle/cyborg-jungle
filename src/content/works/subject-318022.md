@@ -37,7 +37,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Glitched portrait of a woman with a clear band of colour over her eyes
-description: >-
+description: "How much of a person must survive the passage into current before we stop calling the result a person? The eyes are enough to keep us looking. Whether they are enough to make someone real is another matter."
   The first of the series, and the simplest. A band of clear signal holds the
   eyes while the rest of the face dissolves around it. Then the band itself
   breaks into blocks. Then nothing holds.

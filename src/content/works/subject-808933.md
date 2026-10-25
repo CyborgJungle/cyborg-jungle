@@ -50,7 +50,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Portrait of a woman with a bob haircut sliced by horizontal bands of noise
-description: >-
+description: "A human being can be carried by a signal and still be recognised. Or what we recognise is only the shape of our own expectation, returned to us by a machine that learned it from us. The two are harder to tell apart than we would like."
   On old televisions, horizontal hold was the dial that kept the picture from
   slipping sideways out of itself. Here no one turns it. The bands of noise come
   and go, and between them a face holds on.

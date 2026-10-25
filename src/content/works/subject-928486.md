@@ -18,5 +18,5 @@ interval: 1
 alt: "Pale, washed-out figures dissolving into blocks of colour"
 medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
 format: "3 stills from analog video"
-description: "Three frames from the summer of 2021, washed almost to white. A face, a standing figure, a horizon, each dissolving into blocks of pale colour, as if the transmission were being received from very far away.\n\nSubject 928486 is the archive's study in distance. How faint can a person become before the signal stops carrying them and begins carrying only its own noise? Fainter than expected. Something human remains in the last frame, even when nothing visible does."
+description: "How faint can a person become before the signal stops carrying them and begins carrying only its own noise? Fainter than we expect. Something human lingers even after nothing visible does."
 ---

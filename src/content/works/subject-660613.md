@@ -43,7 +43,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Portrait of a woman with 1940s curls looking up, washed in shifting colour
-description: >-
+description: "There is a difference between being dissolved and being transmitted. One is an ending; the other is a journey. Whether anything arrives on the other side, and as whom, lies beyond the reach of the record."
   She looks up, toward a few points of light that may be stars or may be the
   phosphor of another screen. Colour washes over her in waves, cold, then warm,
   then gone, until only the outline remains, torn vertically as if the image

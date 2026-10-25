@@ -18,7 +18,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: An eye drawn in glittering static and faces lit only where the light falls
-description: >-
+description: "If a person can be rebuilt from nothing but brightness on glass, what exactly is lost in the rebuilding, and would we notice if it were nothing at all?"
   The earliest faces in the archive, gathered from a year of trying. An eye
   drawn in glittering static, a woman behind bands of noise, a face that exists
   only where the light catches it and is black everywhere else.

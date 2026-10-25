@@ -45,7 +45,7 @@ slideshow: true
 interval: 1
 alt: Film stills of a wedding, faces opened by diamond and circle shapes of
   other signals
-description: >-
+description: "When a whole gathering of people is converted into current, does their togetherness survive the conversion, or does each of them arrive alone?"
   Here the signal arrives at a wedding and refuses to leave. Diamonds open over
   faces, circles drift across a bride and her guests, and every frame becomes a
   negotiation between the moment as it was lived and the moment as the machine

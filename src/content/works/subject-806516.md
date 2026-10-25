@@ -51,7 +51,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Uniformed officer in a peaked cap framed by white inserts
-description: >-
+description: "Every system tries to file us into squares it understands. What resists the filing may be the person, or only the persistence of their image. The archive cannot say which, and perhaps neither can we."
   A uniform is already a kind of signal. It tells you what a person is meant to
   be before it tells you who they are. Subject 806516 is framed, re-framed and
   finally divided into a checkerboard, as if the system were trying to file him

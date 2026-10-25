@@ -16,7 +16,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: A purple disc cut by lines and pyramids of interference on a red field
-description: >-
+description: "If the machine can draw geometry this confidently on its own, every face it renders deserves suspicion. It may draw us the way it draws a pyramid: perfectly, and without needing us to be there."
   Before the faces, there were shapes. A purple disc cut with lines, a pyramid
   of interference rising from a red field: the first experiments in what the
   chain of machines could draw with no human subject at all.

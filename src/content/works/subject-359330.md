@@ -50,7 +50,7 @@ slideshow: true
 interval: 1
 alt: Woman lit in red emerging from black, her face dragged sideways by
   horizontal tears
-description: >-
+description: "Perhaps identity was never more than a frequency we agreed to call by a name. Shift the frequency and nothing essential seems to change. Or everything does, and we simply cannot tell."
   She surfaces out of black the way a memory surfaces: partially, and already
   distorting. Each horizontal tear is the moment the signal loses its grip on
   her; each recovery is an act of faith by the machine, which reassembles her

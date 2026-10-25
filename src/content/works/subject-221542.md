@@ -20,7 +20,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Faces from an old film folded into each other by diagonal cuts
-description: >-
+description: "A copy of a copy, carried into current. If the electronic world only mimics our own, this is mimicry twice removed. And still, somewhere in the third generation, a glance survives that feels unmistakably meant."
   These faces were recordings before the signal ever reached them, borrowed from
   a film whose story no longer matters. The diagonal cuts treat them as raw
   material, folding one face into another until a woman's eyes look out from a

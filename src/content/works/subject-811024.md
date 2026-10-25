@@ -48,7 +48,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Portrait of a man with a bob haircut melting into streaks of blue and white
-description: >-
+description: "A signal and a screen must agree on where each line begins. When that agreement fails, the fault may lie in the machine, or in the assumption that a human being has a single correct setting."
   Sync is the agreement between a signal and a screen about where each line
   begins. In Subject 811024 that agreement breaks down, and the man starts to
   run, cold and white, down the face of the tube like something poured.
