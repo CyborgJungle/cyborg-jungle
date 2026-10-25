@@ -1,175 +1,143 @@
-# SIGNAL — Cyborg Jungle design language
+# TEST CARD — Cyborg Jungle design language
 
 The reference for every build of this site. Tokens live in `src/styles/tokens.css`;
 this document explains what they are for and the rules for using them.
 
 ## Concept
 
-**The site is a monitoring station for an analog video artist.** Visitors don't browse
-pages, they *tune channels* on a wall of CRT monitors and read the output on an
-operator's HUD. Every visual decision comes from that world: phosphor screens, test
-patterns, signal-flow diagrams, technical spec sheets, surveillance overlays and
-broken transmissions.
+**Analog video, printed.** The site looks like a piece of Japanese retro print design about
+television: black ink on warm paper, one red signal dot, bold geometric letterforms, and a few
+spot colours. The analog video world shows up as *pictograms*, not as screen effects: TV-set
+outlines around every image, test-card dot rings, colour bars, circled channel numbers and the
+red power light.
 
-Five sources feed it:
+The artworks are the only glitchy thing on the page. The interface stays flat, calm and printed
+so the images carry the noise.
+
+Sources it draws on:
 
 | Source | What we take |
 |---|---|
-| Monitor wall (blue CRT screens of test patterns) | Rounded CRT screen shape, monochrome phosphor blue, op-art test patterns as placeholders |
-| Technical poster (Swiss spec sheet) | Spec annotations as captions (`1890 × 2835 px`, `#bab9ad`), crosshair `+` registration marks, index numbers, barcode rules |
-| Cyber HUD (glowing panel UI) | Framed panels with corner nodes, `//FIELD_` label rows, tick rulers, dot-matrix meters |
-| Circuit traces / man-machine interface | Blue traces with round nodes linking things, numbered callouts |
-| Glitch portrait / thermal crowd | RGB channel split, slice displacement on hover, thermal palette and labelled bounding boxes (`TARGET_03XX`) |
+| Kanji-style display lettering (black strokes, red dots) | Heavy geometric display type, the red dot as the signature mark |
+| Retro poster sets (cream, red, teal, mustard, plum on black) | The spot-colour palette and flat colour blocks |
+| Packaging print (circled numbers, dimension arrows, stamp logos) | Circled numerals, dimension lines, outlined stamp labels |
+| Pictogram heads with dot patterns | Test-card dot rings as the decorative motif |
 
-**Not used:** the references themselves. They are moodboard only and never appear on the site.
+**Not used:** screen-UI tropes. No blue HUD, no scanlines, no RGB colour offsets, no glow, no
+crosshair, no timecode, no boot sequence, no monospace "code" labels. The reference images are
+moodboard only and never appear on the site.
 
-## Color
+## Colour
 
-One theme: dark. The site is a screen in a dark room; there is no light mode by design.
+One printed look: light paper. There is no dark mode by design.
 
 | Token | Hex | Role |
 |---|---|---|
-| `--void` | `#04060c` | Page background. Blue-black, never pure black. |
-| `--panel` | `#081022` | Panel and screen fill. |
-| `--line` | `#1a2a4a` | Hairlines, panel borders, grid. |
-| `--ink` | `#d6e4ff` | Primary text. Cool white. |
-| `--dim` | `#6a7ca3` | Secondary text, labels, captions. |
-| `--phosphor` | `#3d7bff` | Main accent: traces, active states, links. The "signal". |
-| `--glow` | `#8fdcff` | Highlights and glow on top of phosphor. Use for text-shadow / box-shadow, rarely as fill. |
-| `--signal` | `#ff715e` | Coral. Registration marks only. |
-| `--thermal` | `#ffd23f` | Bounding boxes and their labels. Nothing else. |
-| `--paper` | `#bab9ad` | Warm spec-sheet grey. Only for small swatches and spec text on the About page. |
+| `--paper` | `#efe9dc` | Page background. Warm, uncoated paper. |
+| `--paper-deep` | `#e3dccb` | Hover fills, quiet panels. |
+| `--ink` | `#151413` | Text, rules, TV bezels, active states. |
+| `--ink-soft` | `#5c574e` | Secondary text, labels, captions (5.8:1 on paper). |
+| `--red` | `#e2412f` | The signal dot: the O in the wordmark, the centre of dot rings, the footer dot. |
 
 ### Channel colours
 
-Each channel tunes the interface to its own hue, taken from the references (riso print, thermal
-camera, RGB glitch). It is set once as `--ch` on a channel's elements and everything inside follows.
+Flat spot colours, one per channel. Set once as `--ch` on a channel's elements.
 
-| Token | Hex | Channel | Source |
-|---|---|---|---|
-| `--ch-image` | `#ff4fa3` | CH.01 Image | Riso pink |
-| `--ch-video` | `#2ee6c9` | CH.02 Video | Thermal cold end |
-| `--ch-installation` | `#ff8a3d` | CH.03 Interactive | Thermal hot end |
-| `--ch-about` | `#a98bff` | CH.04 About | Glitch violet |
-
-`--ch` colours: channel numbers (nav, tuner, channel page), the active nav border and glow, `CH.0n`
-tags on tiles, test-pattern placeholders, HUD panel corner nodes, circuit traces, hover states on a
-work page, and the tag filter on channel pages. A 2px
-**colour burst** strip (all channel colours plus phosphor, thermal and coral, unequal widths like a
-test card) runs under the HUD bar.
+| Token | Hex | Channel |
+|---|---|---|
+| `--ch-image` | `#e2412f` | ① Image — red |
+| `--ch-video` | `#2f7f72` | ② Video — teal |
+| `--ch-installation` | `#d9a21b` | ③ Interactive — mustard |
+| `--ch-about` | `#6b3f6e` | ④ About — plum |
 
 Rules:
-- Phosphor blue carries the shared interface (wordmark accents, rulers, meters); channel colours
-  carry everything that belongs to a channel. Coral is for registration marks only; yellow appears
-  on lock-on (hover/focus) and the About page's subject frame only.
-- Text stays `--ink` / `--dim`; channel colours are for numbers, marks, borders and hover, not body text.
-- Images and video stay in their own colors. The interface tints placeholders only.
-- Glow is always `--glow` at low alpha: `0 0 12px rgb(143 220 255 / .35)`.
+- Ink carries the site. Colour appears as **filled shapes**: the circled channel numbers, the big
+  channel disc, the dot before a work's channel name, the play button, the active thumbnail.
+- Never set body text in a channel colour; mustard and teal fail contrast on paper as text.
+- The artworks keep their own colours; the interface never tints, filters or overlays them.
 
 ## Type
 
 | Token | Face | Role |
 |---|---|---|
-| `--font-display` | Chakra Petch 600/700, uppercase | Wordmark, page titles, work titles. Squared HUD letterforms. Tracking `0.04–0.12em`. |
-| `--font-mono` | JetBrains Mono 400/500 | Everything else: body, nav, labels, metadata. |
-| `--font-crt` | VT323 | Big readouts only: channel numbers, timecode, counters. |
+| `--font-display` | Dela Gothic One, uppercase | Wordmark, page titles, work titles, counters. Heavy and geometric, like the poster lettering. |
+| `--font-text` | Zen Kaku Gothic New 400/500/700 | Everything else: body, menu, labels, captions. |
 
-All fonts are self-hosted (`@fontsource`), so the site makes no request to Google.
+Self-hosted via `@fontsource`, **Latin subsets only** (fast on phones, no request to Google).
 
-Scale (`--step-*`): `0.75 / 0.875 / 1 / 1.25 / 1.75 / 2.5 / clamp(3rem, 9vw, 7rem)` rem.
-Body is `--step-0` (15px base) at line-height 1.6, max 65ch.
+Scale: `0.75 / 0.875 / 1 / 1.25 / 1.625 / clamp(2–3rem) / clamp(3–7.5rem)` rem. Body is 16px at
+line-height 1.6, max ~62ch. Labels: `--step--2`, weight 700, uppercase, 0.12em tracking, `--ink-soft`.
 
-Label syntax, used everywhere metadata appears:
+## Shapes and marks
 
-```
-//YEAR_        2025
-//MEDIUM_      Video synthesizer, CRT rescan
-//FORMAT_      PAL 4:3 · 720×576
-```
-
-Uppercase, `//` prefix, `_` suffix, `--dim` color, `0.1em` tracking. Values in `--ink`.
-
-## Shape & surface
-
-- **CRT screen** (`.crt`): rounded rectangle with bulged corners (`border-radius: 6% / 9%`),
-  inner vignette, scanlines, faint glow. Every thumbnail and media frame is a CRT screen.
-- **HUD panel** (`.panel`): 1px `--line` border, square corners, a small filled square node on
-  each corner. Holds metadata, never imagery.
-- **Registration mark** (`.reg`): a coral `+` that sits on the corners of key compositions
-  (hero, about card). At most four per view.
-- **Tick ruler**: thin bottom rule with ticks every 8px, longer every 40px, and labels at
-  the ends (`0000` … `2026`). Used under section headers.
-- No drop shadows, no rounded cards outside CRT screens, no gradients except the CRT vignette.
-
-## Texture
-
-Texture lives **inside screens only**; the page itself stays clean (no full-page overlay).
-1. **Scanlines** — inside every CRT screen, 1px dark line every 3px, ~22% alpha, plus the vignette.
-2. **Halftone** — dot pattern over the About portrait (`radial-gradient` dots).
+- **Wordmark** — `CYB●RG JUNGLE`: the O is the red signal dot. Large and stacked on the home page,
+  small in the header everywhere else. Never set the name with a plain O in display type.
+- **TV pictogram** (`.tv`) — every image sits in a thick black bezel (6px) with 22px rounded
+  corners: a television drawn as a pictogram. No scanlines or vignette inside.
+- **Circled numbers** (`.circled`) — ① ② ③ ④ for channels; filled with the channel colour when active.
+- **Channel disc** — the channel page opens with a big filled circle in the channel colour holding
+  the number in display type.
+- **Dot ring** (`DotRing.astro`) — concentric rings of ink dots around a red centre: the test card.
+  Used once per page at most (home intro).
+- **Colour bars** (`TestPattern` "bars") — the empty-channel state, in the spot palette.
+- **Stamps** (`.stamp`) — tags and filters as outlined rounded labels; filled ink when selected.
+- **Dimension line** — under a work's screen, arrows either side of the aspect ratio (`← 4:3 →`).
+- **Rules** — 1.5px ink lines separate sections and spec rows. No shadows, no gradients.
 
 ## Motion
 
-Motion means *signal behaviour*. Each effect has a reason in the analog world.
+Almost none. The art moves; the interface doesn't.
 
-| Moment | Effect | Duration |
-|---|---|---|
-| First visit | **Power-on**: a white line expands vertically into the screen, boot log types out, then the UI appears. Once per session; click/key skips. | ≈1.4 s |
-| Page change | **Channel switch**: the page collapses to a line like a CRT switching off, then flickers on (View Transitions). | 400 ms |
-| Hover a work | **Lock-on**: yellow bounding box snaps around it with a `TARGET_03XX` label; the image RGB-splits and slice-jitters for a moment. | 120 ms in |
-| Slideshow work | **Frame cycle**: variations of one image hard-cut on a timer (default 0.8 s) with a one-field bright, displaced "signal cut". Runs on the wall and the work page only while visible; the work page has pause, step, a `FRAME 03/08` counter and thumbnails. Starts paused with reduced motion. | 140 ms cut |
-| Pointer | **Crosshair cursor** with live `X/Y` readout (fine pointers only). | — |
-| Always | HUD **timecode** runs at 25 fps (PAL), signal meter flickers. | — |
+| Moment | Behaviour |
+|---|---|
+| Slideshow work | Hard cut between frames every 0.8 s (set per work). Only while on screen; staggered across the page; the next frame is decoded before the cut so it never flashes black. Paused under reduced motion. Work pages add previous / pause / next (48px round buttons), a `01 / 37` counter and a swipeable thumbnail strip. |
+| Hover (desktop) | A tile's TV bezel takes the channel colour; menu items get a paper-deep pill. |
 
-`prefers-reduced-motion: reduce` disables power-on, the channel switch and jitter; content is
-never hidden behind an animation.
+No page transitions, intro screens or cursor effects.
 
-## Navigation — channels
+## Navigation
 
-The menu is a channel selector. Numbers are fixed; they are also keyboard shortcuts.
+The menu is four channels, numbered like a TV tuner. Keys `0–4` also jump (desktop).
 
-| Key | Channel | Path |
-|---|---|---|
-| `1` | CH.01 IMAGE | `/image` |
-| `2` | CH.02 VIDEO | `/video` |
-| `3` | CH.03 INTERACTIVE (installations) | `/installations` |
-| `4` | CH.04 ABOUT | `/about` |
-| `0` | MONITOR WALL (home) | `/` |
+| Channel | Path |
+|---|---|
+| ① Image | `/image` |
+| ② Video | `/video` |
+| ③ Interactive (installations) | `/installations` |
+| ④ About | `/about` |
 
-On work pages, `←` / `→` step through the channel's works.
+Phones: the four channels sit as a ruled row of equal tabs under the wordmark (64px tall).
+Wider screens: a pill row to the right of the wordmark. The current channel is filled ink.
+
+## Mobile first
+
+About 95% of visitors are on a phone, so every layout starts at 375px wide.
+- One column of works; two from 640px, three from 1000px (the newest work then spans 2×2).
+- Tap targets at least 44px; slideshow controls 48px.
+- Tag filters and thumbnails scroll sideways instead of wrapping into tall blocks.
+- Images are resized at build (WebP, 480–1400px) and lazy-loaded; wall tiles preview 10 frames.
+- No horizontal page scroll at any width; long display words scale with the viewport.
 
 ## Voice
 
-Terse operator language for interface labels (`SIGNAL ACQUIRED`, `NO SIGNAL`, `CH.02`).
-Plain, human sentences for the art itself: titles, descriptions and the bio are never
-written in jargon.
-
-## Layout
-
-- Persistent HUD bar on top (wordmark · channels · timecode). On phones the channels become a
-  four-button remote along the bottom.
-- Home is the **monitor wall**: the newest work as a 2×2 lead screen, then a regular grid of CRT
-  screens mixing all channels (no other span sizes, so rows always pack evenly).
-- Channel pages: header with big CRT channel number, count and tick ruler, then a grid of screens.
-- Work page: big screen on the left, spec panel on the right (`//FIELD_` rows), linked by a
-  circuit trace; prev/next below. Stacks on phones.
-- Max content width 1440px; gutters `max(16px, 3vw)`.
+Plain, warm, human. Labels are short and literal ("Previous", "37 frames", "No signal yet").
+The art is described by what you see and how it was made; never in tech jargon.
 
 ## Where it lives in the code
 
 | Piece | File |
 |---|---|
 | Tokens | `src/styles/tokens.css` |
-| `.crt`, `.panel`, `.reg`, `.ruler`, `.label`, scanlines | `src/styles/global.css` |
-| HUD bar + phone remote | `src/components/Hud.astro` |
-| Power-on, channel switch, static, crosshair keyframes | `src/layouts/Base.astro` |
-| Timecode, static noise, crosshair, keyboard remote | `src/scripts/hud.ts` |
-| CRT tile with lock-on + RGB split | `src/components/WorkTile.astro` |
-| Slideshow frames / timer | `src/components/Frames.astro`, `initSlideshows` in `src/scripts/hud.ts` |
-| Generated placeholder patterns | `src/components/TestPattern.astro` |
-| Channels (labels, numbers, keys, colours) | `src/data/channels.ts` |
-| Works (one Markdown file each, edited in Pages CMS) | `src/content/works/*.md`, schema in `src/content.config.ts` |
+| `.tv`, `.circled`, `.stamp`, `.label`, `.rule` | `src/styles/global.css` |
+| Wordmark | `src/components/Wordmark.astro` |
+| Header / channel menu | `src/components/Header.astro` |
+| Work tile | `src/components/WorkTile.astro` |
+| Slideshow frames / timer | `src/components/Frames.astro`, `src/scripts/site.ts` |
+| Dot ring | `src/components/DotRing.astro` |
+| Colour bars and placeholder patterns | `src/components/TestPattern.astro` |
+| Channel page, tag filter, empty state | `src/components/ChannelPage.astro` |
+| Channels (labels, numbers, colours) | `src/data/channels.ts` |
 | Tag vocabulary (also the Pages CMS picker) | `src/data/tags.ts`, `.pages.yml` |
-| Channel page tag filter, empty "NO SIGNAL" state | `src/components/ChannelPage.astro` |
+| Works (one Markdown file each, edited in Pages CMS) | `src/content/works/*.md`, schema in `src/content.config.ts` |
 | About page content | `src/content/about.json` |
 | Uploaded images (resized at build) | `src/assets/media/` via `src/lib/media.ts` + `src/components/Img.astro` |
-| CMS fields | `.pages.yml` |
