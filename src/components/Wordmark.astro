@@ -11,7 +11,11 @@ const { size = 'small', tag: Tag = 'span', kana = false } = Astro.props;
 ---
 
 <Tag class:list={['wordmark', size]}>
-  <span class="logo glitch-type">Cyborg Jungle</span>
+  {size === 'large' ? (
+    <span class="logo glitch-type"><span>Cyborg</span><span>Jungle</span></span>
+  ) : (
+    <span class="logo glitch-type">Cyborg Jungle</span>
+  )}
   {kana && <span class="kana" lang="ja">サイボーグ・ジャングル</span>}
 </Tag>
 
@@ -26,6 +30,7 @@ const { size = 'small', tag: Tag = 'span', kana = false } = Astro.props;
     white-space: nowrap;
   }
   .small .logo { font-size: 1.5rem; text-shadow: -1px 0 var(--glitch-a), 1px 0 var(--glitch-b); }
-  .large .logo { font-size: clamp(3rem, 17vw, 9rem); white-space: normal; text-wrap: balance; text-shadow: -3px 0 var(--glitch-a), 3px 0 var(--glitch-b); }
+  /* Two lines with room between them: this face's caps sit high, so a tight line-height makes them overlap */
+  .large .logo { display: grid; font-size: clamp(3rem, 15vw, 8rem); line-height: 1; row-gap: 0.06em; white-space: nowrap; text-shadow: -3px 0 var(--glitch-a), 3px 0 var(--glitch-b); }
   .kana { font-family: var(--font-pixel); font-size: clamp(0.9rem, 4vw, 1.25rem); color: var(--mint); letter-spacing: 0.2em; }
 </style>

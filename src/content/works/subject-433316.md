@@ -1,6 +1,6 @@
 ---
-title: "Moiré Figures"
-kana: "モアレフィギュア"
+title: "Subject433316"
+kana: "被写体四三三三一六"
 kind: image
 year: 2022
 order: 10
@@ -10,13 +10,13 @@ tags:
   - "silhouette"
   - "op-art"
   - "tear"
-image: "/media/Final art/moire-figures/moire-figures-01-9832.jpg"
+image: "/media/Final art/subject-433316/subject-433316-01-9832.jpg"
 gallery:
-  - "/media/Final art/moire-figures/moire-figures-02-9837.jpg"
-  - "/media/Final art/moire-figures/moire-figures-03-9839.jpg"
-  - "/media/Final art/moire-figures/moire-figures-04-9841.jpg"
-  - "/media/Final art/moire-figures/moire-figures-05-9844.jpg"
-  - "/media/Final art/moire-figures/moire-figures-06-9845.jpg"
+  - "/media/Final art/subject-433316/subject-433316-02-9837.jpg"
+  - "/media/Final art/subject-433316/subject-433316-03-9839.jpg"
+  - "/media/Final art/subject-433316/subject-433316-04-9841.jpg"
+  - "/media/Final art/subject-433316/subject-433316-05-9844.jpg"
+  - "/media/Final art/subject-433316/subject-433316-06-9845.jpg"
 slideshow: true
 interval: 1
 alt: "Black silhouettes of figures against a wall of moiré lines"

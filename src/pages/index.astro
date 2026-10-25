@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import WorkTile from '../components/WorkTile.astro';
 import Wordmark from '../components/Wordmark.astro';
-import Glyph from '../components/Glyph.astro';
 import Img from '../components/Img.astro';
 import { resolvedWorks } from '../data/works';
 import { resolveImage } from '../lib/media';
@@ -30,8 +29,7 @@ const sizes = '(max-width: 999px) 100vw, 1100px';
           <>
             <span class="hero-kana tategaki" lang="ja" aria-hidden="true">{heroWork.kana ?? 'サイボーグ'}</span>
             <span class="hero-tag">
-              <Glyph seed={heroWork.slug} size="44px" />
-              <span><span class="label">Now showing</span><b>{heroWork.title}</b></span>
+              <span class="label">Now showing</span><b>{heroWork.title}</b>
             </span>
           </>
         )}
@@ -89,17 +87,16 @@ const sizes = '(max-width: 999px) 100vw, 1100px';
     left: 18px;
     bottom: 18px;
     z-index: 4;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 14px 8px 8px;
+    display: grid;
+    gap: 2px;
+    padding: 8px 14px 8px 12px;
     background: var(--void);
+    border-left: 3px solid var(--red);
   }
-  .hero-tag > span { display: grid; }
   .hero-tag b { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: var(--step-1); line-height: 1.05; }
   .hero-tag .label { font-size: var(--step--2); color: var(--mint); }
 
-  .intro { display: grid; gap: 16px; padding-block: 28px 40px; }
+  .intro { display: grid; gap: 16px; padding-block: 36px 40px; }
   .intro p { margin: 0; max-width: 36rem; color: var(--cream-soft); }
 
   .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: var(--stroke) solid var(--rule); }

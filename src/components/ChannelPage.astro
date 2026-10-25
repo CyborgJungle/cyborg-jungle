@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import WorkTile from './WorkTile.astro';
 import TestPattern from './TestPattern.astro';
-import Glyph from './Glyph.astro';
 import { channelFor, type ChannelId } from '../data/channels';
 import { worksIn } from '../data/works';
 import { tagCounts } from '../data/tags';
@@ -25,7 +24,6 @@ const tags = tagCounts(list);
         <p>{ch.blurb}</p>
       </div>
       <span class="jp tategaki" lang="ja">{ch.jp}</span>
-      <Glyph seed={ch.id} size="56px" accent="var(--ch)" />
     </header>
     <div class="bar">
       <span class="label"><span data-count>{list.length}</span> {list.length === 1 ? 'project' : 'projects'}</span>
@@ -94,7 +92,7 @@ const tags = tagCounts(list);
   .head {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-areas: 'num titles jp' 'num titles glyph';
+    grid-template-areas: 'num titles jp';
     align-items: center;
     gap: 6px 16px;
     padding-block: 12px 18px;
@@ -117,11 +115,6 @@ const tags = tagCounts(list);
   h1 { font-size: clamp(1.5rem, 7vw, 3rem); }
   .titles p { margin: 6px 0 0; color: var(--cream-soft); max-width: 46ch; }
   .jp { grid-area: jp; font-size: clamp(1.4rem, 6vw, 2.2rem); color: var(--ch); justify-self: center; }
-  .head :global(.glyph) { grid-area: glyph; }
-  @media (max-width: 639px) {
-    .head { grid-template-areas: 'num titles jp' 'num titles jp'; }
-    .head :global(.glyph) { display: none; }
-  }
   .bar { padding-bottom: 10px; border-bottom: var(--stroke) solid var(--rule); }
 
   .filter {

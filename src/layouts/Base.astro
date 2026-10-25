@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Wordmark from '../components/Wordmark.astro';
-import Glyph from '../components/Glyph.astro';
 
 interface Props {
   title?: string;
@@ -33,11 +32,6 @@ const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Anal
       <slot />
     </main>
     <footer class="wrap site-foot">
-      <div class="marks" aria-hidden="true">
-        <Glyph seed="cyborg" size="40px" />
-        <Glyph seed="jungle" size="40px" accent="var(--mint)" />
-        <Glyph seed="analog" size="40px" accent="var(--mustard)" />
-      </div>
       <Wordmark kana />
       <p>Analog video art. Video mixers, effect modules, a CRT and a phone.</p>
       <p class="label">© {new Date().getFullYear()} Cyborg Jungle</p>
@@ -85,6 +79,5 @@ const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Anal
     color: var(--cream-soft);
     font-size: var(--step--1);
   }
-  .site-foot .marks { display: flex; gap: 12px; }
   .site-foot p { margin: 0; }
 </style>

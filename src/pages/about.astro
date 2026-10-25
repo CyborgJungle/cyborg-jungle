@@ -4,7 +4,6 @@ import TestPattern from '../components/TestPattern.astro';
 import Img from '../components/Img.astro';
 import about from '../content/about.json';
 import { resolveImage } from '../lib/media';
-import Glyph from '../components/Glyph.astro';
 
 // Edited through Pages CMS (the "About page" entry), stored in src/content/about.json.
 const profile = (
@@ -34,7 +33,6 @@ const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
       </div>
       <div class="cap">
         {about.portraitCredit && <figcaption class="label">{about.portraitCredit}</figcaption>}
-        <Glyph seed="operator" size="40px" accent="var(--ch-about)" />
       </div>
     </figure>
 

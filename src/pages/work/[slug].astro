@@ -3,7 +3,6 @@ import Base from '../../layouts/Base.astro';
 import TestPattern from '../../components/TestPattern.astro';
 import Img from '../../components/Img.astro';
 import Frames from '../../components/Frames.astro';
-import Glyph from '../../components/Glyph.astro';
 import { channelFor } from '../../data/channels';
 import { resolvedWorks, type ResolvedWork } from '../../data/works';
 
@@ -62,7 +61,6 @@ const rows = [
     <a class="back label" href={ch.path}>← {ch.label}</a>
 
     <header class="title-block">
-      <Glyph seed={work.slug} size="64px" accent="var(--ch)" glitch />
       <div class="tt">
         <h1 class="glitch-type">{work.title}</h1>
         <p class="meta"><span class="dot" aria-hidden="true"></span>{ch.label} · {work.year}{total > 1 && ` · ${total} frames`}</p>
@@ -156,7 +154,7 @@ const rows = [
   .text { grid-area: text; min-width: 0; display: grid; gap: 20px; align-content: start; }
   .step { grid-area: step; }
 
-  .title-block { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: 14px; }
+  .title-block { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 14px; }
   .tt { min-width: 0; }
   h1 { font-size: var(--step-3); overflow-wrap: anywhere; }
   .kana { font-size: clamp(1.2rem, 5vw, 1.6rem); color: var(--ch); }

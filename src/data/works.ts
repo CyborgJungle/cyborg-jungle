@@ -16,20 +16,12 @@ export type ResolvedWork = Omit<CollectionEntry<'works'>['data'], 'image' | 'gal
   /** Grid thumbnail: the image, else the video's thumbnail. */
   thumb?: Img;
   embed?: string;
-  /** Position in the poster palette (see POSTERS), fixed per work so its card colour never changes. */
+  /** Position in the accent palette (see POSTERS), fixed per work so its colour never changes. */
   poster: number;
 };
 
-/** Bauhaus poster colours for work cards: background, ink, dot accent. */
-export const POSTERS = [
-  { bg: 'var(--cream)', ink: 'var(--void)', accent: 'var(--red)' },
-  { bg: 'var(--red)', ink: 'var(--void)', accent: 'var(--cream)' },
-  { bg: 'var(--teal)', ink: 'var(--void)', accent: 'var(--red)' },
-  { bg: 'var(--mustard)', ink: 'var(--void)', accent: 'var(--red)' },
-  { bg: 'var(--panel)', ink: 'var(--cream)', accent: 'var(--red)' },
-  { bg: 'var(--plum)', ink: 'var(--cream)', accent: 'var(--mint)' },
-  { bg: 'var(--lime)', ink: 'var(--void)', accent: 'var(--red)' },
-];
+/** Accent colour per work card: the card stays black, colour only on its edge, title bar and katakana. */
+export const POSTERS = ['var(--red)', 'var(--teal)', 'var(--mustard)', 'var(--cream)', 'var(--plum)', 'var(--lime)', 'var(--mint)'];
 
 // Works live in src/content/works/*.md and are edited through Pages CMS.
 async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWork> {
