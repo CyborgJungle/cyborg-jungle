@@ -6,67 +6,57 @@ year: 2023
 order: 3
 date: 2023-11-10
 tags:
-  - figure
-  - colour key
-  - window
-  - monochrome
-image: /media/Final art/subject-928856/subject-928856-14-7181-2.jpg
+- figure
+- colour key
+- window
+- monochrome
+image: /media/Final art/subject-928856/subject-928856-01-7127-2.jpg
 gallery:
-  - /media/Final art/subject-928856/subject-928856-02-7130.jpg
-  - /media/Final art/subject-928856/subject-928856-03-7131-2.jpg
-  - /media/Final art/subject-928856/subject-928856-04-7135-2.jpg
-  - /media/Final art/subject-928856/subject-928856-05-7136-2.jpg
-  - /media/Final art/subject-928856/subject-928856-06-7138-2.jpg
-  - /media/Final art/subject-928856/subject-928856-07-7147-2.jpg
-  - /media/Final art/subject-928856/subject-928856-08-7149-2.jpg
-  - /media/Final art/subject-928856/subject-928856-09-7153-2.jpg
-  - /media/Final art/subject-928856/subject-928856-10-7161-2.jpg
-  - /media/Final art/subject-928856/subject-928856-11-7164-2.jpg
-  - /media/Final art/subject-928856/subject-928856-12-7179-2.jpg
-  - /media/Final art/subject-928856/subject-928856-13-7180-2.jpg
-  - /media/Final art/subject-928856/subject-928856-14-7181-2.jpg
-  - /media/Final art/subject-928856/subject-928856-15-7194-2.jpg
-  - /media/Final art/subject-928856/subject-928856-16-7195-2.jpg
-  - /media/Final art/subject-928856/subject-928856-17-7196-2.jpg
-  - /media/Final art/subject-928856/subject-928856-18-7197-2.jpg
-  - /media/Final art/subject-928856/subject-928856-19-7200-2.jpg
-  - /media/Final art/subject-928856/subject-928856-20-7201-2.jpg
-  - /media/Final art/subject-928856/subject-928856-21-7204-3.jpg
-  - /media/Final art/subject-928856/subject-928856-22-7207-2.jpg
-  - /media/Final art/subject-928856/subject-928856-23-7211-2.jpg
-  - /media/Final art/subject-928856/subject-928856-24-7212-2.jpg
-  - /media/Final art/subject-928856/subject-928856-25-7213-2.jpg
-  - /media/Final art/subject-928856/subject-928856-26-7214-2.jpg
-  - /media/Final art/subject-928856/subject-928856-27-7217-2.jpg
-  - /media/Final art/subject-928856/subject-928856-28-7222-2.jpg
-  - /media/Final art/subject-928856/subject-928856-29-7224-2.jpg
-  - /media/Final art/subject-928856/subject-928856-30-7223-2.jpg
-  - /media/Final art/subject-928856/subject-928856-31-7225-2.jpg
-  - /media/Final art/subject-928856/subject-928856-32-7226-3.jpg
-  - /media/Final art/subject-928856/subject-928856-33-7231-2.jpg
-  - /media/Final art/subject-928856/subject-928856-34-7235-2.jpg
-  - /media/Final art/subject-928856/subject-928856-35-7236-2.jpg
-  - /media/Final art/subject-928856/subject-928856-36-7237-2.jpg
-  - /media/Final art/subject-928856/subject-928856-37-7232-2.jpg
-  - /media/Final art/subject-928856/subject-928856-38-7239.jpg
-  - /media/Final art/subject-928856/subject-928856-39-7240-2.jpg
-  - /media/Final art/subject-928856/subject-928856-40-7243-2.jpg
-  - /media/Final art/subject-928856/subject-928856-41-7244-2.jpg
+- /media/Final art/subject-928856/subject-928856-02-7130.jpg
+- /media/Final art/subject-928856/subject-928856-03-7131-2.jpg
+- /media/Final art/subject-928856/subject-928856-04-7135-2.jpg
+- /media/Final art/subject-928856/subject-928856-05-7136-2.jpg
+- /media/Final art/subject-928856/subject-928856-06-7138-2.jpg
+- /media/Final art/subject-928856/subject-928856-07-7147-2.jpg
+- /media/Final art/subject-928856/subject-928856-08-7149-2.jpg
+- /media/Final art/subject-928856/subject-928856-09-7153-2.jpg
+- /media/Final art/subject-928856/subject-928856-10-7161-2.jpg
+- /media/Final art/subject-928856/subject-928856-11-7164-2.jpg
+- /media/Final art/subject-928856/subject-928856-12-7179-2.jpg
+- /media/Final art/subject-928856/subject-928856-13-7180-2.jpg
+- /media/Final art/subject-928856/subject-928856-14-7181-2.jpg
+- /media/Final art/subject-928856/subject-928856-15-7194-2.jpg
+- /media/Final art/subject-928856/subject-928856-16-7195-2.jpg
+- /media/Final art/subject-928856/subject-928856-17-7196-2.jpg
+- /media/Final art/subject-928856/subject-928856-18-7197-2.jpg
+- /media/Final art/subject-928856/subject-928856-19-7200-2.jpg
+- /media/Final art/subject-928856/subject-928856-20-7201-2.jpg
+- /media/Final art/subject-928856/subject-928856-21-7204-3.jpg
+- /media/Final art/subject-928856/subject-928856-22-7207-2.jpg
+- /media/Final art/subject-928856/subject-928856-23-7211-2.jpg
+- /media/Final art/subject-928856/subject-928856-24-7212-2.jpg
+- /media/Final art/subject-928856/subject-928856-25-7213-2.jpg
+- /media/Final art/subject-928856/subject-928856-26-7214-2.jpg
+- /media/Final art/subject-928856/subject-928856-27-7217-2.jpg
+- /media/Final art/subject-928856/subject-928856-28-7222-2.jpg
+- /media/Final art/subject-928856/subject-928856-29-7224-2.jpg
+- /media/Final art/subject-928856/subject-928856-30-7223-2.jpg
+- /media/Final art/subject-928856/subject-928856-31-7225-2.jpg
+- /media/Final art/subject-928856/subject-928856-32-7226-3.jpg
+- /media/Final art/subject-928856/subject-928856-33-7231-2.jpg
+- /media/Final art/subject-928856/subject-928856-34-7235-2.jpg
+- /media/Final art/subject-928856/subject-928856-35-7236-2.jpg
+- /media/Final art/subject-928856/subject-928856-36-7237-2.jpg
+- /media/Final art/subject-928856/subject-928856-37-7232-2.jpg
+- /media/Final art/subject-928856/subject-928856-38-7239.jpg
+- /media/Final art/subject-928856/subject-928856-39-7240-2.jpg
+- /media/Final art/subject-928856/subject-928856-40-7243-2.jpg
+- /media/Final art/subject-928856/subject-928856-41-7244-2.jpg
 slideshow: true
 interval: 1
-alt: Figure in a striped suit and a mask with round goggles, split by diagonal
-  blocks of colour
-description: "The record supports no conclusion about what lies behind the signal. It shows only something the machine renders with perfect confidence, worn over nothing we can verify. Perhaps that has always been true of people."
-  The mask came first; the signal merely completed it. Behind the goggles there
-  is, presumably, a face, but the frames offer no proof, and after a while the
-  question begins to feel impolite.
-
-
-  Subject 928856 is the one most often filed as non-human. The records support
-  that conclusion no better than its opposite. They show only a figure the
-  machine renders with perfect confidence: colour keyed against colour, a suit
-  of light worn over nothing we can verify.
-medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed
-  off the screen with a phone"
+alt: Figure in a striped suit and a mask with round goggles, split by diagonal blocks of colour
+description: The record supports no conclusion about what lies behind the signal. It shows only something the machine renders with perfect confidence, worn over nothing we can verify. Perhaps that has always been true of people.
+medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 41 stills from analog video
+cover: 14
 ---
