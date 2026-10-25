@@ -116,6 +116,7 @@ Motion means *signal behaviour*. Each effect has a reason in the analog world.
 | First visit | **Power-on**: a white line expands vertically into the screen, boot log types out, then the UI appears. Once per session; click/key skips. | ≈1.4 s |
 | Page change | **Channel switch**: the page collapses to a line like a CRT switching off, then flickers on (View Transitions). | 400 ms |
 | Hover a work | **Lock-on**: yellow bounding box snaps around it with a `TARGET_03XX` label; the image RGB-splits and slice-jitters for a moment. | 120 ms in |
+| Slideshow work | **Frame cycle**: variations of one image hard-cut on a timer (default 1.5 s) with a one-field bright, displaced "signal cut". Runs on the wall and the work page only while visible; the work page has pause, step, a `FRAME 03/08` counter and thumbnails. Starts paused with reduced motion. | 140 ms cut |
 | Pointer | **Crosshair cursor** with live `X/Y` readout (fine pointers only). | — |
 | Always | HUD **timecode** runs at 25 fps (PAL), signal meter flickers. | — |
 
@@ -163,6 +164,7 @@ written in jargon.
 | Power-on, channel switch, static, crosshair keyframes | `src/layouts/Base.astro` |
 | Timecode, static noise, crosshair, keyboard remote | `src/scripts/hud.ts` |
 | CRT tile with lock-on + RGB split | `src/components/WorkTile.astro` |
+| Slideshow frames / timer | `src/components/Frames.astro`, `initSlideshows` in `src/scripts/hud.ts` |
 | Generated placeholder patterns | `src/components/TestPattern.astro` |
 | Channels (labels, numbers, keys, colours) | `src/data/channels.ts` |
 | Works (one Markdown file each, edited in Pages CMS) | `src/content/works/*.md`, schema in `src/content.config.ts` |

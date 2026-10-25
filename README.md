@@ -26,6 +26,8 @@ Every save is a commit to `main`, and Vercel redeploys the site in about a minut
     aspect ratio. Unlisted works; embedding must be allowed. Never upload video files.
   - *Main image* / *Extra images*: JPEG, PNG or WebP. Uploads go to `src/assets/media/` and the site
     makes web-sized WebP versions at build time, so full-size exports are fine (keep them under ~10 MB).
+  - *Play as slideshow*: for variations of one image. The main image and extra images cycle on
+    the home wall and the work page; *Seconds per image* sets the speed (default 1.5).
   - Without media a work shows a generated test pattern.
 - **About page** — name, details, portrait, bio and signal chain (`src/content/about.json`).
 
