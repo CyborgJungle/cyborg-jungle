@@ -21,6 +21,13 @@ const works = defineCollection({
       .union([z.date(), z.string()])
       .nullish()
       .transform((v) => (v instanceof Date ? v.toISOString() : v)?.slice(0, 10) || undefined),
+    /** Tags from the shared vocabulary in src/data/tags.ts (also the Pages CMS picker). */
+    tags: z
+      .array(z.string())
+      .nullish()
+      .transform((v) => v?.map((t) => t.trim().toLowerCase()).filter(Boolean) ?? []),
+    /** Describes the image for screen readers and search. */
+    alt: text,
     video: text,
     image: text,
     gallery: z
@@ -36,7 +43,7 @@ const works = defineCollection({
     interval: z
       .union([z.number(), z.string()])
       .nullish()
-      .transform((v) => (Number(v) > 0 ? Number(v) : 1.5)),
+      .transform((v) => (Number(v) > 0 ? Number(v) : 0.8)),
     medium: text,
     format: text,
     duration: text,

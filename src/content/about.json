@@ -7,39 +7,33 @@
   "portrait": "/media/about/portrait-rayray-0910.jpg",
   "portraitCredit": "Photo: RayRay",
   "bio": "I love exploring the boundaries of analog video: breaking it, and by breaking it, creating a beautiful, unique, weird and crunchy analog glitch aesthetic that reminds me of a fictional cyberpunk future.\n\nEvery piece starts as video. I feed it through a chain of analog video mixers and effect modules onto a CRT monitor, then film the screen with my phone. The stills on this site are frames from that footage, so the whole workflow stays analog.",
-  "chain": [
-    {
-      "name": "Source",
-      "detail": "Video footage"
-    },
-    {
-      "name": "Mixing",
-      "detail": "Analog video mixers"
-    },
-    {
-      "name": "Effects",
-      "detail": "Analog effect modules"
-    },
-    {
-      "name": "Display",
-      "detail": "CRT monitor"
-    },
-    {
-      "name": "Capture",
-      "detail": "Phone camera, filming the CRT"
-    }
-  ],
   "photos": [
     {
-      "image": "/media/about/live-rayray-0947.jpg",
+      "image": "/media/about/live-2023-12-02-1.jpg",
+      "caption": "Live set with CRT wall · 02.12.2023"
+    },
+    {
+      "image": "/media/about/live-2023-12-02-2.jpg",
+      "caption": "Live set with CRT wall · 02.12.2023"
+    },
+    {
+      "image": "/media/about/live-2023-12-02-3.jpg",
+      "caption": "Live set with CRT wall · 02.12.2023"
+    },
+    {
+      "image": "/media/about/live-2023-12-02-4.jpg",
+      "caption": "Live set with CRT wall · 02.12.2023"
+    },
+    {
+      "image": "/media/about/live-2022-12-10-rayray.jpg",
       "caption": "Live set · 10.12.2022 · Photo: RayRay"
     },
     {
-      "image": "/media/about/projection-set-1.jpg",
+      "image": "/media/about/live-2022-12-10-projection-1.jpg",
       "caption": "Projection set · 10.12.2022"
     },
     {
-      "image": "/media/about/projection-set-2.jpg",
+      "image": "/media/about/live-2022-12-10-projection-2.jpg",
       "caption": "Projection set · 10.12.2022"
     }
   ]

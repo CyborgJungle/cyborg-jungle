@@ -7,128 +7,56 @@ import type { ResolvedWork } from '../data/works';
 
 interface Props {
   work: ResolvedWork;
-  index: number;
   size?: 'normal' | 'big';
 }
 
-const { work, index, size = 'normal' } = Astro.props;
+const { work, size = 'normal' } = Astro.props;
 const ch = channelFor(work.kind);
-const target = `TARGET_${String(index + 1).padStart(2, '0')}XX`;
-const sizes = size === 'big' ? '(max-width: 640px) 100vw, 50vw' : '(max-width: 640px) 100vw, 25vw';
+const sizes = size === 'big' ? '(max-width: 999px) 100vw, 66vw' : '(max-width: 639px) 100vw, (max-width: 999px) 50vw, 33vw';
+const frameCount = work.frames.length;
 ---
 
-<a href={`/work/${work.slug}`} class:list={['tile', size]} data-tile style={{ '--ch': ch.color }}>
-  <span class="frame">
-    <span class="crt screen">
-      {work.slideshow && work.frames.length > 1 ? (
-        <Frames frames={work.frames} alt="" interval={work.interval} widths={[480, 800]} sizes={sizes} max={10} />
-      ) : work.thumb ? (
-        <Img src={work.thumb} alt="" widths={[480, 800, 1200]} sizes={sizes} />
-      ) : (
-        <TestPattern pattern={work.pattern} seed={work.slug} />
-      )}
-    </span>
-    <span class="lock" aria-hidden="true"><span class="lock-label">{target}</span></span>
+<a href={`/work/${work.slug}`} class:list={['tile', size]} data-tile data-tags={work.tags.join('|')} style={{ '--ch': ch.color }}>
+  <span class="tv screen">
+    {work.slideshow && frameCount > 1 ? (
+      <Frames frames={work.frames} alt="" interval={work.interval} widths={[480, 800, 1200]} sizes={sizes} max={10} />
+    ) : work.thumb ? (
+      <Img src={work.thumb} alt="" widths={[480, 800, 1200]} sizes={sizes} />
+    ) : (
+      <TestPattern pattern={work.pattern} seed={work.slug} />
+    )}
   </span>
-  <span class="meta">
-    <span class="ch">CH.{ch.num}</span>
+  <span class="cap">
     <span class="title">{work.title}</span>
-    <span class="year">{work.year}</span>
+    <span class="meta">
+      <span class="dot" aria-hidden="true"></span>
+      {ch.label} · {work.year}{frameCount > 1 && ` · ${frameCount} frames`}
+    </span>
   </span>
 </a>
 
 <style>
   .tile {
-    position: relative;
     display: grid;
     gap: 10px;
     align-content: start;
+    min-width: 0;
+    text-decoration: none;
     color: var(--ink);
-    min-width: 0;
   }
-  .big { grid-column: span 2; grid-row: span 2; align-content: stretch; }
+  .screen { aspect-ratio: 4 / 3; transition: border-color 0.15s; }
+  .tile:hover .screen, .tile:focus-visible .screen { border-color: var(--ch); }
+  .tile:focus-visible { outline: none; }
 
-  .frame { position: relative; display: block; min-height: 0; }
-  .screen { display: block; aspect-ratio: 4 / 3; max-width: 100%; }
-  /* The screen's size comes from the grid, never from the image inside it */
-  .screen > :global(img), .screen > :global(svg) { position: absolute; inset: 0; }
-  .big .screen { aspect-ratio: auto; height: 100%; }
-  .big { grid-template-rows: 1fr auto; }
-  /* With two columns or fewer nothing sits beside the lead tile, so it keeps the 4:3 shape */
-  @media (max-width: 820px) {
-    .big { grid-row: auto; grid-template-rows: auto; }
-    .big .screen { aspect-ratio: 4 / 3; height: auto; }
-  }
-  @media (max-width: 640px) {
-    .big { grid-column: auto; }
-  }
+  .cap { display: grid; gap: 2px; padding-inline: 2px; }
+  .title { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.05; text-transform: uppercase; }
+  .meta { display: flex; align-items: center; gap: 8px; font-size: var(--step--1); color: var(--ink-soft); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ch); flex: none; }
 
-  .screen > :global(img), .screen > :global(svg) {
-    transition: transform var(--snap), filter var(--snap);
-  }
-  .tile:hover .screen > :global(*), .tile:focus-visible .screen > :global(*) {
-    filter: url(#rgb-split) saturate(1.4) brightness(1.1);
-    animation: jitter 320ms steps(4) 1;
-  }
-
-  /* Thermal lock-on brackets */
-  .lock {
-    position: absolute;
-    inset: -8px;
-    pointer-events: none;
-    opacity: 0;
-    transform: scale(1.04);
-    transition: opacity var(--snap), transform var(--snap), inset var(--snap);
-    --c: var(--thermal);
-    background:
-      linear-gradient(var(--c), var(--c)) top left / 18px 2px no-repeat,
-      linear-gradient(var(--c), var(--c)) top left / 2px 18px no-repeat,
-      linear-gradient(var(--c), var(--c)) top right / 18px 2px no-repeat,
-      linear-gradient(var(--c), var(--c)) top right / 2px 18px no-repeat,
-      linear-gradient(var(--c), var(--c)) bottom left / 18px 2px no-repeat,
-      linear-gradient(var(--c), var(--c)) bottom left / 2px 18px no-repeat,
-      linear-gradient(var(--c), var(--c)) bottom right / 18px 2px no-repeat,
-      linear-gradient(var(--c), var(--c)) bottom right / 2px 18px no-repeat;
-  }
-  .tile:hover .lock, .tile:focus-visible .lock { opacity: 1; transform: scale(1); }
-  .lock-label {
-    position: absolute;
-    top: -20px;
-    left: 0;
-    font-size: var(--step--2);
-    letter-spacing: 0.08em;
-    color: var(--void);
-    background: var(--thermal);
-    padding: 0 6px;
-    line-height: 18px;
-  }
-
-  .meta {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 12px;
-    align-items: baseline;
-    font-size: var(--step--1);
-    min-width: 0;
-  }
-  .ch { color: var(--ch); font-size: var(--step--2); letter-spacing: 0.08em; }
-  .title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .year { color: var(--dim); font-variant-numeric: tabular-nums; }
-  .tile:hover .title, .tile:focus-visible .title { color: var(--ch); text-shadow: 0 0 12px color-mix(in srgb, var(--ch) 50%, transparent); }
-
-  @keyframes jitter {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-4px) skewX(-2deg); }
-    50% { transform: translateX(3px); }
-    75% { transform: translateX(-1px) skewX(1deg); }
-    100% { transform: translateX(0); }
+  /* Lead tile: two columns wide and two rows tall where the grid has three columns */
+  @media (min-width: 1000px) {
+    .big { grid-column: span 2; grid-row: span 2; grid-template-rows: 1fr auto; align-content: stretch; }
+    .big .screen { aspect-ratio: auto; height: 100%; }
+    .big .title { font-size: var(--step-2); }
   }
 </style>

@@ -1,0 +1,32 @@
+---
+// Test-card dot ring: concentric rings of dots shrinking toward the centre, red dot in the middle.
+interface Props {
+  size?: string;
+  label?: string;
+}
+
+const { size = '96px', label } = Astro.props;
+const rings = [
+  { r: 46, n: 36, d: 2.6 },
+  { r: 37, n: 28, d: 2.3 },
+  { r: 28.5, n: 22, d: 2 },
+  { r: 20.5, n: 16, d: 1.7 },
+];
+const dots = rings.flatMap(({ r, n, d }) =>
+  Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * Math.PI * 2;
+    return { x: 50 + r * Math.cos(a), y: 50 + r * Math.sin(a), d };
+  }),
+);
+---
+
+<svg class="ring" viewBox="0 0 100 100" style={{ width: size, height: size }} role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  {dots.map((p) => <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r={p.d} />)}
+  <circle class="core" cx="50" cy="50" r="11" />
+</svg>
+
+<style>
+  .ring { display: block; flex: none; }
+  circle { fill: var(--ink); }
+  .core { fill: var(--red); }
+</style>

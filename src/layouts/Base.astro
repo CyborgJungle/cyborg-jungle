@@ -1,89 +1,42 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
-import Hud from '../components/Hud.astro';
+import Header from '../components/Header.astro';
 
 interface Props {
   title?: string;
   description?: string;
-  /** Channel id to highlight in the HUD. */
+  /** Channel id to mark as current in the menu. */
   active?: string;
+  home?: boolean;
 }
 
-const { title, description = 'Cyborg Jungle — analog video art. Image, video and interactive installations.', active } = Astro.props;
+const { home = false, title, description = 'Cyborg Jungle — analog video art. Video broken through mixers and effect modules, filmed off a CRT.', active } = Astro.props;
 const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle — Analog Video Art';
-
-// Channel switch: the old page collapses to a line like a CRT switching off, the new one flickers on.
-const channelSwitch = {
-  forwards: {
-    old: { name: 'crt-off', duration: '180ms', easing: 'ease-in', fillMode: 'both' },
-    new: { name: 'crt-on', duration: '260ms', easing: 'ease-out', fillMode: 'both', delay: '140ms' },
-  },
-  backwards: {
-    old: { name: 'crt-off', duration: '180ms', easing: 'ease-in', fillMode: 'both' },
-    new: { name: 'crt-on', duration: '260ms', easing: 'ease-out', fillMode: 'both', delay: '140ms' },
-  },
-};
 ---
 
 <!doctype html>
-<html lang="en" transition:animate={channelSwitch}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#04060c" />
+    <meta name="theme-color" content="#efe9dc" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <ClientRouter />
-    <script is:inline>
-      // Power-on sequence: first visit per session only, never with reduced motion.
-      try {
-        if (!sessionStorage.getItem('cj-booted') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          document.documentElement.dataset.boot = '';
-          sessionStorage.setItem('cj-booted', '1');
-        }
-      } catch {}
-    </script>
   </head>
   <body>
     <a class="skip sr-only" href="#main">Skip to content</a>
-    <Hud active={active} />
+    <Header active={active} home={home} />
     <main id="main">
       <slot />
     </main>
     <footer class="wrap foot">
+      <span class="dot" aria-hidden="true"></span>
       <span>© {new Date().getFullYear()} Cyborg Jungle</span>
-      <span class="keys">Keys <b>0–4</b> tune · <b>← →</b> step</span>
-      <span>PAL · 25 FPS · 4.43 MHz</span>
+      <span>Analog video art · Made with mixers, effect modules and a CRT</span>
     </footer>
-
-    <div class="xhair" aria-hidden="true" transition:persist="xhair"><span class="xy"></span></div>
-
-    <div class="boot" aria-hidden="true">
-      <div class="boot-log">
-        <p>CYBORG JUNGLE // MONITOR SYSTEM</p>
-        <p>&gt; H-SYNC ........ LOCKED</p>
-        <p>&gt; COLOUR BURST .. 4.43 MHz</p>
-        <p>&gt; CHANNELS ...... 04</p>
-        <p class="ok">&gt; SIGNAL ACQUIRED</p>
-      </div>
-    </div>
-
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <filter id="rgb-split" color-interpolation-filters="sRGB">
-        <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" />
-        <feOffset in="r" dx="-4" dy="0" result="r2" />
-        <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g" />
-        <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b" />
-        <feOffset in="b" dx="4" dy="0" result="b2" />
-        <feBlend in="r2" in2="g" mode="screen" result="rg" />
-        <feBlend in="rg" in2="b2" mode="screen" />
-      </filter>
-    </svg>
-
     <script>
-      import '../scripts/hud';
+      import '../scripts/site';
     </script>
   </body>
 </html>
@@ -96,114 +49,22 @@ const channelSwitch = {
     width: auto;
     height: auto;
     clip: auto;
-    z-index: 300;
-    background: var(--thermal);
-    color: var(--void);
-    padding: 4px 10px;
+    z-index: 10;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 6px 12px;
   }
-
-  main { padding-block: 40px 24px; }
-
+  main { padding-block: 24px 48px; }
   .foot {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px 24px;
-    padding-block: 40px;
-    color: var(--dim);
-    font-size: var(--step--2);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-top: 1px solid var(--line);
+    align-items: center;
+    gap: 6px 16px;
+    padding-top: 24px;
+    padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
+    border-top: var(--stroke) solid var(--ink);
+    font-size: var(--step--1);
+    color: var(--ink-soft);
   }
-  .foot b { color: var(--glow); font-weight: 500; }
-  @media (max-width: 820px) {
-    .foot { padding-bottom: calc(var(--remote-h) + 32px + env(safe-area-inset-bottom, 0px)); }
-    .keys { display: none; }
-  }
-
-  /* Targeting crosshair (fine pointers only, toggled by script) */
-  .xhair { display: none; }
-  html.has-xhair .xhair {
-    display: block;
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 95;
-    background:
-      linear-gradient(rgb(61 123 255 / 0.18), rgb(61 123 255 / 0.18)) var(--x, -10px) 0 / 1px 100% no-repeat,
-      linear-gradient(rgb(61 123 255 / 0.18), rgb(61 123 255 / 0.18)) 0 var(--y, -10px) / 100% 1px no-repeat;
-  }
-  .xy {
-    position: absolute;
-    left: calc(var(--x, -100px) + 12px);
-    top: calc(var(--y, -100px) + 10px);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: var(--phosphor);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-  html.xhair-out .xhair { opacity: 0; }
-
-  /* Power-on */
-  .boot { display: none; }
-  html[data-boot] .boot {
-    display: grid;
-    place-items: center;
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    background: var(--void);
-    animation: boot-out 300ms ease-in 1450ms forwards;
-  }
-  html[data-boot] .boot::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--glow);
-    box-shadow: 0 0 60px var(--glow);
-    animation: power-on 700ms cubic-bezier(0.3, 0.9, 0.3, 1) forwards;
-  }
-  .boot-log {
-    position: relative;
-    font-family: var(--font-crt);
-    font-size: var(--step-2);
-    color: var(--glow);
-    text-shadow: var(--glow-shadow);
-    line-height: 1.2;
-    padding-inline: 16px;
-  }
-  .boot-log p { margin: 0; opacity: 0; animation: line-in 1ms linear forwards; }
-  .boot-log p:nth-child(1) { animation-delay: 650ms; }
-  .boot-log p:nth-child(2) { animation-delay: 800ms; }
-  .boot-log p:nth-child(3) { animation-delay: 920ms; }
-  .boot-log p:nth-child(4) { animation-delay: 1040ms; }
-  .boot-log p:nth-child(5) { animation-delay: 1200ms; color: var(--thermal); }
-  @keyframes power-on {
-    0% { transform: scale(0.002, 0.002); opacity: 1; }
-    35% { transform: scale(1, 0.004); opacity: 1; }
-    60% { transform: scale(1, 1); opacity: 0.9; }
-    100% { transform: scale(1, 1); opacity: 0; }
-  }
-  @keyframes line-in { to { opacity: 1; } }
-  @keyframes boot-out {
-    0% { opacity: 1; transform: none; }
-    60% { opacity: 1; transform: scaleY(0.01); filter: brightness(3); }
-    100% { opacity: 0; transform: scaleY(0.01); visibility: hidden; }
-  }
-
-  /* Channel switch (View Transitions) */
-  @keyframes crt-off {
-    0% { transform: none; filter: none; opacity: 1; }
-    100% { transform: scale(1, 0.006); filter: brightness(4); opacity: 0.6; }
-  }
-  @keyframes crt-on {
-    0% { transform: scale(1, 0.006); filter: brightness(4); opacity: 0.6; }
-    55% { transform: scale(1, 1.02); filter: brightness(1.5); opacity: 1; }
-    100% { transform: none; filter: none; opacity: 1; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
-  }
+  .foot .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--red); }
 </style>

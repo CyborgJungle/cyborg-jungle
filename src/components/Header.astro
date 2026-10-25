@@ -1,0 +1,78 @@
+---
+import Wordmark from './Wordmark.astro';
+import { channels } from '../data/channels';
+
+interface Props {
+  active?: string;
+  /** The home page shows the big wordmark itself, so the header leaves it out. */
+  home?: boolean;
+}
+
+const { active, home = false } = Astro.props;
+---
+
+<header class="site-header wrap">
+  {!home && <a href="/" class="home" aria-label="Cyborg Jungle, home"><Wordmark /></a>}
+  <nav aria-label="Channels">
+    <ul>
+      {channels.map((c) => (
+        <li>
+          <a href={c.path} aria-current={active === c.id ? 'page' : undefined} style={{ '--ch': c.color }}>
+            <span class="circled">{Number(c.num)}</span>
+            <span class="name">{c.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding-top: max(16px, env(safe-area-inset-top, 0px));
+    padding-bottom: 12px;
+  }
+  .home { text-decoration: none; padding: 6px 0; }
+  nav { width: 100%; }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: var(--stroke) solid var(--ink);
+    border-bottom: var(--stroke) solid var(--ink);
+  }
+  li + li { border-left: var(--stroke) solid var(--ink); }
+  a[href]:not(.home) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 64px;
+    padding: 8px 2px;
+    text-decoration: none;
+    font-size: var(--step--1);
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+  }
+  .circled { color: var(--ch); }
+  a[aria-current='page'] { background: var(--ink); color: var(--paper); }
+  a[aria-current='page'] .circled { background: var(--ch); border-color: var(--ch); color: var(--paper); }
+
+  @media (min-width: 760px) {
+    nav { width: auto; margin-left: auto; }
+    ul { border: 0; gap: 4px; }
+    li + li { border-left: 0; }
+    a[href]:not(.home) { flex-direction: row; gap: 8px; min-height: 44px; padding: 6px 14px 6px 8px; border-radius: 999px; }
+    a[href]:not(.home):hover { background: var(--paper-deep); }
+    a[aria-current='page']:hover { background: var(--ink) !important; }
+  }
+</style>

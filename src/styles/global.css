@@ -1,18 +1,18 @@
-@import '@fontsource/chakra-petch/600.css';
-@import '@fontsource/chakra-petch/700.css';
-@import '@fontsource/jetbrains-mono/400.css';
-@import '@fontsource/jetbrains-mono/500.css';
-@import '@fontsource/vt323/400.css';
+@import '@fontsource/dela-gothic-one/latin-400.css';
+@import '@fontsource/zen-kaku-gothic-new/latin-400.css';
+@import '@fontsource/zen-kaku-gothic-new/latin-500.css';
+@import '@fontsource/zen-kaku-gothic-new/latin-700.css';
 @import './tokens.css';
 
 * { box-sizing: border-box; }
 
 html {
-  background: var(--void);
+  background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 15px;
+  font-family: var(--font-text);
+  font-size: 16px;
   line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
@@ -20,25 +20,24 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--void);
-  overflow-x: hidden;
+  background: var(--paper);
 }
 
-a { color: var(--glow); text-decoration: none; }
-a:hover { color: var(--ink); }
-:focus-visible { outline: 1px solid var(--thermal); outline-offset: 3px; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  line-height: 1.05;
   text-wrap: balance;
   margin: 0;
 }
 
 img { max-width: 100%; display: block; }
+[hidden] { display: none !important; }
 
 .wrap {
   max-width: var(--max);
@@ -47,81 +46,66 @@ img { max-width: 100%; display: block; }
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
 }
 
-/* //FIELD_ label rows */
+/* Small print label: uppercase, tracked, soft ink */
 .label {
   font-size: var(--step--2);
-  color: var(--dim);
+  font-weight: 700;
+  color: var(--ink-soft);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
 }
-.label::before { content: '//'; }
-.label::after { content: '_'; }
 
-/* HUD panel with corner nodes */
-.panel {
+/* Circled number, as on printed packaging: ① ② ③ */
+.circled {
+  display: inline-grid;
+  place-items: center;
+  width: 1.9em;
+  height: 1.9em;
+  border: var(--stroke) solid currentColor;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: var(--step--1);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+/* The TV pictogram: a thick black bezel with rounded corners around a screen */
+.tv {
   position: relative;
-  border: 1px solid var(--line);
-  background: rgb(8 16 34 / 0.6);
-}
-.panel::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  pointer-events: none;
-  --n: linear-gradient(var(--ch, var(--phosphor)), var(--ch, var(--phosphor)));
-  background:
-    var(--n) top left / 5px 5px no-repeat,
-    var(--n) top right / 5px 5px no-repeat,
-    var(--n) bottom left / 5px 5px no-repeat,
-    var(--n) bottom right / 5px 5px no-repeat;
-}
-
-/* Registration mark */
-.reg {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  pointer-events: none;
-  background:
-    linear-gradient(var(--signal), var(--signal)) center / 1px 100% no-repeat,
-    linear-gradient(var(--signal), var(--signal)) center / 100% 1px no-repeat;
-}
-
-/* Tick ruler */
-.ruler {
-  height: 14px;
-  border-bottom: 1px solid var(--line);
-  background:
-    repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px 40px) bottom / 100% 10px no-repeat,
-    repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px 8px) bottom / 100% 5px no-repeat;
-}
-
-/* CRT screen */
-.crt {
-  position: relative;
+  display: block;
   overflow: hidden;
-  border-radius: var(--crt-radius);
-  background: var(--panel);
-  isolation: isolate;
+  border: var(--tv-bezel) solid var(--ink);
+  border-radius: var(--tv-radius);
+  background: var(--ink);
 }
-.crt::after {
-  content: '';
+.tv > img, .tv > svg, .tv > iframe {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  background:
-    repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.22) 0 1px, transparent 1px 3px),
-    radial-gradient(ellipse at center, transparent 55%, rgb(0 0 10 / 0.75) 100%);
-  box-shadow: inset 0 0 0 1px rgb(143 220 255 / 0.12), inset 0 0 40px rgb(61 123 255 / 0.15);
-  z-index: 2;
-}
-.crt > img, .crt > svg, .crt > iframe {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
   border: 0;
+}
+
+/* Thin ink rule */
+.rule { border: 0; border-top: var(--stroke) solid var(--ink); margin: 0; }
+
+/* Stamp-style tag: outlined rounded label */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 2px 12px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 8px;
+  font-size: var(--step--1);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--ink);
+  background: transparent;
 }
 
 .sr-only {

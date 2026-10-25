@@ -5,13 +5,12 @@ import Img from '../components/Img.astro';
 import about from '../content/about.json';
 import { resolveImage } from '../lib/media';
 
-// Edited through Pages CMS (the "About" entry), stored in src/content/about.json.
+// Edited through Pages CMS (the "About page" entry), stored in src/content/about.json.
 const profile = (
   [
-    ['Operator', about.name],
     ['Practice', about.practice],
-    ['Based', about.based],
-    ['Active', about.active],
+    ['Based in', about.based],
+    ['Active since', about.active],
     ['Contact', about.contact],
   ] as [string, string | undefined][]
 ).filter((r): r is [string, string] => Boolean(r[1]?.trim()));
@@ -20,180 +19,81 @@ const photos = (about.photos ?? [])
   .filter((p) => p.image)
   .map((p) => ({ src: resolveImage(p.image)!, caption: p.caption }));
 const bio = (about.bio ?? '').split(/\n\s*\n/).filter(Boolean);
-// The signal chain cycles through the palette, one colour per stage.
-const hues = ['--ch-video', '--ch-image', '--ch-installation', '--ch-about', '--phosphor', '--thermal'];
-const chain = (about.chain ?? []).map((s, i) => ({ ...s, n: String(i + 1).padStart(2, '0'), color: `var(${hues[i % hues.length]})` }));
 ---
 
 <Base title="About" description="About Cyborg Jungle, analog video artist." active="about">
-  <section class="wrap" style={{ '--ch': 'var(--ch-about)' }}>
-    <div class="card panel">
-      <span class="reg" style="top:-9px;right:-9px"></span>
-      <div class="side">
-      <div class="portrait crt">
+  <section class="wrap about" style={{ '--ch': 'var(--ch-about)' }}>
+    <figure class="side">
+      <div class="tv portrait">
         {portrait ? (
-          <Img src={portrait} alt={`Portrait of ${about.name}`} widths={[400, 720]} sizes="(max-width: 900px) 320px, 360px" loading="eager" />
+          <Img src={portrait} alt={`Portrait of ${about.name}`} widths={[480, 800]} sizes="(max-width: 899px) 100vw, 380px" loading="eager" />
         ) : (
           <TestPattern pattern="rings" seed="operator" label="Portrait placeholder" />
         )}
-        <span class="frame" aria-hidden="true"></span>
       </div>
-      {about.portraitCredit && <p class="credit">{about.portraitCredit}</p>}
-      </div>
-      <div class="info">
-        <span class="label">Operator profile</span>
-        <h1>{about.name}</h1>
-        <dl>
+      {about.portraitCredit && <figcaption class="label">{about.portraitCredit}</figcaption>}
+    </figure>
+
+    <div class="info">
+      <h1>{about.name}</h1>
+      <div class="bio">{bio.map((p) => <p>{p}</p>)}</div>
+      {profile.length > 0 && (
+        <dl class="spec">
           {profile.map(([k, v]) => (
-            <div class="row"><dt class="label">{k}</dt><dd>{v}</dd></div>
+            <div><dt class="label">{k}</dt><dd>{v}</dd></div>
           ))}
         </dl>
-        <div class="bio">{bio.map((p) => <p>{p}</p>)}</div>
-      </div>
+      )}
     </div>
+  </section>
 
-    {photos.length > 0 && (
-      <section class="live" aria-labelledby="live-h">
-        <h2 id="live-h" class="label">Live</h2>
-        <div class="ruler"></div>
-        <ul>
-          {photos.map((p) => (
-            <li>
-              <div class="crt"><Img src={p.src} alt={p.caption || `${about.name} live`} widths={[480, 900]} sizes="(max-width: 900px) 100vw, 33vw" /></div>
-              {p.caption && <p class="label cap">{p.caption}</p>}
-            </li>
-          ))}
-        </ul>
-      </section>
-    )}
-
-    <section class="chain" aria-labelledby="chain-h">
-      <h2 id="chain-h" class="label">Signal chain</h2>
-      <div class="ruler"></div>
-      <ol>
-        {chain.map((s) => (
-          <li style={{ '--c': s.color }}>
-            <span class="sn">{s.n}</span>
-            <b>{s.name}</b>
-            <span class="sd">{s.detail}</span>
+  {photos.length > 0 && (
+    <section class="wrap live" aria-labelledby="live-h">
+      <div class="section-head">
+        <h2 id="live-h">Live</h2>
+        <span class="label">{photos.length} photos</span>
+      </div>
+      <hr class="rule" />
+      <ul>
+        {photos.map((p) => (
+          <li>
+            <figure>
+              <div class="tv"><Img src={p.src} alt={p.caption || `${about.name} live`} widths={[480, 800]} sizes="(max-width: 639px) 100vw, (max-width: 999px) 50vw, 33vw" /></div>
+              {p.caption && <figcaption>{p.caption}</figcaption>}
+            </figure>
           </li>
         ))}
-      </ol>
+      </ul>
     </section>
-  </section>
+  )}
 </Base>
 
 <style>
-  .card {
-    display: grid;
-    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-    gap: 40px;
-    padding: 32px;
-  }
-  .portrait { aspect-ratio: 3 / 4; position: relative; }
-  /* Crop the landscape photo to the face; the tracking box sits around the head */
-  .portrait > :global(img) { object-position: 75% 0; }
-  .side { display: grid; gap: 10px; align-content: start; min-width: 0; }
-  .credit { margin: 0; font-size: var(--step--2); color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; }
+  .about { display: grid; gap: 24px; grid-template-columns: minmax(0, 1fr); }
+  figure { margin: 0; }
+  .side { display: grid; gap: 8px; align-content: start; }
+  .portrait { aspect-ratio: 4 / 5; }
+  .portrait > :global(img) { object-position: 75% 20%; }
 
-  .live { margin-top: 64px; }
-  .live h2, .chain h2 { font-family: var(--font-mono); font-weight: 400; }
-  .live ul {
-    list-style: none;
-    margin: 32px 0 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
-    gap: 32px 24px;
-  }
-  .live li { display: grid; gap: 10px; min-width: 0; }
-  .live .crt { aspect-ratio: 4 / 3; }
-  .live .cap::before, .live .cap::after { content: none; }
-  .portrait::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: radial-gradient(circle, rgb(4 6 12 / 0.6) 1px, transparent 1.5px) 0 0 / 5px 5px;
-  }
-  .frame {
-    position: absolute;
-    inset: 7% 22% 50% 22%;
-    z-index: 3;
-    border: 1px solid var(--thermal);
-  }
-  .frame::before {
-    content: 'SUBJECT_01XX';
-    position: absolute;
-    top: -19px;
-    left: -1px;
-    font-size: var(--step--2);
-    background: var(--thermal);
-    color: var(--void);
-    padding: 0 6px;
-    line-height: 18px;
-  }
-  .info { display: grid; gap: 16px; align-content: start; min-width: 0; }
-  h1 { font-size: var(--step-4); text-shadow: -3px 0 rgb(255 0 80 / 0.45), 3px 0 rgb(0 220 255 / 0.45); }
-  dl { margin: 0; }
-  .row {
-    display: grid;
-    grid-template-columns: 12ch 1fr;
-    gap: 12px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--line);
-    align-items: baseline;
-  }
-  dd { margin: 0; text-align: right; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ch); min-width: 0; overflow-wrap: anywhere; }
-  .bio p { max-width: 65ch; margin: 0 0 12px; }
+  .info { display: grid; gap: 20px; align-content: start; min-width: 0; }
+  h1 { font-size: var(--step-3); }
+  .bio p { margin: 0 0 14px; max-width: 60ch; font-size: var(--step-0); }
+  .bio p:first-child { font-size: var(--step-1); line-height: 1.45; }
 
-  .chain { margin-top: 64px; }
-  .chain ol {
-    list-style: none;
-    margin: 32px 0 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 28px;
-  }
-  .chain li {
-    position: relative;
-    display: grid;
-    gap: 6px;
-    padding: 16px;
-    border: 1px solid var(--c);
-    background: color-mix(in srgb, var(--c) 7%, transparent);
-  }
-  /* Trace to the next block */
-  .chain li:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -29px;
-    width: 28px;
-    height: 2px;
-    background: var(--c);
-  }
-  .chain li:not(:last-child)::before {
-    content: '';
-    position: absolute;
-    top: calc(50% - 3px);
-    right: -33px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--c);
-    z-index: 1;
-  }
-  .sn { font-family: var(--font-crt); font-size: var(--step-2); line-height: 1; color: var(--c); }
-  .chain b { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; }
-  .sd { color: var(--dim); font-size: var(--step--2); }
+  .spec { margin: 0; border-top: var(--stroke) solid var(--ink); }
+  .spec div { display: grid; grid-template-columns: 8.5rem 1fr; gap: 12px; padding: 10px 0; border-bottom: var(--stroke) solid var(--ink); align-items: baseline; }
+  .spec dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 
-  @media (max-width: 900px) {
-    .card { grid-template-columns: 1fr; padding: 20px; }
-    .side { max-width: 320px; }
-    .chain ol { grid-template-columns: 1fr; gap: 20px; }
-    .chain li:not(:last-child)::after { top: auto; bottom: -21px; right: auto; left: 32px; width: 2px; height: 20px; }
-    .chain li:not(:last-child)::before { top: auto; bottom: -25px; right: auto; left: 29px; }
+  .live { margin-top: 48px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 10px; }
+  .section-head h2 { font-size: var(--step-2); }
+  .live ul { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 28px 20px; }
+  .live .tv { aspect-ratio: 4 / 3; }
+  .live figcaption { margin-top: 8px; font-size: var(--step--1); color: var(--ink-soft); }
+
+  @media (min-width: 640px) { .live ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 900px) {
+    .about { grid-template-columns: 380px minmax(0, 1fr); gap: 48px; }
   }
+  @media (min-width: 1000px) { .live ul { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 </style>

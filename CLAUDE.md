@@ -11,3 +11,5 @@
   effect modules onto a CRT monitor, and the CRT is filmed with a phone. Stills are frames from that
   footage. Describe the work this way; never as synthesised, digital, or "rescanned" stills.
 - A project with several variations of one image is ONE work with a slideshow, not several works.
+- Tags come from the fixed vocabulary in `src/data/tags.ts`; keep the `.pages.yml` picker in sync.
+  Every work gets tags and an `alt` sentence. Slideshows default to 0.8 s per frame.

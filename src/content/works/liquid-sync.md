@@ -1,0 +1,52 @@
+---
+title: "Liquid Sync"
+kind: image
+year: 2022
+date: 2022-10-20
+tags:
+  - "portrait"
+  - "melt"
+  - "colour bleed"
+  - "noise"
+  - "monochrome"
+image: "/media/Final art/liquid-sync/liquid-sync-01-9404.jpg"
+gallery:
+  - "/media/Final art/liquid-sync/liquid-sync-02-9409.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-03-9410.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-04-9411.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-05-9414.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-06-9415.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-07-9419.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-08-9420.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-09-9421.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-10-9425.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-11-9432.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-12-9403.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-13-9430.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-14-9439.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-15-9440.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-16-9441.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-17-9442.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-18-9445.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-19-9448.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-20-9450.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-21-9451.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-22-9458.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-23-9459.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-24-9466.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-25-9467.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-26-9475.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-27-9476.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-28-9460.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-29-9462.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-30-9463.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-31-9465.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-32-9469.jpg"
+  - "/media/Final art/liquid-sync/liquid-sync-33-9474.jpg"
+slideshow: true
+interval: 0.8
+alt: "Portrait of a man with a bob haircut melting into streaks of blue and white"
+medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
+format: "33 stills from analog video"
+description: "A man with a bob haircut melting through the signal: the image runs like liquid in cold blue and white, flares into orange and red, and finally dissolves into grainy black-and-white noise.\n\n33 stills from analog video, recorded on 20 October 2022. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+---

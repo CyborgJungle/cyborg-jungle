@@ -15,10 +15,8 @@ export async function getStaticPaths() {
       params: { slug: work.slug },
       props: {
         work,
-        position: i + 1,
-        total: siblings.length,
-        prev: siblings[(i - 1 + siblings.length) % siblings.length],
-        next: siblings[(i + 1) % siblings.length],
+        prev: siblings.length > 1 ? siblings[(i - 1 + siblings.length) % siblings.length] : undefined,
+        next: siblings.length > 1 ? siblings[(i + 1) % siblings.length] : undefined,
       },
     };
   });
@@ -26,29 +24,29 @@ export async function getStaticPaths() {
 
 interface Props {
   work: ResolvedWork;
-  position: number;
-  total: number;
-  prev: ResolvedWork;
-  next: ResolvedWork;
+  prev?: ResolvedWork;
+  next?: ResolvedWork;
 }
 
-const { work, position, total, prev, next } = Astro.props;
+const { work, prev, next } = Astro.props;
 const ch = channelFor(work.kind);
 const aspect =
   work.aspect ?? (work.image && typeof work.image !== 'string' ? `${work.image.width} / ${work.image.height}` : '4 / 3');
 const [w, h] = aspect.split('/').map(Number);
-// Cap the screen at 75% of the viewport height while keeping its shape.
-const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(75vh * ${w / h}))` };
+// Cap the screen at 70% of the viewport height while keeping its shape.
+const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(70vh * ${w / h}))` };
 const paragraphs = work.description?.split(/\n\s*\n/) ?? [];
 const isShow = work.slideshow && work.frames.length > 1;
+const alt = work.alt ?? work.title;
+const total = work.frames.length;
 const pad2 = (n: number) => String(n).padStart(2, '0');
-// Spec-sheet aspect: "4:3" for simple ratios, "1.78:1" otherwise.
+
+// Print-style aspect label: "4:3" for simple ratios, "1.40:1" otherwise.
 const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
 const g = gcd(w, h);
 const aspectLabel = w / g <= 32 && h / g <= 32 ? `${w / g}:${h / g}` : `${(w / h).toFixed(2)}:1`;
 
 const rows = [
-  ['Channel', `CH.${ch.num} ${ch.label}`],
   ['Year', String(work.year)],
   ['Medium', work.medium],
   ['Format', work.format],
@@ -59,168 +57,195 @@ const rows = [
 ---
 
 <Base title={work.title} description={paragraphs[0]} active={ch.id}>
-  <article class="wrap viewer" style={{ '--ch': ch.color }}>
+  <article class="wrap work" style={{ '--ch': ch.color }}>
+    <a class="back label" href={ch.path}>← {ch.label}</a>
+
+    <header class="title-block">
+      <h1>{work.title}</h1>
+      <p class="meta"><span class="dot" aria-hidden="true"></span>{ch.label} · {work.year}{total > 1 && ` · ${total} frames`}</p>
+    </header>
+
     <div class="stage" data-show-root={isShow ? '' : undefined}>
-      <div class="crt screen" style={frameStyle}>
+      <div class="tv screen" style={frameStyle}>
         {isShow ? (
-          <Frames frames={work.frames} alt={work.title} interval={work.interval} widths={[800, 1400, 2000]} sizes="(max-width: 980px) 100vw, 70vw" fit="contain" eager />
+          <Frames frames={work.frames} alt={alt} interval={work.interval} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" fit="contain" eager />
         ) : work.embed ? (
           <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
         ) : work.image ? (
-          <Img src={work.image} alt={work.title} widths={[800, 1400, 2000]} sizes="(max-width: 980px) 100vw, 70vw" loading="eager" />
+          <Img src={work.image} alt={alt} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" loading="eager" />
         ) : (
           <TestPattern pattern={work.pattern} seed={work.slug} />
         )}
       </div>
+      <div class="dim" aria-hidden="true"><span></span><b>{aspectLabel}</b><span></span></div>
+
       {isShow && (
-        <div class="show-ui">
-          <button type="button" data-show="prev" aria-label="Previous image">◄</button>
-          <button type="button" data-show="toggle" aria-label="Pause slideshow" aria-pressed="false">❚❚</button>
-          <button type="button" data-show="next" aria-label="Next image">►</button>
-          <span class="count"><span class="label">Frame</span> <b data-show-count>01</b>/{pad2(work.frames.length)}</span>
-          <span class="label rate">{work.interval} s / frame</span>
-        </div>
-        <ul class="gallery thumbs">
-          {work.frames.map((src, i) => (
-            <li>
-              <button type="button" class="crt" data-show-goto={i} aria-label={`Show image ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}>
-                <Img src={src} alt="" widths={[240]} sizes="120px" />
-              </button>
-            </li>
-          ))}
-        </ul>
+        <>
+          <div class="controls">
+            <button type="button" data-show="prev" aria-label="Previous frame">←</button>
+            <button type="button" data-show="toggle" aria-label="Pause slideshow" aria-pressed="false">❚❚</button>
+            <button type="button" data-show="next" aria-label="Next frame">→</button>
+            <span class="count"><b data-show-count>01</b> / {pad2(total)}</span>
+          </div>
+          <ul class="thumbs" aria-label="All frames">
+            {work.frames.map((src, i) => (
+              <li>
+                <button type="button" data-show-goto={i} aria-label={`Show frame ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}>
+                  <Img src={src} alt="" widths={[200]} sizes="96px" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
+
       {!isShow && work.gallery.length > 0 && (
         <ul class="gallery">
           {work.gallery.map((src, i) => (
-            <li class="crt"><Img src={src} alt={`${work.title}, view ${i + 1}`} widths={[400, 800]} sizes="(max-width: 640px) 50vw, 200px" /></li>
+            <li class="tv"><Img src={src} alt={`${work.title}, view ${i + 1}`} widths={[480, 800]} sizes="(max-width: 639px) 100vw, 33vw" /></li>
           ))}
         </ul>
       )}
     </div>
 
-    <aside class="spec panel">
-      <svg class="trace" viewBox="0 0 60 120" aria-hidden="true">
-        <path d="M0 20H24V100H60" fill="none" stroke="currentColor" stroke-width="2" />
-        <circle cx="0" cy="20" r="4" fill="currentColor" />
-        <circle cx="24" cy="60" r="3" fill="currentColor" />
-        <rect x="52" y="96" width="8" height="8" fill="currentColor" />
-      </svg>
-      <span class="label ch-label">CH.{ch.num} · {String(position).padStart(2, '0')}/{String(total).padStart(2, '0')}</span>
-      <h1>{work.title}</h1>
-      <dl>
+    <div class="text">
+      {paragraphs.length > 0 && <div class="desc">{paragraphs.map((p) => <p>{p}</p>)}</div>}
+
+      <dl class="spec">
         {rows.map(([k, v]) => (
-          <div class="row">
+          <div>
             <dt class="label">{k}</dt>
             <dd>{v}</dd>
           </div>
         ))}
       </dl>
-      {paragraphs.length > 0 && <div class="desc">{paragraphs.map((p) => <p>{p}</p>)}</div>}
-      <nav class="step" aria-label={`More on channel ${ch.num}`}>
-        <a href={`/work/${prev.slug}`} data-step="prev"><span aria-hidden="true">◄</span> {prev.title}</a>
-        <a href={`/work/${next.slug}`} data-step="next">{next.title} <span aria-hidden="true">►</span></a>
+
+      {work.tags.length > 0 && (
+        <ul class="tags" aria-label="Tags">
+          {work.tags.map((t) => (
+            <li><a class="stamp" href={`${ch.path}?tag=${encodeURIComponent(t)}`}>{t}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    {prev && next && (
+      <nav class="step" aria-label={`More ${ch.label.toLowerCase()}`}>
+        <a href={`/work/${prev.slug}`} data-step="prev"><span class="label">← Previous</span><span class="t">{prev.title}</span></a>
+        <a href={`/work/${next.slug}`} data-step="next"><span class="label">Next →</span><span class="t">{next.title}</span></a>
       </nav>
-      <a class="back" href={ch.path}>All of CH.{ch.num} {ch.label}</a>
-    </aside>
+    )}
   </article>
 </Base>
 
 <style>
-  .viewer {
+  .work {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
-    gap: 56px;
-    align-items: start;
+    gap: 20px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'back' 'title' 'stage' 'text' 'step';
   }
-  .stage { min-width: 0; display: grid; gap: 16px; justify-items: center; }
-  .screen { width: 100%; box-shadow: 0 0 60px color-mix(in srgb, var(--ch) 18%, transparent); }
-  .screen > :global(img) { object-fit: contain; background: #000; }
-  .gallery {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
-  }
-  .gallery .crt { aspect-ratio: 4 / 3; }
+  .back { grid-area: back; text-decoration: none; justify-self: start; padding: 8px 0; }
+  .title-block { grid-area: title; }
+  .stage { grid-area: stage; min-width: 0; display: grid; gap: 12px; }
+  .text { grid-area: text; min-width: 0; display: grid; gap: 20px; align-content: start; }
+  .step { grid-area: step; }
 
-  .show-ui {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-variant-numeric: tabular-nums;
+  h1 { font-size: var(--step-3); }
+  .meta { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; color: var(--ink-soft); font-size: var(--step--1); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ch); }
+
+  .screen { width: 100%; justify-self: center; }
+  .screen > :global(img) { object-fit: contain; }
+
+  /* Dimension line, as on printed packaging */
+  .dim { display: flex; align-items: center; gap: 10px; font-size: var(--step--2); }
+  .dim span { flex: 1; height: var(--stroke); background: var(--ink); position: relative; }
+  .dim span:first-child::before, .dim span:last-child::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    border: 4.5px solid transparent;
   }
-  .show-ui button {
+  .dim span:first-child::before { left: -2px; border-right-color: var(--ink); border-left-width: 0; }
+  .dim span:last-child::after { right: -2px; border-left-color: var(--ink); border-right-width: 0; }
+  .dim b { font-weight: 700; letter-spacing: 0.06em; }
+
+  .controls { display: flex; align-items: center; gap: 8px; }
+  .controls button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: var(--stroke) solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
     font: inherit;
-    font-size: var(--step--1);
-    width: 40px;
-    height: 32px;
-    color: var(--ch);
-    background: transparent;
-    border: 1px solid var(--line);
+    font-size: var(--step-0);
     cursor: pointer;
   }
-  .show-ui button:hover { border-color: var(--ch); }
-  .count { margin-left: 8px; font-size: var(--step--1); }
-  .count b { font-family: var(--font-crt); font-weight: 400; font-size: var(--step-1); color: var(--ch); }
-  .rate { margin-left: auto; }
-  .thumbs { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 8px; }
-  .thumbs button.crt {
+  .controls button[data-show='toggle'] { background: var(--ch); border-color: var(--ch); color: var(--paper); }
+  .count { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+  .count b { font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); color: var(--ink); }
+
+  /* Thumbnail strip: swipe sideways on phones */
+  .thumbs {
+    list-style: none;
+    margin: 0 calc(-1 * var(--gutter));
+    padding: 4px var(--gutter) 8px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .thumbs::-webkit-scrollbar { display: none; }
+  .thumbs li { flex: none; scroll-snap-align: start; }
+  .thumbs button {
     display: block;
-    width: 100%;
-    aspect-ratio: 5 / 6;
+    width: 72px;
+    aspect-ratio: 1;
     padding: 0;
-    border: 0;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--ink);
     cursor: pointer;
-    opacity: 0.45;
-    transition: opacity var(--snap);
+    opacity: 0.55;
   }
   .thumbs button > :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .thumbs button:hover, .thumbs button[aria-current] { opacity: 1; }
-  .thumbs button[aria-current] { outline: 1px solid var(--ch); outline-offset: 2px; }
+  .thumbs button[aria-current] { opacity: 1; border-color: var(--ch); }
 
-  .spec { padding: 24px; display: grid; gap: 16px; position: relative; }
-  .trace {
-    position: absolute;
-    left: -58px;
-    top: 24px;
-    width: 60px;
-    height: 120px;
-    color: var(--ch);
-  }
-  .ch-label { color: var(--ch); }
-  h1 { font-size: var(--step-3); color: var(--ink); text-shadow: -2px 0 rgb(255 0 80 / 0.45), 2px 0 rgb(0 220 255 / 0.45); }
-  dl { margin: 0; display: grid; }
-  .row {
+  .gallery { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+  .gallery .tv { aspect-ratio: 4 / 3; }
+
+  .desc p { margin: 0 0 12px; max-width: 62ch; }
+  .spec { margin: 0; border-top: var(--stroke) solid var(--ink); }
+  .spec div {
     display: grid;
-    grid-template-columns: 10ch 1fr;
+    grid-template-columns: 7.5rem 1fr;
     gap: 12px;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--line);
+    padding: 10px 0;
+    border-bottom: var(--stroke) solid var(--ink);
     align-items: baseline;
   }
-  dd { margin: 0; font-size: var(--step--1); min-width: 0; }
-  .desc p { margin: 0 0 10px; color: var(--ink); font-size: var(--step--1); max-width: 65ch; }
-  .step {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    font-size: var(--step--2);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  .step a { border: 1px solid var(--line); padding: 10px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .step a:last-child { text-align: right; }
-  .step a:hover { border-color: var(--ch); color: var(--ch); }
-  .back { font-size: var(--step--2); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); }
-  .back:hover { color: var(--ch); }
+  .spec dd { margin: 0; min-width: 0; }
+  .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags .stamp:hover { background: var(--ch); border-color: var(--ch); color: var(--paper); }
 
-  @media (max-width: 980px) {
-    .viewer { grid-template-columns: 1fr; gap: 32px; }
-    .trace { display: none; }
+  .step { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--stroke) solid var(--ink); margin-top: 12px; }
+  .step a { display: grid; gap: 4px; padding: 16px 12px 16px 0; text-decoration: none; min-width: 0; }
+  .step a + a { text-align: right; padding: 16px 0 16px 12px; border-left: var(--stroke) solid var(--ink); }
+  .step .t { font-family: var(--font-display); text-transform: uppercase; font-size: var(--step-1); line-height: 1.05; overflow-wrap: anywhere; }
+  .step a:hover .t { color: var(--ch); }
+
+  @media (min-width: 1000px) {
+    .work {
+      grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr);
+      grid-template-areas: 'back back' 'stage title' 'stage text' 'step step';
+      grid-template-rows: auto auto 1fr auto;
+      column-gap: 48px;
+    }
+    .thumbs { margin: 0; padding: 4px 0 8px; flex-wrap: wrap; overflow: visible; }
+    .thumbs button { width: 64px; }
   }
 </style>

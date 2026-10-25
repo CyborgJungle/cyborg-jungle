@@ -18,7 +18,7 @@ Five sources feed it:
 | Monitor wall (blue CRT screens of test patterns) | Rounded CRT screen shape, monochrome phosphor blue, op-art test patterns as placeholders |
 | Technical poster (Swiss spec sheet) | Spec annotations as captions (`1890 × 2835 px`, `#bab9ad`), crosshair `+` registration marks, index numbers, barcode rules |
 | Cyber HUD (glowing panel UI) | Framed panels with corner nodes, `//FIELD_` label rows, tick rulers, dot-matrix meters |
-| Circuit traces / man-machine interface | Blue traces with round nodes linking things, numbered callouts, block diagrams of the signal chain |
+| Circuit traces / man-machine interface | Blue traces with round nodes linking things, numbered callouts |
 | Glitch portrait / thermal crowd | RGB channel split, slice displacement on hover, thermal palette and labelled bounding boxes (`TARGET_03XX`) |
 
 **Not used:** the references themselves. They are moodboard only and never appear on the site.
@@ -54,7 +54,7 @@ camera, RGB glitch). It is set once as `--ch` on a channel's elements and everyt
 
 `--ch` colours: channel numbers (nav, tuner, channel page), the active nav border and glow, `CH.0n`
 tags on tiles, test-pattern placeholders, HUD panel corner nodes, circuit traces, hover states on a
-work page. The About page's signal chain cycles through all of them, one per stage. A 2px
+work page, and the tag filter on channel pages. A 2px
 **colour burst** strip (all channel colours plus phosphor, thermal and coral, unequal widths like a
 test card) runs under the HUD bar.
 
@@ -116,7 +116,7 @@ Motion means *signal behaviour*. Each effect has a reason in the analog world.
 | First visit | **Power-on**: a white line expands vertically into the screen, boot log types out, then the UI appears. Once per session; click/key skips. | ≈1.4 s |
 | Page change | **Channel switch**: the page collapses to a line like a CRT switching off, then flickers on (View Transitions). | 400 ms |
 | Hover a work | **Lock-on**: yellow bounding box snaps around it with a `TARGET_03XX` label; the image RGB-splits and slice-jitters for a moment. | 120 ms in |
-| Slideshow work | **Frame cycle**: variations of one image hard-cut on a timer (default 1.5 s) with a one-field bright, displaced "signal cut". Runs on the wall and the work page only while visible; the work page has pause, step, a `FRAME 03/08` counter and thumbnails. Starts paused with reduced motion. | 140 ms cut |
+| Slideshow work | **Frame cycle**: variations of one image hard-cut on a timer (default 0.8 s) with a one-field bright, displaced "signal cut". Runs on the wall and the work page only while visible; the work page has pause, step, a `FRAME 03/08` counter and thumbnails. Starts paused with reduced motion. | 140 ms cut |
 | Pointer | **Crosshair cursor** with live `X/Y` readout (fine pointers only). | — |
 | Always | HUD **timecode** runs at 25 fps (PAL), signal meter flickers. | — |
 
@@ -168,6 +168,8 @@ written in jargon.
 | Generated placeholder patterns | `src/components/TestPattern.astro` |
 | Channels (labels, numbers, keys, colours) | `src/data/channels.ts` |
 | Works (one Markdown file each, edited in Pages CMS) | `src/content/works/*.md`, schema in `src/content.config.ts` |
+| Tag vocabulary (also the Pages CMS picker) | `src/data/tags.ts`, `.pages.yml` |
+| Channel page tag filter, empty "NO SIGNAL" state | `src/components/ChannelPage.astro` |
 | About page content | `src/content/about.json` |
 | Uploaded images (resized at build) | `src/assets/media/` via `src/lib/media.ts` + `src/components/Img.astro` |
 | CMS fields | `.pages.yml` |

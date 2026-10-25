@@ -61,15 +61,14 @@ if (pattern === 'stripes') {
     parts.push(`<rect x="${40 + off}" y="${y}" width="${W - 80}" height="3" fill="${fg}" opacity="${0.4 + rand() * 0.6}"/>`);
   }
 } else {
-  const bars = ['--ink', '--thermal', '--ch-video', '--ch-image', '--ch-installation', '--ch-about', '--phosphor'];
+  const bars = ['--paper', '--ch-installation', '--ch-video', '--ch-image', '--ch-about', '--red', '--paper-deep'];
   bars.forEach((c, i) => parts.push(`<rect x="${(i * W) / 7}" y="0" width="${W / 7 + 1}" height="${H * 0.72}" style="fill:var(${c})"/>`));
   [...bars].reverse().forEach((c, i) => parts.push(`<rect x="${(i * W) / 7}" y="${H * 0.72}" width="${W / 7 + 1}" height="${H * 0.08}" style="fill:var(${c})" opacity="0.7"/>`));
-  for (let i = 0; i < 4; i++) parts.push(`<rect x="${(i * W) / 4}" y="${H * 0.8}" width="${W / 4}" height="${H * 0.2}" style="fill:var(${i % 2 ? '--panel' : '--ink'})"/>`);
+  for (let i = 0; i < 4; i++) parts.push(`<rect x="${(i * W) / 4}" y="${H * 0.8}" width="${W / 4}" height="${H * 0.2}" style="fill:var(${i % 2 ? '--ink' : '--paper'})"/>`);
 }
 ---
 
-<svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" role="img" aria-label={label} style="color: var(--ch, var(--glow))">
-  <rect width={W} height={H} fill="#05070f" />
-  <rect width={W} height={H} fill="currentColor" opacity="0.1" />
+<svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" role="img" aria-label={label} style="color: var(--ch, var(--red))">
+  <rect width={W} height={H} fill="#151413" />
   <g set:html={parts.join('')} />
 </svg>

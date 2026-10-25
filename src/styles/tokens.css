@@ -1,49 +1,41 @@
-/* SIGNAL design tokens — see DESIGN.md for usage rules. Single dark theme by design. */
+/* TEST CARD design tokens — see DESIGN.md for usage rules.
+   One printed look: black ink on warm paper, a red signal dot, a muted retro palette. */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Color */
-  --void: #04060c;
-  --panel: #081022;
-  --line: #1a2a4a;
-  --ink: #d6e4ff;
-  --dim: #6a7ca3;
-  --phosphor: #3d7bff;
-  --glow: #8fdcff;
-  --signal: #ff715e;
-  --thermal: #ffd23f;
-  --paper: #bab9ad;
+  /* Paper and ink */
+  --paper: #efe9dc;
+  --paper-deep: #e3dccb;
+  --ink: #151413;
+  --ink-soft: #5c574e;
 
-  /* Channel colours — each channel tunes the interface to its own hue */
-  --ch-image: #ff4fa3;
-  --ch-video: #2ee6c9;
-  --ch-installation: #ff8a3d;
-  --ch-about: #a98bff;
-  --glow-shadow: 0 0 12px rgb(143 220 255 / 0.35);
+  /* The signal dot — power light, record light, the dot in the wordmark */
+  --red: #e2412f;
+
+  /* Channel colours, printed as flat spot colours */
+  --ch-image: #e2412f;
+  --ch-video: #2f7f72;
+  --ch-installation: #d9a21b;
+  --ch-about: #6b3f6e;
 
   /* Type */
-  --font-display: 'Chakra Petch', 'Eurostile', 'Bank Gothic', ui-sans-serif, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --font-crt: 'VT323', 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Dela Gothic One', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --font-text: 'Zen Kaku Gothic New', 'Helvetica Neue', Arial, sans-serif;
 
   --step--2: 0.75rem;
   --step--1: 0.875rem;
   --step-0: 1rem;
   --step-1: 1.25rem;
-  --step-2: 1.75rem;
-  --step-3: 2.5rem;
-  --step-4: clamp(3rem, 9vw, 7rem);
+  --step-2: 1.625rem;
+  --step-3: clamp(2rem, 8vw, 3rem);
+  --step-4: clamp(3rem, 15vw, 7.5rem);
 
   /* Layout */
-  --max: 1440px;
-  --gutter: max(16px, 3vw);
-  --hud-h: 56px;
-  --remote-h: 64px;
+  --max: 1200px;
+  --gutter: max(16px, 4vw);
 
-  /* Shape */
-  --crt-radius: 6% / 9%;
-
-  /* Motion */
-  --snap: 120ms cubic-bezier(0.2, 0.9, 0.3, 1.2);
-  --switch: 280ms;
+  /* Shape: the TV pictogram */
+  --tv-radius: 22px;
+  --tv-bezel: 6px;
+  --stroke: 1.5px;
 }

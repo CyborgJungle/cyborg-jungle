@@ -1,0 +1,53 @@
+---
+title: "Red Shift"
+kind: image
+year: 2023
+date: 2023-10-05
+tags:
+  - "portrait"
+  - "tear"
+  - "colour bleed"
+  - "noise"
+image: "/media/Final art/red-shift/red-shift-01-6716-2.jpg"
+gallery:
+  - "/media/Final art/red-shift/red-shift-02-6717-2.jpg"
+  - "/media/Final art/red-shift/red-shift-03-6719-2.jpg"
+  - "/media/Final art/red-shift/red-shift-04-6721-2.jpg"
+  - "/media/Final art/red-shift/red-shift-05-6722-2.jpg"
+  - "/media/Final art/red-shift/red-shift-06-6724-2.jpg"
+  - "/media/Final art/red-shift/red-shift-07-6731-2.jpg"
+  - "/media/Final art/red-shift/red-shift-08-6739-2.jpg"
+  - "/media/Final art/red-shift/red-shift-09-6741-2.jpg"
+  - "/media/Final art/red-shift/red-shift-10-6757-2.jpg"
+  - "/media/Final art/red-shift/red-shift-11-6758-2.jpg"
+  - "/media/Final art/red-shift/red-shift-12-6767-2.jpg"
+  - "/media/Final art/red-shift/red-shift-13-6773-2.jpg"
+  - "/media/Final art/red-shift/red-shift-14-6732-2.jpg"
+  - "/media/Final art/red-shift/red-shift-15-6734-2.jpg"
+  - "/media/Final art/red-shift/red-shift-16-6735-2.jpg"
+  - "/media/Final art/red-shift/red-shift-17-6742-2.jpg"
+  - "/media/Final art/red-shift/red-shift-18-6746-2.jpg"
+  - "/media/Final art/red-shift/red-shift-19-6747-2.jpg"
+  - "/media/Final art/red-shift/red-shift-20-6762-2.jpg"
+  - "/media/Final art/red-shift/red-shift-21-6775-2.jpg"
+  - "/media/Final art/red-shift/red-shift-22-6714-2.jpg"
+  - "/media/Final art/red-shift/red-shift-23-6723-2.jpg"
+  - "/media/Final art/red-shift/red-shift-24-6737-2.jpg"
+  - "/media/Final art/red-shift/red-shift-25-6750-2.jpg"
+  - "/media/Final art/red-shift/red-shift-26-6751-2.jpg"
+  - "/media/Final art/red-shift/red-shift-27-6752-2.jpg"
+  - "/media/Final art/red-shift/red-shift-28-6754-2.jpg"
+  - "/media/Final art/red-shift/red-shift-29-6760-2.jpg"
+  - "/media/Final art/red-shift/red-shift-30-6761-2.jpg"
+  - "/media/Final art/red-shift/red-shift-31-6740-2.jpg"
+  - "/media/Final art/red-shift/red-shift-32-6743.jpg"
+  - "/media/Final art/red-shift/red-shift-33-6745-2.jpg"
+  - "/media/Final art/red-shift/red-shift-34-6748.jpg"
+  - "/media/Final art/red-shift/red-shift-35-6772-2.jpg"
+slideshow: true
+interval: 0.8
+alt: "Woman lit in red emerging from black, her face dragged sideways by horizontal tears"
+medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
+format: "35 stills from analog video"
+description: "A woman lit in red, emerging from black. Horizontal tears drag her face sideways, the colour shifts from red to teal, and in the heaviest frames the image collapses into noise.\n\n35 stills from analog video, recorded on 5 October 2023. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+---

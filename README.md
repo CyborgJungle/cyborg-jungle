@@ -27,9 +27,14 @@ Every save is a commit to `main`, and Vercel redeploys the site in about a minut
   - *Main image* / *Extra images*: JPEG, PNG or WebP. Uploads go to `src/assets/media/` and the site
     makes web-sized WebP versions at build time, so full-size exports are fine (keep them under ~10 MB).
   - *Play as slideshow*: for variations of one image. The main image and extra images cycle on
-    the home wall and the work page; *Seconds per image* sets the speed (default 1.5).
+    the home wall and the work page; *Seconds per image* sets the speed (default 0.8).
   - Without media a work shows a generated test pattern.
-- **About page** — name, details, portrait, bio and signal chain (`src/content/about.json`).
+  - *Tags*: pick from the fixed list; visitors can filter a channel by tag.
+  - *Image description*: one sentence of alt text for screen readers and search.
+- **About page** — name, details, portrait, bio and live photos (`src/content/about.json`).
+
+Media files are named `<project>-<frame>-<original IMG number>.jpg`, e.g. `eye-band-01-8546.jpg`,
+so every file traces back to the original export.
 
 Field definitions live in `.pages.yml`; the matching schema is `src/content.config.ts`.
 

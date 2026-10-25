@@ -1,0 +1,24 @@
+---
+title: "Moiré Figures"
+kind: image
+year: 2022
+date: 2022-11-06
+tags:
+  - "figure"
+  - "silhouette"
+  - "op-art"
+  - "tear"
+image: "/media/Final art/moire-figures/moire-figures-01-9832.jpg"
+gallery:
+  - "/media/Final art/moire-figures/moire-figures-02-9837.jpg"
+  - "/media/Final art/moire-figures/moire-figures-03-9839.jpg"
+  - "/media/Final art/moire-figures/moire-figures-04-9841.jpg"
+  - "/media/Final art/moire-figures/moire-figures-05-9844.jpg"
+  - "/media/Final art/moire-figures/moire-figures-06-9845.jpg"
+slideshow: true
+interval: 0.8
+alt: "Black silhouettes of figures against a wall of moiré lines"
+medium: "Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone"
+format: "6 stills from analog video"
+description: "Film stills pushed to their limits: figures reduced to black silhouettes against a wall of moiré lines, faces split by horizontal tears, and finally pure op-art stripes.\n\n6 stills from analog video, recorded on 6 November 2022. The footage ran through a chain of video mixers and effect modules onto a CRT monitor and was filmed off the screen with a phone."
+---

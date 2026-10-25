@@ -1,6 +1,6 @@
 ---
-// Slideshow frames stacked inside a CRT screen. The script in src/scripts/hud.ts cycles
-// them every `interval` seconds while the screen is visible (paused with reduced motion).
+// Slideshow frames stacked inside a TV screen. src/scripts/site.ts cuts between them every
+// `interval` seconds while the screen is visible (paused with reduced motion).
 import Img from './Img.astro';
 import type { Img as ImgSrc } from '../lib/media';
 
@@ -13,7 +13,7 @@ interface Props {
   sizes: string;
   fit?: 'cover' | 'contain';
   eager?: boolean;
-  /** Show at most this many frames, sampled evenly across the series (keeps the wall light). */
+  /** Show at most this many frames, sampled evenly across the series (keeps the home page light). */
   max?: number;
 }
 
@@ -34,10 +34,5 @@ const frames =
   .frames, .frame { position: absolute; inset: 0; display: block; }
   .frame { opacity: 0; }
   .frame[data-active] { opacity: 1; }
-  .frame :global(img) { width: 100%; height: 100%; object-fit: var(--fit); display: block; background: #000; }
-  /* A frame change reads as a signal cut: one bright, slightly displaced field */
-  .frames:global(.tick) { animation: cut 140ms steps(2) 1; }
-  @keyframes cut {
-    50% { filter: brightness(1.5) contrast(1.2); transform: translateX(3px); }
-  }
+  .frame :global(img) { width: 100%; height: 100%; object-fit: var(--fit); display: block; background: var(--ink); }
 </style>

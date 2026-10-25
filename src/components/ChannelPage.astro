@@ -1,8 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import WorkTile from './WorkTile.astro';
+import TestPattern from './TestPattern.astro';
 import { channelFor, type ChannelId } from '../data/channels';
 import { worksIn } from '../data/works';
+import { tagCounts } from '../data/tags';
 
 interface Props {
   id: ChannelId;
@@ -10,59 +12,128 @@ interface Props {
 
 const ch = channelFor(Astro.props.id);
 const list = await worksIn(Astro.props.id);
+const tags = tagCounts(list);
 ---
 
 <Base title={ch.label} description={`${ch.label} — ${ch.blurb}`} active={ch.id}>
   <section class="wrap" style={{ '--ch': ch.color }}>
     <header class="head">
-      <span class="big-num" aria-hidden="true">{ch.num}</span>
+      <span class="num" aria-hidden="true">{Number(ch.num)}</span>
       <div class="titles">
-        <span class="label">Channel</span>
         <h1>{ch.label}</h1>
         <p>{ch.blurb}</p>
       </div>
-      <div class="count">
-        <span class="label">Signals</span>
-        <b>{String(list.length).padStart(2, '0')}</b>
-      </div>
     </header>
-    <div class="ruler"></div>
-    <div class="grid">
-      {list.map((w, i) => <WorkTile work={w} index={i} />)}
+    <div class="bar">
+      <span class="label"><span data-count>{list.length}</span> {list.length === 1 ? 'project' : 'projects'}</span>
     </div>
-    {list.length === 0 && <p class="empty">NO SIGNAL — nothing on this channel yet.</p>}
+    <hr class="rule" />
+
+    {tags.length > 1 && (
+      <div class="filter" role="group" aria-label="Filter by tag" data-filter>
+        <button type="button" class="stamp" data-tag="" aria-pressed="true">All</button>
+        {tags.map(([t, n]) => (
+          <button type="button" class="stamp" data-tag={t} aria-pressed="false">
+            {t}<span class="n">{n}</span>
+          </button>
+        ))}
+      </div>
+    )}
+
+    {list.length > 0 ? (
+      <div class="grid">
+        {list.map((w) => <WorkTile work={w} />)}
+      </div>
+    ) : (
+      <div class="empty">
+        <div class="tv empty-screen">
+          <TestPattern pattern="bars" seed={ch.id} label="Colour bars" />
+        </div>
+        <p><strong>No signal yet.</strong> New work for this channel is on its way.</p>
+      </div>
+    )}
   </section>
 </Base>
 
+<script>
+  // Tag filter: show only works carrying the chosen tag. ?tag=… preselects one (links from work pages).
+  const bar = document.querySelector<HTMLElement>('[data-filter]');
+  if (bar) {
+    const buttons = [...bar.querySelectorAll<HTMLButtonElement>('[data-tag]')];
+    const tiles = [...document.querySelectorAll<HTMLElement>('[data-tile]')];
+    const count = document.querySelector('[data-count]');
+    const apply = (tag: string) => {
+      let shown = 0;
+      for (const t of tiles) {
+        const on = !tag || (t.dataset.tags ?? '').split('|').includes(tag);
+        t.hidden = !on;
+        if (on) shown++;
+      }
+      for (const b of buttons) b.setAttribute('aria-pressed', String(b.dataset.tag === tag));
+      if (count) count.textContent = String(shown);
+      const url = new URL(location.href);
+      if (tag) url.searchParams.set('tag', tag);
+      else url.searchParams.delete('tag');
+      history.replaceState(history.state, '', url);
+    };
+    bar.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-tag]');
+      if (b) apply(b.dataset.tag ?? '');
+    });
+    const wanted = new URL(location.href).searchParams.get('tag') ?? '';
+    if (buttons.some((b) => b.dataset.tag === wanted)) {
+      apply(wanted);
+      bar.querySelector('[aria-pressed="true"]')?.scrollIntoView({ inline: 'center', block: 'nearest' });
+    }
+  }
+</script>
+
 <style>
-  .head {
+  .head { display: flex; align-items: center; gap: 16px; padding-block: 8px 16px; }
+  .num {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: end;
-    gap: 24px;
-    padding-bottom: 12px;
+    place-items: center;
+    width: clamp(64px, 20vw, 120px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--ch);
+    color: var(--paper);
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 11vw, 4.4rem);
+    line-height: 1;
+    flex: none;
   }
-  .big-num {
-    font-family: var(--font-crt);
-    font-size: clamp(5rem, 16vw, 11rem);
-    line-height: 0.75;
-    color: var(--ch);
-    text-shadow: 0 0 28px color-mix(in srgb, var(--ch) 45%, transparent);
+  .titles { min-width: 0; }
+  /* Scales with the screen so the longest channel name ("Interactive") fits beside the number */
+  h1 { font-size: clamp(1.5rem, 7vw, 3rem); }
+  .titles p { margin: 6px 0 0; color: var(--ink-soft); max-width: 46ch; }
+  .bar { padding-bottom: 8px; }
+
+  .filter {
+    display: flex;
+    gap: 8px;
+    margin: 16px calc(-1 * var(--gutter)) 0;
+    padding: 2px var(--gutter) 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
-  h1 { font-size: var(--step-4); text-shadow: -3px 0 rgb(255 0 80 / 0.45), 3px 0 rgb(0 220 255 / 0.45); }
-  .titles p { margin: 8px 0 0; color: var(--dim); max-width: 50ch; }
-  .count { text-align: right; }
-  .count b { display: block; font-family: var(--font-crt); font-weight: 400; font-size: var(--step-3); line-height: 1; color: var(--ch); }
-  .ruler { border-bottom-color: color-mix(in srgb, var(--ch) 50%, var(--line)); }
+  .filter::-webkit-scrollbar { display: none; }
+  .filter button { cursor: pointer; font-family: inherit; min-height: 40px; }
+  .filter .n { margin-left: 6px; font-size: var(--step--2); color: var(--ink-soft); }
+  .filter button[aria-pressed='true'] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .filter button[aria-pressed='true'] .n { color: var(--paper); }
+
   .grid {
-    margin-top: 40px;
+    margin-top: 24px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-    gap: 48px 32px;
+    grid-template-columns: 1fr;
+    gap: 32px 20px;
   }
-  .empty { color: var(--dim); margin-top: 40px; }
-  @media (max-width: 640px) {
-    .head { grid-template-columns: auto 1fr; }
-    .count { display: none; }
-  }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; } }
+
+  .empty { margin-top: 24px; display: grid; gap: 16px; }
+  .empty-screen { width: min(100%, 520px); aspect-ratio: 4 / 3; }
+  .empty p { margin: 0; max-width: 40ch; }
 </style>

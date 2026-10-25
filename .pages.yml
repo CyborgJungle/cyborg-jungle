@@ -46,6 +46,13 @@ content:
         label: Date (optional)
         type: date
         description: "Orders works within the same year, newest first."
+      - name: tags
+        label: Tags
+        type: select
+        description: "What the work shows and what the signal does to it. Visitors can filter a channel by tag."
+        options:
+          multiple: true
+          values: ["portrait", "figure", "dance", "eye band", "window", "diamond", "mosaic", "checkerboard", "colour key", "colour bleed", "tear", "melt", "interference", "noise", "monochrome", "silhouette", "op-art"]
 
       - name: video
         label: Video link
@@ -74,7 +81,11 @@ content:
       - name: interval
         label: Seconds per image
         type: number
-        description: "Slideshow speed. Leave empty for 1.5 seconds."
+        description: "Slideshow speed. Leave empty for 0.8 seconds."
+      - name: alt
+        label: Image description (alt text)
+        type: string
+        description: "One sentence describing what the image shows, read out by screen readers and used by search engines."
       - name: description
         label: Description
         type: text
@@ -143,21 +154,6 @@ content:
         label: Bio
         type: text
         description: "Plain text. Leave an empty line between paragraphs."
-      - name: chain
-        label: Signal chain
-        description: "The stages your image travels through, in order."
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{index}. {name}"
-        fields:
-          - name: name
-            label: Stage
-            type: string
-          - name: detail
-            label: Equipment
-            type: string
       - name: photos
         label: Live photos
         description: "Photos of you at work, shown under your profile."
