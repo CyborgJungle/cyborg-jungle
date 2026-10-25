@@ -1,20 +1,27 @@
+import { resolveVideo } from '../lib/video';
+
 export type Work = {
   slug: string;
   title: string;
   year: number;
   kind: 'video' | 'image';
-  /** Grid thumbnail: a path under /public (e.g. /media/images/x.webp) or a full URL. */
-  thumb?: string;
-  /** Image: the full-size image. Video: a direct .mp4/.webm URL (e.g. from R2 or Blob). */
+  /** Video: the normal Vimeo or YouTube link, as copied from the browser. */
+  video?: string;
+  /** Image: the full-size image, a path under /public (e.g. /media/images/x.webp). */
   src?: string;
-  /** Video hosted on YouTube/Vimeo: the player embed URL. Takes priority over `src`. */
-  embed?: string;
+  /** Grid thumbnail. Optional for videos — the Vimeo/YouTube thumbnail is used by default. */
+  thumb?: string;
+  /** Override the frame shape, e.g. "4 / 3". Videos default to their real shape. */
+  aspect?: string;
   /** Equipment / process, e.g. "Video synthesizer, CRT rescan, VHS". */
   medium?: string;
   description?: string;
 };
 
-// Placeholder entries — replace with real work. Entries without media show test bars.
+/** A work with its video link resolved into an embeddable player. */
+export type ResolvedWork = Work & { embed?: string };
+
+// Newest first. Entries without media show test bars.
 export const works: Work[] = [
   {
     slug: 'signal-garden',
@@ -22,7 +29,7 @@ export const works: Work[] = [
     year: 2026,
     kind: 'video',
     medium: 'Video synthesizer, feedback loop',
-    description: 'Placeholder. Add an `embed` URL (Vimeo/YouTube) or a `src` file URL.',
+    description: 'Placeholder. Set `video` to a Vimeo or YouTube link.',
   },
   {
     slug: 'phosphor-study-01',
@@ -30,20 +37,19 @@ export const works: Work[] = [
     year: 2025,
     kind: 'image',
     medium: 'CRT rescan, still capture',
-    description: 'Placeholder. Put an image in public/media/images and set `src` and `thumb`.',
-  },
-  {
-    slug: 'tracking-error',
-    title: 'Tracking Error',
-    year: 2025,
-    kind: 'video',
-    medium: 'VHS, time base corrector abuse',
-  },
-  {
-    slug: 'canopy-sync',
-    title: 'Canopy Sync',
-    year: 2024,
-    kind: 'image',
-    medium: 'Analog keyer, camera feedback',
+    description: 'Placeholder. Put an image in public/media/images and set `src`.',
   },
 ];
+
+export async function resolveWork(work: Work): Promise<ResolvedWork> {
+  if (!work.video) return { ...work, thumb: work.thumb ?? work.src };
+  const v = await resolveVideo(work.video);
+  return {
+    ...work,
+    embed: v.embed,
+    thumb: work.thumb ?? v.thumb,
+    aspect: work.aspect ?? v.aspect,
+  };
+}
+
+export const resolvedWorks = (): Promise<ResolvedWork[]> => Promise.all(works.map(resolveWork));

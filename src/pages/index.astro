@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import { works } from '../data/works';
+import { resolvedWorks } from '../data/works';
+
+const works = await resolvedWorks();
 ---
 
 <Base>

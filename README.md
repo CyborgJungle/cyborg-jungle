@@ -16,9 +16,10 @@ Edit `src/data/works.ts`. Each entry becomes a tile on the home page and its own
 
 - **Images:** export web-sized files (WebP/AVIF/JPEG, ~2000px long edge, a few hundred KB) into
   `public/media/images/`, then set `thumb` and `src` to `/media/images/<file>`.
-- **Video:** don't commit video files. Host them elsewhere and either
-  - set `embed` to a Vimeo/YouTube player URL, or
-  - set `src` to a direct `.mp4`/`.webm` URL from object storage (e.g. Cloudflare R2).
+- **Video:** upload to Vimeo or YouTube, then set `video` to the normal link you'd share
+  (e.g. `https://vimeo.com/123456789` or `https://youtu.be/abc123`). At build time the site
+  looks up the embeddable player, thumbnail and aspect ratio automatically. Unlisted videos
+  work; the video must allow embedding. Don't commit video files to this repo.
 
 ## Media hosting limits (why video lives elsewhere)
 
