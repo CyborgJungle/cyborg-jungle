@@ -43,7 +43,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Portrait of a woman with 1940s curls looking up, washed in shifting colour
-description: There is a difference between being dissolved and being transmitted. One is an ending; the other is a journey. Whether anything arrives on the other side, and as whom, lies beyond the reach of the record.
+description: She looks up toward points of light that may be stars, or the phosphor of another screen. There is a difference between being dissolved and being transmitted. Whether she arrives anywhere, and as whom, lies beyond the record.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 29 stills from analog video
 cover: 4

@@ -44,7 +44,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Film stills of a wedding, faces opened by diamond and circle shapes of other signals
-description: When a whole gathering of people is converted into current, does their togetherness survive the conversion, or does each of them arrive alone?
+description: 'A wedding, entered by the signal: circles drift across the bride, diamonds open over the guests. When a whole gathering is converted into current, does their togetherness survive, or does each of them arrive alone?'
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 30 stills from analog video
 cover: 19

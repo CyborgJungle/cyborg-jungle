@@ -51,7 +51,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Uniformed officer in a peaked cap framed by white inserts
-description: Every system tries to file us into squares it understands. What resists the filing may be the person, or only the persistence of their image. The archive cannot say which, and perhaps neither can we.
+description: 'A uniform already tells you what a man is meant to be. The signal goes further and files him into squares. What escapes the grid, again and again, is the gaze: the man himself, or only the persistence of his image.'
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 37 stills from analog video
 cover: 20

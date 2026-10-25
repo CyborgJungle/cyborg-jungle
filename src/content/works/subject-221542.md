@@ -20,7 +20,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Faces from an old film folded into each other by diagonal cuts
-description: A copy of a copy, carried into current. If the electronic world only mimics our own, this is mimicry twice removed. And still, somewhere in the third generation, a glance survives that feels unmistakably meant.
+description: Faces borrowed from a forgotten film, folded into one another along sharp diagonals. A copy of a copy, carried into current. And still a glance survives the third generation that feels unmistakably meant.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 7 stills from analog video
 cover: 2

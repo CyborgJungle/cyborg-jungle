@@ -47,7 +47,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Ballet dancer in a white tutu on a lake, ghosted by the signal
-description: 'Translated into electricity, is the body extended into a new medium, or merely imitated by one? The archive closes without an answer: only a movement that keeps going, a fraction of a second behind itself.'
+description: A dancer on dark water, disciplined into pure form and doubled by the signal into a partner made of light. Is the body extended into electricity, or only imitated by it? The swan keeps dancing, a fraction of a second behind itself.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 33 stills from analog video
 cover: 28

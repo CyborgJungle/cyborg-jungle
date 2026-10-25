@@ -55,7 +55,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Figure in a striped suit and a mask with round goggles, split by diagonal blocks of colour
-description: The record supports no conclusion about what lies behind the signal. It shows only something the machine renders with perfect confidence, worn over nothing we can verify. Perhaps that has always been true of people.
+description: 'Behind the goggles there must be someone, but the signal offers no proof, only a mask it renders with perfect confidence. Perhaps every face we meet is worn this way: light laid over something we cannot verify.'
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 41 stills from analog video
 cover: 14

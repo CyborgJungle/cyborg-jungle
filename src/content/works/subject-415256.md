@@ -20,7 +20,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: A man in a suit and tie broken into blocks of colour and rising half-circles
-description: Authority is an arrangement of fields held together by agreement. Broken into its primaries, it is hard to say whether the signal mocks that arrangement or simply reveals it.
+description: A man in a suit, composed for authority, broken into primaries while half a sun rises behind him. Perhaps authority was always an arrangement of colour held together by agreement, and the signal only shows it.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 7 stills from analog video
 cover: 2

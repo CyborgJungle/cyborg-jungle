@@ -48,7 +48,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Portrait of a man with a bob haircut melting into streaks of blue and white
-description: A signal and a screen must agree on where each line begins. When that agreement fails, the fault may lie in the machine, or in the assumption that a human being has a single correct setting.
+description: He runs down the glass like something poured, then returns in colour, then in grain, as if the machine were searching for the setting in which he makes sense. Perhaps no human being has a single correct setting.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 33 stills from analog video
 cover: 22

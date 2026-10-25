@@ -19,5 +19,5 @@ interval: 1
 alt: A skateboarder caught in a disc of clear picture while the frame around him smears
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 4 stills from analog video
-description: Is movement what makes a recording feel alive? Freeze a body and it becomes a shape. Tear at it mid-flight, and for a moment it is more present than everything around it.
+description: A skater crosses the frame inside a disc of clear picture while the world smears around him; elsewhere a body scatters like falling snow. Freeze him and he becomes a shape. Let the signal tear at him mid-flight, and he is more alive than the screen.
 ---

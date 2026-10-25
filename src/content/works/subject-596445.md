@@ -18,7 +18,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: An eye drawn in glittering static and faces lit only where the light falls
-description: If a person can be rebuilt from nothing but brightness on glass, what exactly is lost in the rebuilding, and would we notice if it were nothing at all?
+description: An eye drawn in glittering static; a face that exists only where the light falls. If a person can be rebuilt from brightness on glass, what is lost in the rebuilding, and would we notice if it were nothing at all?
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 5 stills from analog video
 cover: 2

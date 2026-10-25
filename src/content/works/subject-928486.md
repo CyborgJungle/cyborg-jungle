@@ -18,5 +18,5 @@ interval: 1
 alt: Pale, washed-out figures dissolving into blocks of colour
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 3 stills from analog video
-description: How faint can a person become before the signal stops carrying them and begins carrying only its own noise? Fainter than we expect. Something human lingers even after nothing visible does.
+description: 'Faces and figures washed almost to white, as if received from very far away. How faint can a person become before the signal carries only its own noise? Fainter than we expect: something human lingers after nothing visible does.'
 ---

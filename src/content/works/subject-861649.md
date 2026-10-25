@@ -36,7 +36,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Blonde woman in a green jacket against red, with windows of another signal keyed over her eyes
-description: If a face can be overwritten one cut at a time, at what point does it stop being hers? The machine does not hesitate. It renders every version with the same conviction, and leaves the question of which one is real to us.
+description: A second face waits beneath the first, and the signal opens a window onto it, one diamond at a time. If a person can be overwritten from behind their own eyes, which of the two was ever the original?
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 22 stills from analog video
 cover: 2

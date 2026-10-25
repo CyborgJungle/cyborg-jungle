@@ -20,7 +20,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Black silhouettes of figures against a wall of moiré lines
-description: 'When nothing is left to interfere with, what remains is pattern. It is tempting to call this an ending. It may be the opposite: the moment the signal no longer needs to imitate us.'
+description: Figures become silhouettes, and silhouettes become stripes. When nothing is left to interfere with, what remains is pattern. Perhaps not an ending, but the moment the signal no longer needs to imitate us.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 6 stills from analog video
 cover: 3

@@ -34,5 +34,5 @@ interval: 1
 alt: Woman in a white helmet, her face cut open by diamond-shaped keys
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 18 stills from analog video
-description: 'The border between the body and its image may be a door rather than a wall. Doors open in both directions: into the signal, and back out of it. We do not know which way anyone has gone.'
+description: The visor was meant to keep the world out; in the signal it becomes the opening through which the world pours in. The border between the body and its image may be a door, and doors swing both ways.
 ---

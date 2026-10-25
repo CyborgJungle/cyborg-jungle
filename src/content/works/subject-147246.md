@@ -16,7 +16,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: A purple disc cut by lines and pyramids of interference on a red field
-description: 'If the machine can draw geometry this confidently on its own, every face it renders deserves suspicion. It may draw us the way it draws a pyramid: perfectly, and without needing us to be there.'
+description: 'A purple disc, a pyramid of interference: shapes drawn with no one in front of the camera. If the machine draws geometry this confidently on its own, every face it renders deserves suspicion. It may draw us the same way, without needing us there.'
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 4 stills from analog video
 cover: 3

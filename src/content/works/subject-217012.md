@@ -34,7 +34,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Man's face behind a static-filled screen with a window keyed over his eyes
-description: We once believed the screen would be a window onto the world. Perhaps the window was never transparent, and whatever looks back through it has been arranged.
+description: Every window keyed over his eyes is a decision about what may be seen. We once believed the screen would be a window onto the world. Perhaps it was always arranged, and whatever looks back through it was placed there.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 20 stills from analog video
 cover: 13

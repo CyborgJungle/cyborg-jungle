@@ -49,7 +49,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Woman lit in red emerging from black, her face dragged sideways by horizontal tears
-description: Perhaps identity was never more than a frequency we agreed to call by a name. Shift the frequency and nothing essential seems to change. Or everything does, and we simply cannot tell.
+description: She is pulled sideways out of herself and pieced back together, first in red, then in cold teal. If the frequency can change while the face remains, perhaps identity was only ever a frequency we agreed to call by a name.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 35 stills from analog video
 cover: 31

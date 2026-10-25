@@ -20,7 +20,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Grey negative figures and liquid abstract fields of signal
-description: 'A body, a pattern, a number: to the machine they are all the same voltage. Only we insist on the difference, and it is not obvious that insisting makes it true.'
+description: In grey negatives a figure stands beside a channel number, as if the two were equals. To the machine, a body, a pattern and a number are all the same voltage. Only we insist on the difference.
 medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
 format: 7 stills from analog video
 cover: 5
