@@ -84,7 +84,7 @@ content:
       - name: image
         label: Main image
         type: image
-        description: "Shown large on the work's page and as its tile. For videos it replaces the Vimeo/YouTube thumbnail. JPEG, PNG or WebP; under 10 MB please, the site resizes it."
+        description: "The first frame of the series. To choose which frame shows on the card, don't change this — use Preview frame below."
         options:
           extensions: [jpg, jpeg, png, webp]
           rename: safe

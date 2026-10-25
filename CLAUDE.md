@@ -16,3 +16,5 @@
 - About 95% of visitors use a phone: design and test at 375px first. Glitches go on images and
   display type only — never a filter or overlay across the whole page; no blue HUD.
 - Works are ordered by their `order` field; every project is named `Subject` + six digits. No glyph marks.
+- Edit work files with a YAML parser, never by line/regex replacement: Pages CMS writes long values as
+  multi-line folded YAML, and a one-line replace leaves fragments that break the build.
