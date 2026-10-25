@@ -1,0 +1,44 @@
+:root {
+  --bg: #07090a;
+  --fg: #d8f5d0;
+  --dim: #7f9a85;
+  --accent: #5dff8f;
+  --line: #1c2a22;
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* CRT scanlines over everything */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px);
+  z-index: 100;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+/* Test bars, used wherever a work has no media yet */
+.bars {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right,
+    #c0c0c0 0 14.28%, #c0c000 0 28.57%, #00c0c0 0 42.85%, #00c000 0 57.14%,
+    #c000c0 0 71.42%, #c00000 0 85.71%, #0000c0 0);
+  filter: saturate(0.8) contrast(1.1);
+}

@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import { works } from '../data/works';
+---
+
+<Base>
+  <ul class="grid">
+    {works.map((w) => (
+      <li>
+        <a href={`/work/${w.slug}`} class="card">
+          <div class="thumb">
+            {w.thumb ? <img src={w.thumb} alt="" loading="lazy" /> : <div class="bars" />}
+            {w.kind === 'video' && <span class="badge">▶ VIDEO</span>}
+          </div>
+          <div class="meta">
+            <span class="title">{w.title}</span>
+            <span class="year">{w.year}</span>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>
+
+<style>
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .card { display: block; color: var(--fg); }
+  .card:hover { text-decoration: none; }
+  .thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: #000;
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb img, .thumb .bars { transition: filter 0.2s, transform 0.2s; }
+  .card:hover .thumb img, .card:hover .thumb .bars {
+    filter: saturate(1.6) contrast(1.2) hue-rotate(-10deg);
+    transform: translateX(2px);
+  }
+  .badge {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    background: rgba(0, 0, 0, 0.75);
+    color: var(--accent);
+    padding: 2px 6px;
+  }
+  .meta { display: flex; justify-content: space-between; gap: 8px; padding-top: 8px; }
+  .year { color: var(--dim); }
+</style>

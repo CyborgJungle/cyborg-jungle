@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = 'Cyborg Jungle — analog video art.' } = Astro.props;
+const pageTitle = title ? `${title} — Cyborg Jungle` : 'Cyborg Jungle';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="wrap site-header">
+      <a href="/" class="logo" data-text="CYBORG JUNGLE">CYBORG JUNGLE</a>
+      <nav>
+        <a href="/">Work</a>
+        <a href="/about">About</a>
+      </nav>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="wrap site-footer">© {new Date().getFullYear()} Cyborg Jungle</footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+  .logo {
+    position: relative;
+    color: var(--fg);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-shadow: -2px 0 rgba(255, 0, 80, 0.7), 2px 0 rgba(0, 220, 255, 0.7);
+  }
+  .logo:hover { text-decoration: none; }
+  nav { display: flex; gap: 20px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .site-footer {
+    color: var(--dim);
+    font-size: 0.8rem;
+    padding-top: 64px;
+    padding-bottom: 32px;
+  }
+</style>

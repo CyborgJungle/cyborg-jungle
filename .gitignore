@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+.env*
+.DS_Store
+
+# Keep raw/master media out of git. Put web-sized files in public/media,
+# and host video (and large images) externally — see README.
+*.mov
+*.mkv
+*.avi
+*.prores
+*.wav
+*.aif
+*.aiff
+*.tif
+*.tiff
+*.psd
