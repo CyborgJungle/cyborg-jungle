@@ -30,15 +30,18 @@ interface Props {
 
 const { work, prev, next } = Astro.props;
 const ch = channelFor(work.kind);
+// The series' preview frame opens the page; the other frames follow in their usual order.
+const frames = [work.frames[work.coverIndex], ...work.frames.filter((_, i) => i !== work.coverIndex)].filter(Boolean);
+const first = frames[0];
 const aspect =
-  work.aspect ?? (work.image && typeof work.image !== 'string' ? `${work.image.width} / ${work.image.height}` : '4 / 3');
+  work.aspect ?? (first && typeof first !== 'string' ? `${first.width} / ${first.height}` : '4 / 3');
 const [w, h] = aspect.split('/').map(Number);
 // Cap the screen at 70% of the viewport height while keeping its shape.
 const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(70vh * ${w / h}))` };
 const paragraphs = work.description?.split(/\n\s*\n/) ?? [];
-const isShow = work.slideshow && work.frames.length > 1;
+const isShow = work.slideshow && frames.length > 1;
 const alt = work.alt ?? work.title;
-const total = work.frames.length;
+const total = frames.length;
 const pad2 = (n: number) => String(n).padStart(2, '0');
 
 // Print-style aspect label: "4:3" for simple ratios, "1.40:1" otherwise.
@@ -71,7 +74,7 @@ const rows = [
     <div class="stage" data-show-root={isShow ? '' : undefined}>
       <div class="tv screen" style={frameStyle}>
         {isShow ? (
-          <Frames frames={work.frames} alt={alt} interval={work.interval} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" fit="contain" eager />
+          <Frames frames={frames} alt={alt} interval={work.interval} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" fit="contain" eager />
         ) : work.embed ? (
           <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
         ) : work.image ? (
@@ -98,7 +101,7 @@ const rows = [
             <span class="count"><b data-show-count>01</b> / {pad2(total)}</span>
           </div>
           <ul class="thumbs" aria-label="All frames">
-            {work.frames.map((src, i) => (
+            {frames.map((src, i) => (
               <li>
                 <button type="button" data-show-goto={i} aria-label={`Show frame ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}>
                   <Img src={src} alt="" widths={[200]} sizes="96px" />

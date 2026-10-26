@@ -87,7 +87,7 @@ All of it stops under `prefers-reduced-motion` (the hero slices are hidden).
 
 Works with several frames are slideshows at **1 s per frame** (set per work in Pages CMS), only
 while on screen, paused under reduced motion. The home page shows **still** cards and one hero
-image; channel pages and work pages play the slideshows.
+image; channel pages and work pages play the slideshows. A work page always opens on the series' preview frame (the CMS "Preview frame"), moved to the front; the other frames follow in order.
 
 ## Navigation
 
