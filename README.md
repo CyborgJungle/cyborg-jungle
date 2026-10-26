@@ -1,6 +1,14 @@
 # Cyborg Jungle
 
-Portfolio site for Cyborg Jungle — analog video art. Built with [Astro](https://astro.build), deployed on Vercel.
+Portfolio site for Cyborg Jungle, analog video art. Works are shown like channels on an old television: **CH.01** images, **CH.02** video, **CH.03** interactive installations, all in a "NEO TOKYO" design language.
+
+**Highlights**
+- Built with [Astro](https://astro.build) and deployed on Vercel, with content as Markdown collections that are type-checked against a schema.
+- Edited without touching code through [Pages CMS](https://app.pagescms.org): every save is a commit, and the site redeploys in about a minute.
+- Videos stay on Vimeo or YouTube; paste the normal link and the site finds the player, thumbnail and aspect ratio.
+- Images are turned into web-sized WebP versions at build time, so full-size exports can go straight into the CMS.
+- Works can play as a slideshow, and a work without media gets a generated test pattern.
+- Accessibility basics are built in: alt text per work and a contact form with a honeypot against spam.
 
 ## Run locally
 
