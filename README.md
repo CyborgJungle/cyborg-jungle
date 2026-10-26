@@ -1,16 +1,26 @@
 # Cyborg Jungle
 
-Portfolio site for Cyborg Jungle, analog video art. Works are shown like channels on an old television: **CH.01** images, **CH.02** video, **CH.03** interactive installations, all in a "NEO TOKYO" design language.
+Portfolio site for Cyborg Jungle, analog video art, shown like channels on an old television.
 
-**Highlights**
-- Built with [Astro](https://astro.build) and deployed on Vercel, with content as Markdown collections that are type-checked against a schema.
-- Edited without touching code through [Pages CMS](https://app.pagescms.org): every save is a commit, and the site redeploys in about a minute.
-- Videos stay on Vimeo or YouTube; paste the normal link and the site finds the player, thumbnail and aspect ratio.
+**Live:** [cyborg-jungle.vercel.app](https://cyborg-jungle.vercel.app) · **Stack:** Astro, Pages CMS, Vercel
+
+## What it does
+
+- Shows the work as TV channels: **CH.01** images, **CH.02** video and **CH.03** interactive installations.
+- The work itself is fully analog: video runs through a chain of analog video mixers and effect modules onto a CRT monitor, and the CRT is filmed with a phone. Stills are frames from that footage.
+- Plays variations of one image as a slideshow, and gives a work without media a generated test pattern.
+- Has an About page with a contact form that sends straight to the artist's inbox.
+
+## How it's built
+
+- [Astro](https://astro.build) with content stored as Markdown collections, type-checked against a schema (`src/content.config.ts`).
+- Content is edited without code in [Pages CMS](https://app.pagescms.org): every save is a commit, and Vercel redeploys the site in about a minute.
+- Videos stay on Vimeo or YouTube. Paste the normal link and the site finds the player, thumbnail and aspect ratio.
 - Images are turned into web-sized WebP versions at build time, so full-size exports can go straight into the CMS.
-- Works can play as a slideshow, and a work without media gets a generated test pattern.
-- Accessibility basics are built in: alt text per work and a contact form with a honeypot against spam.
+- Mobile first: about 95% of visitors use a phone, so everything is designed at 375px first.
+- The look follows the "NEO TOKYO" design language in [DESIGN.md](DESIGN.md), with tokens in `src/styles/tokens.css`.
 
-## Run locally
+## Run it locally
 
 ```bash
 nvm use        # Node 24 (see .nvmrc)
@@ -18,14 +28,9 @@ npm install
 npm run dev    # http://localhost:4321
 ```
 
-## Design
+## Editing content (Pages CMS)
 
-The look and feel is documented in [DESIGN.md](DESIGN.md) (the "NEO TOKYO" design language) with
-tokens in `src/styles/tokens.css`. Read it before changing anything visual.
-
-## Adding work — Pages CMS
-
-Content is edited at **https://app.pagescms.org** (sign in with GitHub, open `CyborgJungle/cyborg-jungle`).
+Content is edited at **https://app.pagescms.org** (sign in with GitHub and open this repository).
 Every save is a commit to `main`, and Vercel redeploys the site in about a minute.
 
 - **Works** — one entry per work, stored as `src/content/works/<title>.md`.
@@ -61,8 +66,16 @@ source, replace it in `src/pages/about.astro` with the random alias FormSubmit g
   use; commercial use needs a licence (see the font's license.txt). The file is served publicly with the site.
 - Dela Gothic One, DotGothic16 and Zen Kaku Gothic New: SIL Open Font License, via @fontsource.
 
-## Media hosting limits (why video lives elsewhere)
+## Media hosting limits
 
 - GitHub rejects files over 100 MB and wants repos to stay small (under ~1 GB).
 - Vercel Hobby (free) includes 100 GB/month of bandwidth for the whole site. Video eats that fast.
 - Vercel Hobby is for non-commercial use only — selling work or taking commissions through the site needs Pro.
+
+## About
+
+A personal project by [CyborgJungle](https://github.com/CyborgJungle), built with [Claude Code](https://claude.com/claude-code) and hosted on [Vercel](https://vercel.com). It is shared as part of my portfolio: feel free to copy it and make it your own.
+
+## License
+
+The code is MIT licensed, see [LICENSE](LICENSE). The artwork (images and video stills in `src/assets/media/`, and the portrait and photos on the About page) is © Cyborg Jungle, all rights reserved, and is not covered by that licence. The logo font has its own licence (see Fonts).
