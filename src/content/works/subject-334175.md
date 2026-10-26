@@ -47,8 +47,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Ballet dancer in a white tutu on a lake, ghosted by the signal
-description: A dancer on dark water, disciplined into pure form and doubled by the signal into a partner made of light. Is the body extended into electricity, or only imitated by it? The swan keeps dancing, a fraction of a second behind itself.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: 'She has trained her body toward pure form, and the signal answers with a partner made of light, a fraction of a second behind her. Extension or imitation: on the glass they move as one. The swan keeps dancing, haunted by its own transmission.'
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 33 stills from analog video
 cover: 28
 ---

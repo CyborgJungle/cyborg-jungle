@@ -20,8 +20,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: A man in a suit and tie broken into blocks of colour and rising half-circles
-description: A man in a suit, composed for authority, broken into primaries while half a sun rises behind him. Perhaps authority was always an arrangement of colour held together by agreement, and the signal only shows it.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: Seriousness is a costume of colour and line, held together by agreement. Broken into his primaries the man is no less a man; he is only revealed as an arrangement. The signal does not mock him. It simply declines to agree.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 7 stills from analog video
 cover: 2
 ---

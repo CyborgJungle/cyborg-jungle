@@ -37,8 +37,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Glitched portrait of a woman with a clear band of colour over her eyes
-description: A single band of clear signal holds her eyes while everything around them dissolves. How much of a person must survive the passage into current before we stop calling them a person? The eyes, it seems, are enough to keep us looking.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: 'The machine is generous with ruin and careful with the eyes. Everything else may come apart into colour and noise, and still we recognise someone, because recognition needs so little. Perhaps that is the unsettling part: how few lines a human being requires.'
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 23 stills from analog video
 cover: 22
 ---

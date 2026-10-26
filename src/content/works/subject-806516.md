@@ -51,8 +51,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Uniformed officer in a peaked cap framed by white inserts
-description: 'A uniform already tells you what a man is meant to be. The signal goes further and files him into squares. What escapes the grid, again and again, is the gaze: the man himself, or only the persistence of his image.'
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: Authority is a picture held steady. The signal has no reason to honour it; it frames, interrupts and lets the image drift, indifferent to rank. What survives is a gaze, persistent enough to suggest that someone was standing there when the light was taken.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 37 stills from analog video
 cover: 20
 ---

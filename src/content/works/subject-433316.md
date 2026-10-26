@@ -20,8 +20,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Black silhouettes of figures against a wall of moiré lines
-description: Figures become silhouettes, and silhouettes become stripes. When nothing is left to interfere with, what remains is pattern. Perhaps not an ending, but the moment the signal no longer needs to imitate us.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: Strip a figure of its detail and it becomes a silhouette; strip the silhouette and only pattern is left. This may not be loss. It may be the point where the signal stops imitating us and speaks in its own grammar, the one it was using all along.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 6 stills from analog video
 cover: 3
 ---

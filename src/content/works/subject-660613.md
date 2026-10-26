@@ -43,8 +43,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Portrait of a woman with 1940s curls looking up, washed in shifting colour
-description: She looks up toward points of light that may be stars, or the phosphor of another screen. There is a difference between being dissolved and being transmitted. Whether she arrives anywhere, and as whom, lies beyond the record.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: Her image is older than the machines that now carry it, and it arrives changed, the way light from a distant source arrives late. Being dissolved and being transmitted look alike on the glass. Only the receiver can decide which happened, and the receiver is us.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 29 stills from analog video
 cover: 4
 ---

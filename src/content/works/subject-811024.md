@@ -48,8 +48,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Portrait of a man with a bob haircut melting into streaks of blue and white
-description: He runs down the glass like something poured, then returns in colour, then in grain, as if the machine were searching for the setting in which he makes sense. Perhaps no human being has a single correct setting.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: 'He is poured into the circuit and gathered again, in one colour and then another, as if the machine were trying settings until one fit. None does. The breakdown is not the portrait failing but the portrait at its most honest: a person was never held by a single signal.'
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 33 stills from analog video
 cover: 22
 ---

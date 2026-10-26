@@ -34,8 +34,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Man's face behind a static-filled screen with a window keyed over his eyes
-description: Every window keyed over his eyes is a decision about what may be seen. We once believed the screen would be a window onto the world. Perhaps it was always arranged, and whatever looks back through it was placed there.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: The screen was promised as a window onto the world. Inside the chain it becomes a window cut into a window, an opening decided by voltage. Whoever looks back through it was chosen by the signal, and cannot be checked against anything outside it.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 20 stills from analog video
 cover: 13
 ---

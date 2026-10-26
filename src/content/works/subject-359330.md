@@ -49,8 +49,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Woman lit in red emerging from black, her face dragged sideways by horizontal tears
-description: She is pulled sideways out of herself and pieced back together, first in red, then in cold teal. If the frequency can change while the face remains, perhaps identity was only ever a frequency we agreed to call by a name.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: 'There is no clean passage into current. To be carried by the signal is to be pulled by it, stretched across the time it takes a line to draw itself. What reaches the glass is not a copy of her but a negotiation: how much of a face the voltage will allow, and how much it keeps for itself.'
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 35 stills from analog video
 cover: 31
 ---

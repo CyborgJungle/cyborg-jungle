@@ -36,8 +36,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Blonde woman in a green jacket against red, with windows of another signal keyed over her eyes
-description: A second face waits beneath the first, and the signal opens a window onto it, one diamond at a time. If a person can be overwritten from behind their own eyes, which of the two was ever the original?
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: Every channel carries more than its message. Somewhere between the camera and the glass a second signal claims her eyes, and the face that remains is shared between two transmissions. We look for the person in the picture; the picture answers with its interference, the fingerprint the medium leaves on everything it carries.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 22 stills from analog video
 cover: 2
 ---

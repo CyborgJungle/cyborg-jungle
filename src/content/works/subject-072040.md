@@ -20,8 +20,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Grey negative figures and liquid abstract fields of signal
-description: In grey negatives a figure stands beside a channel number, as if the two were equals. To the machine, a body, a pattern and a number are all the same voltage. Only we insist on the difference.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: 'Negative and positive, figure and field: to the circuit these are the same voltage with a different sign. A body, a pattern and a number travel through the cable with equal weight. Only on our side of the glass do we insist on the difference.'
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 7 stills from analog video
 cover: 5
 ---

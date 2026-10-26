@@ -16,7 +16,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Pale, washed-out figures dissolving into blocks of colour
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 3 stills from analog video
-description: 'Faces and figures washed almost to white, as if received from very far away. How faint can a person become before the signal carries only its own noise? Fainter than we expect: something human lingers after nothing visible does.'
+description: How faint can a person become before only the noise is left? Fainter than we expect. Long after the features have gone to white, something we can only call human lingers in the frame, a presence the signal carries without being able to show it.
 ---

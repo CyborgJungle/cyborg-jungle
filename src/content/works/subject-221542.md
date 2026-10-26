@@ -20,8 +20,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Faces from an old film folded into each other by diagonal cuts
-description: Faces borrowed from a forgotten film, folded into one another along sharp diagonals. A copy of a copy, carried into current. And still a glance survives the third generation that feels unmistakably meant.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: A face borrowed from an old film, passed into the chain and passed again. Each generation adds its own noise, the trace of every machine it travelled through. And still, after all that copying, a glance arrives that seems meant for someone.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 7 stills from analog video
 cover: 2
 ---

@@ -44,8 +44,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Film stills of a wedding, faces opened by diamond and circle shapes of other signals
-description: 'A wedding, entered by the signal: circles drift across the bride, diamonds open over the guests. When a whole gathering is converted into current, does their togetherness survive, or does each of them arrive alone?'
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: A gathering is a signal too, many people held in phase for a moment. When the chain enters it, shapes from elsewhere open across the guests and the moment starts to belong to the machine. Whether they still arrive together, or each one alone, the record cannot tell.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 30 stills from analog video
 cover: 19
 ---

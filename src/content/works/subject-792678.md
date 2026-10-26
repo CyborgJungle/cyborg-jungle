@@ -17,7 +17,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: A skateboarder caught in a disc of clear picture while the frame around him smears
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 4 stills from analog video
-description: A skater crosses the frame inside a disc of clear picture while the world smears around him; elsewhere a body scatters like falling snow. Freeze him and he becomes a shape. Let the signal tear at him mid-flight, and he is more alive than the screen.
+description: Movement is what the signal struggles with most and renders most truthfully. Hold the body still and it becomes a shape. Let the circuit tear at it mid-flight and something alive comes through, faster than the picture can contain.
 ---

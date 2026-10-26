@@ -32,7 +32,7 @@ gallery:
 slideshow: true
 interval: 1
 alt: Woman in a white helmet, her face cut open by diamond-shaped keys
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 18 stills from analog video
-description: The visor was meant to keep the world out; in the signal it becomes the opening through which the world pours in. The border between the body and its image may be a door, and doors swing both ways.
+description: 'A helmet is built to keep the world out. In the signal every surface is a place where another picture can be let in, and the edge of the body behaves like any other edge in the frame: something to be opened and replaced. Who remains on the other side, the glass will not say.'
 ---

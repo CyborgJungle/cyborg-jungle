@@ -55,8 +55,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Figure in a striped suit and a mask with round goggles, split by diagonal blocks of colour
-description: 'Behind the goggles there must be someone, but the signal offers no proof, only a mask it renders with perfect confidence. Perhaps every face we meet is worn this way: light laid over something we cannot verify.'
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: A mask is the oldest interface, a surface made to be read in place of a face. The signal treats it no differently. Fabric, skin and lens become one material, a fluctuation to be cut and rearranged. Recognition ends where the machine stops distinguishing between what we wear and what we are.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 41 stills from analog video
 cover: 14
 ---

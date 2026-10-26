@@ -50,8 +50,8 @@ gallery:
 slideshow: true
 interval: 1
 alt: Portrait of a woman with a bob haircut sliced by horizontal bands of noise
-description: Horizontal hold was the dial that kept a picture from slipping out of itself. Here no one turns it, and between the bands of noise a face holds on. We recognise her, or we recognise only what we expected to find.
-medium: 'Analog video chain: video mixers, effect modules, CRT monitor; filmed off the screen with a phone'
+description: A picture stays whole only because something keeps it in time. Loosen that hold and the image begins to slip through itself. Between the slips a person returns, briefly, and each return feels less like a memory than a decision made by the circuit.
+medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
 format: 36 stills from analog video
 cover: 31
 ---
