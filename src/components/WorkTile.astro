@@ -53,7 +53,8 @@ const fromCover = [...work.frames.slice(work.coverIndex), ...work.frames.slice(0
     transition: transform 0.15s, box-shadow 0.15s;
   }
   .screen { grid-area: screen; aspect-ratio: 4 / 3; border-color: var(--void); }
-  .kana { grid-area: kana; font-size: 0.95rem; color: var(--edge); align-self: start; max-height: 100%; overflow: hidden; }
+  /* Pixel katakana, as under the logo in the footer */
+  .kana { grid-area: kana; font-family: var(--font-pixel); font-size: 1rem; letter-spacing: 0.12em; color: var(--edge); align-self: start; max-height: 100%; overflow: hidden; }
 
   /* Compact caption: a short bar in the card colour, then title and meta */
   .foot { grid-area: foot; display: grid; gap: 1px; padding-left: 10px; border-left: 3px solid var(--edge); min-width: 0; }

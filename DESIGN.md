@@ -64,7 +64,7 @@ Japanese faces load only the subsets the page uses (unicode-range), so phones fe
   The app icon, favicon and launch screen use the same white-on-black logo, traced from the font.
 - **TV pictogram** (`.tv`) — 5px cream bezel (void on cards), 20px corners, faint scanlines *inside*
   the screen only.
-- **Poster card** — a work: black card with a 2px accent edge, TV screen, vertical katakana in the
+- **Poster card** — a work: black card with a 2px accent edge, TV screen, vertical pixel katakana (DotGothic16) in the
   accent down the right edge, compact English title (0.95rem) beside an accent bar, pixel meta line.
 - **Tategaki** (`.tategaki`) — vertical Japanese: work titles in katakana, channel names
   (画像 映像 体験 紹介), 紹介 on About.
