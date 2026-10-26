@@ -13,6 +13,8 @@
 - A project with several variations of one image is ONE work with a slideshow, not several works.
 - Tags are not shown on the site (the CMS field remains). Every work gets an `alt` sentence and may
   set a `cover` (preview frame number). Descriptions are one short philosophical paragraph each — no description of what the image shows. Slideshows default to 1 s per frame.
+  Medium is always: "A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors."
+  Texts stay abstract: no literal step-by-step picture description (e.g. "one diamond at a time").
 - About 95% of visitors use a phone: design and test at 375px first. Glitches go on images and
   display type only — never a filter or overlay across the whole page; no blue HUD.
 - Works are ordered by their `order` field; every project is named `Subject` + six digits. No glyph marks.
