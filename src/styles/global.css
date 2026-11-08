@@ -113,7 +113,7 @@ img { max-width: 100%; display: block; }
   background: var(--panel);
   isolation: isolate;
 }
-.tv > img, .tv > svg, .tv > iframe, .tv > picture {
+.tv > img, .tv > svg, .tv > iframe, .tv > picture, .tv > video {
   position: absolute;
   inset: 0;
   width: 100%;

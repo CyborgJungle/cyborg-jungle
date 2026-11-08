@@ -75,6 +75,8 @@ const rows = [
       <div class="tv screen" style={frameStyle}>
         {isShow ? (
           <Frames frames={frames} alt={alt} interval={work.interval} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" fit="contain" eager />
+        ) : work.videoSrc ? (
+          <video src={work.videoSrc} poster={typeof work.thumb === 'string' ? work.thumb : undefined} autoplay muted loop playsinline preload="metadata" aria-label={alt} data-video></video>
         ) : work.embed ? (
           <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
         ) : work.image ? (
@@ -112,6 +114,20 @@ const rows = [
         </>
       )}
 
+      {work.videoSrc && (
+        <div class="controls">
+          <button type="button" data-video-ctl="toggle" aria-label="Pause video" aria-pressed="false">
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" /></svg>
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5Z" /></svg>
+          </button>
+          <button type="button" data-video-ctl="sound" aria-label="Sound on" aria-pressed="false">
+            <svg class="i-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4ZM16.5 9.5l5 5M21.5 9.5l-5 5" /></svg>
+            <svg class="i-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4ZM16.5 9a4.5 4.5 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11" /></svg>
+          </button>
+          {work.video && <a class="count ig" href={work.video} target="_blank" rel="noopener">Instagram ↗</a>}
+        </div>
+      )}
+
       {!isShow && work.gallery.length > 0 && (
         <ul class="gallery">
           {work.gallery.map((src, i) => (
@@ -143,6 +159,31 @@ const rows = [
     )}
   </article>
 </Base>
+
+<script>
+  // Instagram videos: our own play/pause and sound buttons instead of the browser's controls.
+  for (const video of document.querySelectorAll<HTMLVideoElement>('[data-video]')) {
+    const stage = video.closest('.stage')!;
+    const toggle = stage.querySelector<HTMLButtonElement>('[data-video-ctl="toggle"]');
+    const sound = stage.querySelector<HTMLButtonElement>('[data-video-ctl="sound"]');
+    const sync = () => {
+      toggle?.setAttribute('aria-pressed', String(video.paused));
+      toggle?.setAttribute('aria-label', video.paused ? 'Play video' : 'Pause video');
+      sound?.setAttribute('aria-pressed', String(!video.muted));
+      sound?.setAttribute('aria-label', video.muted ? 'Sound on' : 'Sound off');
+    };
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) video.pause();
+    video.addEventListener('play', sync);
+    video.addEventListener('pause', sync);
+    video.addEventListener('volumechange', sync);
+    toggle?.addEventListener('click', () => (video.paused ? video.play() : video.pause()));
+    sound?.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (!video.muted && video.paused) video.play();
+    });
+    sync();
+  }
+</script>
 
 <style>
   .work {
@@ -197,6 +238,11 @@ const rows = [
   /* Play / pause: the same round outline, in the channel colour; the icon swaps with aria-pressed */
   .controls button[data-show='toggle'] { border-color: var(--ch); color: var(--ch); }
   .controls .i-play { fill: currentColor; stroke: none; }
+  .controls button[data-video-ctl='sound'][aria-pressed='false'] .i-sound,
+  .controls button[data-video-ctl='sound'][aria-pressed='true'] .i-muted { display: none; }
+  .screen > video { object-fit: contain; background: var(--void); }
+  .controls a.ig { color: var(--cream-soft); text-decoration: none; padding: 12px 0; }
+  .controls a.ig:hover { color: var(--ch); }
   .controls button[aria-pressed='false'] .i-play,
   .controls button[aria-pressed='true'] .i-pause { display: none; }
   .count { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--cream-soft); }

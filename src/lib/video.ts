@@ -1,8 +1,13 @@
 // Turns a pasted Vimeo/YouTube link into an embeddable player URL plus thumbnail and
 // aspect ratio, using each site's public oEmbed endpoint. Runs at build time only.
+// Instagram links play as a plain video file through /api/instagram (see src/lib/instagram.ts).
+import { shortcodeOf } from './instagram';
 
 export type VideoInfo = {
-  embed: string;
+  /** Player page for an iframe (Vimeo, YouTube). */
+  embed?: string;
+  /** Video file for a <video> element (Instagram). */
+  src?: string;
   thumb?: string;
   /** CSS aspect-ratio value, e.g. "4 / 3". */
   aspect?: string;
@@ -45,6 +50,12 @@ function aspectOf(o: OEmbed): string | undefined {
 async function load(raw: string): Promise<VideoInfo> {
   const url = new URL(raw);
 
+  const code = shortcodeOf(raw);
+  if (code) {
+    // No lookup at build time: the file links expire, so the page asks /api/instagram on view.
+    return { src: `/api/instagram?p=${code}`, thumb: `/api/instagram?p=${code}&f=poster` };
+  }
+
   if (url.hostname.endsWith('vimeo.com')) {
     const o = await oembed(
       `https://vimeo.com/api/oembed.json?width=1280&url=${encodeURIComponent(raw)}`,
@@ -76,5 +87,5 @@ async function load(raw: string): Promise<VideoInfo> {
     };
   }
 
-  throw new Error(`Unsupported video link: ${raw} (use a Vimeo or YouTube URL)`);
+  throw new Error(`Unsupported video link: ${raw} (use a Vimeo, YouTube or Instagram link)`);
 }

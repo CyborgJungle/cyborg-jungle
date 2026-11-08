@@ -80,7 +80,7 @@ content:
       - name: video
         label: Video link
         type: string
-        description: "Vimeo or YouTube link, as copied from the browser (e.g. https://vimeo.com/123456789). The video must allow embedding."
+        description: "Instagram, Vimeo or YouTube link, as copied (e.g. https://www.instagram.com/reel/ABC123xyz/). Instagram posts must be on the @cyborgjungle account and play without the Instagram frame."
       - name: image
         label: Main image
         type: image
@@ -136,7 +136,7 @@ content:
       - name: aspect
         label: Frame shape (optional)
         type: string
-        description: "Override the screen shape, e.g. 4 / 3 or 16 / 9. Usually leave empty."
+        description: "Override the screen shape, e.g. 4 / 3 or 16 / 9. Instagram videos default to 9 / 16 (reels); use 4 / 5 or 1 / 1 for feed videos."
       - name: pattern
         label: Placeholder pattern
         type: select

@@ -18,6 +18,8 @@ export type ResolvedWork = Omit<CollectionEntry<'works'>['data'], 'image' | 'gal
   /** Grid thumbnail: the image, else the video's thumbnail. */
   thumb?: Img;
   embed?: string;
+  /** Video file played in our own player (Instagram posts). */
+  videoSrc?: string;
   /** Position in the accent palette (see POSTERS), fixed per work so its colour never changes. */
   poster: number;
 };
@@ -35,12 +37,12 @@ async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWor
   const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, coverIndex, thumb: frames[coverIndex], poster: 0 };
   if (!d.video) return work;
   const v = await resolveVideo(d.video);
-  return { ...work, embed: v.embed, thumb: work.thumb ?? v.thumb, aspect: d.aspect ?? v.aspect };
+  return { ...work, embed: v.embed, videoSrc: v.src, thumb: work.thumb ?? v.thumb, aspect: d.aspect ?? v.aspect ?? (v.src ? '9 / 16' : undefined) };
 }
 
 let cache: Promise<ResolvedWork[]> | undefined;
 
-const hasMedia = (w: ResolvedWork) => (w.frames.length > 0 || w.embed ? 1 : 0);
+const hasMedia = (w: ResolvedWork) => (w.frames.length > 0 || w.embed || w.videoSrc ? 1 : 0);
 const sortKey = (w: ResolvedWork) => w.date ?? `${w.year}-12-31`;
 
 const byOrder = (a: ResolvedWork, b: ResolvedWork) => (a.order ?? Infinity) - (b.order ?? Infinity) || 0;

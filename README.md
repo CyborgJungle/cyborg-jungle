@@ -15,7 +15,7 @@ Portfolio site for Cyborg Jungle, analog video art, shown like channels on an ol
 
 - [Astro](https://astro.build) with content stored as Markdown collections, type-checked against a schema (`src/content.config.ts`).
 - Content is edited without code in [Pages CMS](https://app.pagescms.org): every save is a commit, and Vercel redeploys the site in about a minute.
-- Videos stay on Vimeo or YouTube. Paste the normal link and the site finds the player, thumbnail and aspect ratio.
+- Videos stay on Instagram, Vimeo or YouTube. Paste the normal link: Instagram posts play in the site's own frameless player; Vimeo/YouTube get their player, thumbnail and aspect ratio.
 - Images are turned into web-sized WebP versions at build time, so full-size exports can go straight into the CMS.
 - Mobile first: about 95% of visitors use a phone, so everything is designed at 375px first.
 - The look follows the "NEO TOKYO" design language in [DESIGN.md](DESIGN.md), with tokens in `src/styles/tokens.css`.
@@ -35,8 +35,8 @@ Every save is a commit to `main`, and Vercel redeploys the site in about a minut
 
 - **Works** — one entry per work, stored as `src/content/works/<title>.md`.
   - *Channel*: Image (CH.01), Video (CH.02) or Interactive installation (CH.03).
-  - *Video link*: paste the normal Vimeo/YouTube link; the site finds the player, thumbnail and
-    aspect ratio. Unlisted works; embedding must be allowed. Never upload video files.
+  - *Video link*: paste an Instagram post/reel link (see "Instagram videos") or a Vimeo/YouTube
+    link; the site finds the player, thumbnail and aspect ratio. Never upload video files.
   - *Main image* / *Extra images*: JPEG, PNG or WebP. Uploads go to `src/assets/media/` and the site
     makes web-sized WebP versions at build time, so full-size exports are fine (keep them under ~10 MB).
   - *Play as slideshow*: for variations of one image. The main image and extra images cycle on
@@ -51,6 +51,32 @@ Media files are named `<project>-<frame>-<original IMG number>.jpg`, e.g. `eye-b
 so every file traces back to the original export.
 
 Field definitions live in `.pages.yml`; the matching schema is `src/content.config.ts`.
+
+## Instagram videos
+
+Instagram posts from the @cyborgjungle account play in the site's own player (black, muted, looping,
+with sound and pause buttons), not in Instagram's embed frame. Paste the post or reel link into a
+work's *Video link* in Pages CMS. Reels default to a 9 / 16 screen; set *Frame shape* for others.
+
+How it works: `/api/instagram?p=<post code>` (a Vercel Function, `src/pages/api/instagram.ts`) asks
+the Instagram API for the post's current file and redirects to it, because Instagram's file links
+expire. The answer is cached for an hour. A weekly Vercel cron (`vercel.json`) calls
+`/api/instagram-refresh`, which renews the 60-day access token and keeps it in a private Vercel Blob
+store (`cyborg-jungle-instagram`, `BLOB_READ_WRITE_TOKEN`).
+
+One-time setup (needs the Instagram Business/Creator account):
+
+1. On [developers.facebook.com](https://developers.facebook.com/apps) create an app with the use
+   case **Manage messaging & content on Instagram** (no business portfolio needed).
+2. In the app: *Use cases → Customize → API setup with Instagram login → Generate access tokens →
+   Add account*, log in as @cyborgjungle, then **Generate token** and copy it.
+   (If Instagram asks, accept the tester invite in Instagram → Settings → Website permissions →
+   Apps and websites.) The app can stay in development mode: it only reads your own posts.
+3. In Vercel: *cyborg-jungle → Settings → Environment Variables*, add `INSTAGRAM_TOKEN` with the
+   token (Production and Preview), save, then redeploy the latest deployment.
+
+If the key ever lapses (the site was down for 60 days, say), generate a new token and replace
+`INSTAGRAM_TOKEN`, then open `/api/instagram-refresh` once so the stored copy is replaced too.
 
 ## Contact form
 
