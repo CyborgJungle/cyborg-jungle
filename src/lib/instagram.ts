@@ -81,7 +81,9 @@ export async function refreshToken(): Promise<{ expiresAt: string }> {
   return { expiresAt };
 }
 
-export type Media = { video?: string; poster?: string; type?: string; product?: string; caption?: string; timestamp?: string };
+/** One slide of a carousel post. */
+export type Slide = { video?: string; poster?: string; type?: string };
+export type Media = Slide & { product?: string; caption?: string; timestamp?: string; slides?: Slide[] };
 
 type GraphMedia = {
   media_type: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
@@ -99,14 +101,17 @@ type GraphMedia = {
 let index: { at: number; byCode: Map<string, Media> } | undefined;
 const INDEX_TTL = 10 * 60 * 1000;
 
+function slideOf(m: GraphMedia): Slide {
+  if (m.media_type === 'VIDEO') return { type: m.media_type, video: m.media_url, poster: m.thumbnail_url };
+  return { type: m.media_type, poster: m.media_url };
+}
+
+// A carousel plays its first video (posters: its first slide) and keeps every slide for ?i=.
 function mediaOf(m: GraphMedia): Media {
-  if (m.media_type === 'CAROUSEL_ALBUM') {
-    const kids = m.children?.data ?? [];
-    const pick = kids.find((k) => k.media_type === 'VIDEO') ?? kids[0];
-    return pick ? mediaOf(pick) : {};
-  }
-  if (m.media_type === 'VIDEO') return { video: m.media_url, poster: m.thumbnail_url };
-  return { poster: m.media_url };
+  if (m.media_type !== 'CAROUSEL_ALBUM') return slideOf(m);
+  const slides = (m.children?.data ?? []).map(slideOf);
+  const firstVideo = slides.find((k) => k.type === 'VIDEO');
+  return { video: firstVideo?.video, poster: firstVideo?.poster ?? slides[0]?.poster, slides };
 }
 
 async function loadIndex(token: string): Promise<Map<string, Media>> {
@@ -146,9 +151,11 @@ export async function mediaFor(code: string): Promise<Media | undefined> {
 }
 
 /** Every post the API returns, as code + type: lets the artist (and debugging) see what is playable. */
-export async function listMedia(): Promise<{ code: string; type?: string; product?: string; video: boolean; date?: string; caption?: string }[]> {
+export async function listMedia(): Promise<
+  { code: string; type?: string; product?: string; video: boolean; date?: string; caption?: string; slides?: { type?: string; video: boolean }[] }[]
+> {
   const token = await accessToken();
   if (!token) throw new Error('No Instagram token configured (INSTAGRAM_TOKEN)');
   index = { at: Date.now(), byCode: await loadIndex(token) };
-  return [...index.byCode].map(([code, m]) => ({ code, type: m.type, product: m.product, video: Boolean(m.video), date: m.timestamp?.slice(0, 10), caption: m.caption }));
+  return [...index.byCode].map(([code, m]) => ({ code, type: m.type, product: m.product, video: Boolean(m.video), date: m.timestamp?.slice(0, 10), caption: m.caption, slides: m.slides?.map((k) => ({ type: k.type, video: Boolean(k.video) })) }));
 }

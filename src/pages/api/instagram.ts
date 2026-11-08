@@ -1,4 +1,4 @@
-// /api/instagram?p=<post code>&f=video|poster
+// /api/instagram?p=<post code>&f=video|poster[&i=<carousel slide, from 0>]
 // Sends the browser to the current file of one of the artist's Instagram posts. Instagram's
 // file links expire, so the site links here instead and this looks up a fresh one.
 import type { APIRoute } from 'astro';
@@ -23,7 +23,9 @@ export const GET: APIRoute = async ({ url }) => {
   if (!CODE.test(code)) return new Response('Bad post code', { status: 400 });
   try {
     const media = await mediaFor(code);
-    const target = media?.[want] ?? (want === 'video' ? undefined : media?.video);
+    const i = url.searchParams.get('i');
+    const item = i === null ? media : /^\d{1,2}$/.test(i) ? media?.slides?.[Number(i)] : undefined;
+    const target = item?.[want] ?? (want === 'video' ? undefined : item?.video);
     if (!target) {
       return new Response('Not found on the Instagram account', { status: 404, headers: { 'Cache-Control': 'public, s-maxage=300' } });
     }
