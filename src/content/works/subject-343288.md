@@ -3,7 +3,7 @@ title: Subject343288
 kana: 被写体三四三二八八
 kind: video
 year: 2024
-order: 102
+order: 105
 date: '2024-01-06'
 video: https://www.instagram.com/p/C1wqyNcNffF/
 alt: A uniformed figure in a peaked cap, cut by diagonal blocks of picture

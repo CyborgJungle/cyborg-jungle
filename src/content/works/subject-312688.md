@@ -3,7 +3,7 @@ title: Subject312688
 kana: 被写体三一二六八八
 kind: video
 year: 2021
-order: 113
+order: 117
 date: '2021-12-01'
 video: https://www.instagram.com/p/CW9QpKqAvaN/
 alt: A high-contrast face in black and white beside blocks of red

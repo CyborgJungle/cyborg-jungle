@@ -3,7 +3,7 @@ title: Subject015458
 kana: 被写体〇一五四五八
 kind: video
 year: 2021
-order: 117
+order: 121
 date: '2021-09-23'
 video: https://www.instagram.com/p/CULieMSAxcd/
 alt: A robot's metal face half covered by a white block of light

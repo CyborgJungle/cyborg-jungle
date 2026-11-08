@@ -3,7 +3,7 @@ title: Subject134519
 kana: 被写体一三四五一九
 kind: video
 year: 2021
-order: 134
+order: 138
 date: '2021-02-25'
 video: https://www.instagram.com/p/CLuNuqqBrGk/
 alt: Two skaters in an embrace, smeared by horizontal lines
