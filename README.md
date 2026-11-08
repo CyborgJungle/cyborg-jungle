@@ -67,16 +67,21 @@ store (`cyborg-jungle-instagram`, `BLOB_READ_WRITE_TOKEN`).
 One-time setup (needs the Instagram Business/Creator account):
 
 1. On [developers.facebook.com](https://developers.facebook.com/apps) create an app with the use
-   case **Manage messaging & content on Instagram** (no business portfolio needed).
-2. In the app: *Use cases → Customize → API setup with Instagram login → Generate access tokens →
-   Add account*, log in as @cyborgjungle, then **Generate token** and copy it.
-   (If Instagram asks, accept the tester invite in Instagram → Settings → Website permissions →
-   Apps and websites.) The app can stay in development mode: it only reads your own posts.
-3. In Vercel: *cyborg-jungle → Settings → Environment Variables*, add `INSTAGRAM_TOKEN` with the
-   token (Production and Preview), save, then redeploy the latest deployment.
+   case **Manage messaging & content on Instagram**, connected to a (free) business portfolio.
+   Business verification is not needed: the app stays in development mode and only reads your posts.
+2. *App roles → Roles → Add people → Instagram Tester* → `cyborgjungle`, then accept the invite at
+   instagram.com/accounts/manage_access/ → *Tester invites*.
+3. *Use cases → Customize → API setup with Unified login*:
+   *1. Configure your app → Create new configuration* (system-user token, never expires, asset:
+   the Instagram account, permission `instagram_basic`), then
+   *2. Generate access tokens → Generate token* and copy it.
+4. In Vercel: *cyborg-jungle → Settings → Environment Variables*, add `INSTAGRAM_TOKEN` (the token)
+   and, for a token starting with `EAA`, `INSTAGRAM_USER_ID` (the Instagram account's numeric ID),
+   for Production and Preview. Save, then redeploy the latest deployment.
 
-If the key ever lapses (the site was down for 60 days, say), generate a new token and replace
-`INSTAGRAM_TOKEN`, then open `/api/instagram-refresh` once so the stored copy is replaced too.
+Tokens starting with `IG` (Instagram login, 60 days) are renewed weekly by the cron and need no
+`INSTAGRAM_USER_ID`; system-user tokens (`EAA…`) never expire. Pasting a new `INSTAGRAM_TOKEN`
+always takes effect: a stored renewed copy is only used while it matches the variable.
 
 ## Contact form
 
