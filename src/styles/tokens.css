@@ -21,9 +21,9 @@
   --lime: #c3d633;
 
   /* Channel colours */
-  --ch-image: var(--red);
+  --ch-image: var(--mustard);
   --ch-video: var(--teal);
-  --ch-installation: var(--mustard);
+  --ch-installation: var(--red);
   --ch-about: var(--plum);
 
   /* Glitch: the two offset channels used on type and images */

@@ -39,10 +39,10 @@ Dark only, by design.
 | `--mint` | `#36f2a8` | Cyber accent: small labels, focus ring, katakana under the logo, glitch channel B. |
 | `--teal` `--mustard` `--plum` `--lime` | `#1fa08f` `#e0ad1f` `#8a55b0` `#c3d633` | Bauhaus spot colours: card accents and channels. |
 
-Channel colours: ① Image red · ② Video teal · ③ Installation mustard · ④ About plum.
+Channel colours: ① Image mustard · ② Video teal · ③ Installation red · ④ About plum.
 
-**Card accents** follow the work's channel, so the colour says what it is: Image `--ch-image` (red),
-Video `--ch-video` (teal), Installation `--ch-installation` (mustard). Cards stay black; the accent
+**Card accents** follow the work's channel, so the colour says what it is: Image `--ch-image` (mustard),
+Video `--ch-video` (teal), Installation `--ch-installation` (red). Cards stay black; the accent
 appears only on the card's 2px edge, the bar beside the title and the vertical katakana, the same
 colour as the katakana on the work's own page.
 
