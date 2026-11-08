@@ -1,11 +1,12 @@
 ---
 // A work as a black poster card: the screen, the title in vertical katakana and the English title.
-// Colour only on the card's edge, the bar beside the title and the katakana.
+// Colour only on the card's edge, the bar beside the title and the katakana: the channel's colour
+// (Image red, Video teal, Installation mustard), so a card says what kind of work it is.
 import TestPattern from './TestPattern.astro';
 import Img from './Img.astro';
 import Frames from './Frames.astro';
 import { channelFor } from '../data/channels';
-import { POSTERS, type ResolvedWork } from '../data/works';
+import type { ResolvedWork } from '../data/works';
 
 interface Props {
   work: ResolvedWork;
@@ -21,7 +22,7 @@ const frameCount = work.frames.length;
 const fromCover = [...work.frames.slice(work.coverIndex), ...work.frames.slice(0, work.coverIndex)];
 ---
 
-<a href={`/work/${work.slug}`} class="card" data-tile style={{ '--edge': POSTERS[work.poster] }}>
+<a href={`/work/${work.slug}`} class="card" data-tile style={{ '--edge': ch.color }}>
   <span class="tv screen">
     {!still && work.slideshow && frameCount > 1 ? (
       <Frames frames={fromCover} alt="" interval={work.interval} widths={[480, 800]} sizes={sizes} max={10} />

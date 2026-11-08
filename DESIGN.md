@@ -16,7 +16,7 @@ paper): the darkness and glitch of the first, the print graphics and restraint o
 | Source | What we take |
 |---|---|
 | Constructed kanji posters (black, cream, red dots) | Heavy display type, red/cream on black, Japanese set vertically |
-| Retro poster grids (red, teal, mustard, plum, lime on black) | Black poster cards, each with its own accent colour |
+| Retro poster grids (red, teal, mustard, plum, lime on black) | Black poster cards, accent colour by channel |
 | *The Pictograms* cover (neon green on black) | Mint as the cyber accent: labels, focus, small highlights |
 | Vertical poster type | Katakana and Japanese names set vertically (`tategaki`) |
 | The artist's own CRT work | Glitches, on images and display type only |
@@ -41,9 +41,10 @@ Dark only, by design.
 
 Channel colours: ① Image red · ② Video teal · ③ Installation mustard · ④ About plum.
 
-**Card accents** (`POSTERS` in `src/data/works.ts`): red, teal, mustard, cream, plum, lime, mint.
-Cards stay black; the accent appears only on the card's 2px edge, the bar beside the title and the
-vertical katakana. A work's accent is fixed by its place in the site order.
+**Card accents** follow the work's channel, so the colour says what it is: Image `--ch-image` (red),
+Video `--ch-video` (teal), Installation `--ch-installation` (mustard). Cards stay black; the accent
+appears only on the card's 2px edge, the bar beside the title and the vertical katakana, the same
+colour as the katakana on the work's own page.
 
 ## Type
 

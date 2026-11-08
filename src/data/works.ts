@@ -22,12 +22,7 @@ export type ResolvedWork = Omit<CollectionEntry<'works'>['data'], 'image' | 'gal
   videoSrc?: string;
   /** The video's own preview frame (also when the work's images take the card). */
   videoPoster?: string;
-  /** Position in the accent palette (see POSTERS), fixed per work so its colour never changes. */
-  poster: number;
 };
-
-/** Accent colour per work card: the card stays black, colour only on its edge, title bar and katakana. */
-export const POSTERS = ['var(--red)', 'var(--teal)', 'var(--mustard)', 'var(--cream)', 'var(--plum)', 'var(--lime)', 'var(--mint)'];
 
 // Works live in src/content/works/*.md and are edited through Pages CMS.
 async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWork> {
@@ -36,7 +31,7 @@ async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWor
   const gallery = d.gallery.map((g) => resolveImage(g)!);
   const frames = image ? [image, ...gallery] : gallery;
   const coverIndex = d.cover && d.cover <= frames.length ? d.cover - 1 : 0;
-  const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, coverIndex, thumb: frames[coverIndex], poster: 0 };
+  const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, coverIndex, thumb: frames[coverIndex] };
   if (!d.video) return work;
   const v = await resolveVideo(d.video);
   return { ...work, embed: v.embed, videoSrc: v.src, videoPoster: v.thumb, thumb: work.thumb ?? v.thumb, aspect: d.aspect ?? v.aspect };
@@ -53,8 +48,7 @@ const byOrder = (a: ResolvedWork, b: ResolvedWork) => (a.order ?? Infinity) - (b
 export function resolvedWorks(): Promise<ResolvedWork[]> {
   cache ??= getCollection('works', (e) => !e.data.hidden).then(async (entries) =>
     (await Promise.all(entries.map(resolveWork)))
-      .sort((a, b) => byOrder(a, b) || hasMedia(b) - hasMedia(a) || sortKey(b).localeCompare(sortKey(a)) || a.title.localeCompare(b.title))
-      .map((w, i) => ({ ...w, poster: i % POSTERS.length })),
+      .sort((a, b) => byOrder(a, b) || hasMedia(b) - hasMedia(a) || sortKey(b).localeCompare(sortKey(a)) || a.title.localeCompare(b.title)),
   );
   return cache;
 }
