@@ -3,7 +3,7 @@ title: Subject302466
 kana: 被写体三〇二四六六
 kind: video
 year: 2021
-order: 143
+order: 146
 date: '2021-01-31'
 video: https://www.instagram.com/p/CKuTCu5BBEb/
 alt: A boy's face inside an oval frame, tinted cyan

@@ -15,11 +15,12 @@ gallery:
 - /media/Final art/subject-596445/subject-596445-03-9508.jpg
 - /media/Final art/subject-596445/subject-596445-04-2426.jpg
 - /media/Final art/subject-596445/subject-596445-05-2430.jpg
+- /media/Final art/subject-596445/subject-596445-06-ig.jpg
 slideshow: true
 interval: 1
 alt: An eye drawn in glittering static and faces lit only where the light falls
 description: Here a face exists only where the light lands; the rest is static waiting to be read. The cathode ray replaced the canvas long ago, but it paints with brightness, not with matter. What is lost when a person is rebuilt from glow, and would we notice if it were nothing?
 medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
-format: 5 stills from analog video
+format: 6 stills from analog video
 cover: 2
 ---

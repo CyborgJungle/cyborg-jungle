@@ -3,7 +3,7 @@ title: Subject102442
 kana: 被写体一〇二四四二
 kind: video
 year: 2021
-order: 139
+order: 140
 date: '2021-02-19'
 video: https://www.instagram.com/p/CLeGKtHB7HI/
 alt: A racing figure broken into white and blue bands

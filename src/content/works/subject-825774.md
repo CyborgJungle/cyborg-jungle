@@ -3,7 +3,7 @@ title: Subject825774
 kana: 被写体八二五七七四
 kind: video
 year: 2021
-order: 152
+order: 155
 date: '2021-01-11'
 video: https://www.instagram.com/p/CJ6_ZlanlwY/
 alt: Blue and orange tendrils of feedback drifting like a jellyfish

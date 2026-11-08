@@ -6,7 +6,7 @@ Portfolio site for Cyborg Jungle, analog video art, shown like channels on an ol
 
 ## What it does
 
-- Shows the work as TV channels: **CH.01** images, **CH.02** video and **CH.03** interactive installations.
+- Shows the work as TV channels: **CH.01** images, **CH.02** video and **CH.03** installations.
 - The work itself is fully analog: video runs through a chain of analog video mixers and effect modules onto a CRT monitor, and the CRT is filmed with a phone. Stills are frames from that footage.
 - Plays variations of one image as a slideshow, and gives a work without media a generated test pattern.
 - Has an About page with a contact form that sends straight to the artist's inbox.
@@ -34,7 +34,7 @@ Content is edited at **https://app.pagescms.org** (sign in with GitHub and open 
 Every save is a commit to `main`, and Vercel redeploys the site in about a minute.
 
 - **Works** — one entry per work, stored as `src/content/works/<title>.md`.
-  - *Channel*: Image (CH.01), Video (CH.02) or Interactive installation (CH.03).
+  - *Channel*: Image (CH.01), Video (CH.02) or Installation (CH.03).
   - *Video link*: paste an Instagram post/reel link (see "Instagram videos") or a Vimeo/YouTube
     link; the site finds the player, thumbnail and aspect ratio. Never upload video files.
   - *Main image* / *Extra images*: JPEG, PNG or WebP. Uploads go to `src/assets/media/` and the site

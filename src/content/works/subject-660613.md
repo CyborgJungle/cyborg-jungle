@@ -40,11 +40,12 @@ gallery:
 - /media/Final art/subject-660613/subject-660613-27-4247.jpg
 - /media/Final art/subject-660613/subject-660613-28-4248.jpg
 - /media/Final art/subject-660613/subject-660613-29-4198.jpg
+- /media/Final art/subject-660613/subject-660613-30-ig.jpg
 slideshow: true
 interval: 1
 alt: Portrait of a woman with 1940s curls looking up, washed in shifting colour
 description: Her image is older than the machines that now carry it, and it arrives changed, the way light from a distant source arrives late. Being dissolved and being transmitted look alike on the glass. Only the receiver can decide which happened, and the receiver is us.
 medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
-format: 29 stills from analog video
+format: 30 stills from analog video
 cover: 4
 ---

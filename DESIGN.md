@@ -39,7 +39,7 @@ Dark only, by design.
 | `--mint` | `#36f2a8` | Cyber accent: small labels, focus ring, katakana under the logo, glitch channel B. |
 | `--teal` `--mustard` `--plum` `--lime` | `#1fa08f` `#e0ad1f` `#8a55b0` `#c3d633` | Bauhaus spot colours: card accents and channels. |
 
-Channel colours: ① Image red · ② Video teal · ③ Interactive mustard · ④ About plum.
+Channel colours: ① Image red · ② Video teal · ③ Installation mustard · ④ About plum.
 
 **Card accents** (`POSTERS` in `src/data/works.ts`): red, teal, mustard, cream, plum, lime, mint.
 Cards stay black; the accent appears only on the card's 2px edge, the bar beside the title and the
@@ -67,7 +67,7 @@ Japanese faces load only the subsets the page uses (unicode-range), so phones fe
 - **Poster card** — a work: black card with a 2px accent edge, TV screen, vertical pixel katakana (DotGothic16) in the
   accent down the right edge, compact English title (0.95rem) beside an accent bar, pixel meta line.
 - **Tategaki** (`.tategaki`) — vertical Japanese: work titles in katakana, channel names
-  (画像 映像 体験 紹介), 紹介 on About.
+  (画像 映像 展示 紹介), 紹介 on About.
 - **Circled numbers** — ① ② ③ ④ for channels; the current channel is a filled tab in its colour.
 - **Channel disc** — big filled circle with the channel number.
 - **Dimension line** — `← 4:3 →` under a work's screen.
@@ -91,7 +91,7 @@ image; channel pages and work pages play the slideshows. A work page always open
 
 ## Navigation
 
-① Image `/image` · ② Video `/video` · ③ Interactive `/installations` · ④ About `/about`, each with
+① Image `/image` · ② Video `/video` · ③ Installation `/installations` · ④ About `/about`, each with
 its Japanese name. Phones: a row of four 72px tabs under the logo. Wide screens: pills beside the logo.
 
 ## Favicon, contact, Instagram
