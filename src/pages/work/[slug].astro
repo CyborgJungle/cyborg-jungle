@@ -5,6 +5,7 @@ import Img from '../../components/Img.astro';
 import Frames from '../../components/Frames.astro';
 import { channelFor } from '../../data/channels';
 import { resolvedWorks, type ResolvedWork } from '../../data/works';
+import { shortcodeOf } from '../../lib/instagram';
 
 export async function getStaticPaths() {
   const works = await resolvedWorks();
@@ -33,10 +34,14 @@ const ch = channelFor(work.kind);
 // The series' preview frame opens the page; the other frames follow in their usual order.
 const frames = [work.frames[work.coverIndex], ...work.frames.filter((_, i) => i !== work.coverIndex)].filter(Boolean);
 const first = frames[0];
+// Instagram videos start as a reel (9 / 16) and fit their real shape once loaded.
 const aspect =
-  work.aspect ?? (first && typeof first !== 'string' ? `${first.width} / ${first.height}` : '4 / 3');
+  work.aspect ?? (work.videoSrc ? '9 / 16' : first && typeof first !== 'string' ? `${first.width} / ${first.height}` : '4 / 3');
 const [w, h] = aspect.split('/').map(Number);
 // Cap the screen at 70% of the viewport height while keeping its shape.
+// Instagram's own player, used when Instagram withholds a video's file (see the script below).
+const igCode = work.video && shortcodeOf(work.video);
+const igEmbed = igCode ? `https://www.instagram.com/p/${igCode}/embed/` : undefined;
 const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(70vh * ${w / h}))` };
 const paragraphs = work.description?.split(/\n\s*\n/) ?? [];
 const isShow = work.slideshow && frames.length > 1;
@@ -55,7 +60,8 @@ const rows = [
   ['Format', work.format],
   ['Duration', work.duration],
   ['Location', work.location],
-  ['Aspect', aspectLabel],
+  // An Instagram video's shape is only known in the browser, so it shows on the dimension line only.
+  ['Aspect', work.videoSrc && !work.aspect ? undefined : aspectLabel],
 ].filter((r): r is [string, string] => Boolean(r[1]));
 ---
 
@@ -76,7 +82,7 @@ const rows = [
         {isShow ? (
           <Frames frames={frames} alt={alt} interval={work.interval} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" fit="contain" eager />
         ) : work.videoSrc ? (
-          <video src={work.videoSrc} poster={typeof work.thumb === 'string' ? work.thumb : undefined} autoplay muted loop playsinline preload="metadata" aria-label={alt} data-video></video>
+          <video src={work.videoSrc} poster={typeof work.thumb === 'string' ? work.thumb : undefined} autoplay muted loop playsinline preload="metadata" aria-label={alt} data-video data-fallback={igEmbed} data-auto-aspect={work.aspect ? undefined : ''}></video>
         ) : work.embed ? (
           <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
         ) : work.image ? (
@@ -85,7 +91,7 @@ const rows = [
           <TestPattern pattern={work.pattern} seed={work.slug} />
         )}
       </div>
-      <div class="dim" aria-hidden="true"><span></span><b>{aspectLabel}</b><span></span></div>
+      <div class="dim" aria-hidden="true"><span></span><b data-aspect-label>{aspectLabel}</b><span></span></div>
 
       {isShow && (
         <>
@@ -172,6 +178,29 @@ const rows = [
       sound?.setAttribute('aria-pressed', String(!video.muted));
       sound?.setAttribute('aria-label', video.muted ? 'Sound on' : 'Sound off');
     };
+    const screen = video.parentElement as HTMLElement;
+    // Fit the screen to the video's real shape unless the CMS sets one.
+    video.addEventListener('loadedmetadata', () => {
+      if (!('autoAspect' in video.dataset) || !video.videoWidth) return;
+      const r = video.videoWidth / video.videoHeight;
+      screen.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
+      screen.style.maxWidth = `min(100%, calc(70vh * ${r}))`;
+      const label = stage.querySelector('[data-aspect-label]');
+      const known: Record<string, string> = { '0.56': '9:16', '0.80': '4:5', '1.00': '1:1', '1.33': '4:3', '1.78': '16:9' };
+      if (label) label.textContent = known[r.toFixed(2)] ?? `${r.toFixed(2)}:1`;
+    });
+    // Instagram withholds the file of some videos (licensed music): play those in its own player.
+    video.addEventListener('error', () => {
+      const src = video.dataset.fallback;
+      if (!src) return;
+      const frame = document.createElement('iframe');
+      frame.src = src;
+      frame.title = video.getAttribute('aria-label') ?? 'Video';
+      frame.allow = 'autoplay; fullscreen; picture-in-picture';
+      frame.loading = 'lazy';
+      video.replaceWith(frame);
+      stage.querySelectorAll<HTMLElement>('[data-video-ctl]').forEach((b) => (b.hidden = true));
+    });
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) video.pause();
     video.addEventListener('play', sync);
     video.addEventListener('pause', sync);
@@ -241,6 +270,7 @@ const rows = [
   .controls button[data-video-ctl='sound'][aria-pressed='false'] .i-sound,
   .controls button[data-video-ctl='sound'][aria-pressed='true'] .i-muted { display: none; }
   .screen > video { object-fit: contain; background: var(--void); }
+  .controls button[hidden] { display: none; }
   .controls a.ig { color: var(--cream-soft); text-decoration: none; padding: 12px 0; }
   .controls a.ig:hover { color: var(--ch); }
   .controls button[aria-pressed='false'] .i-play,

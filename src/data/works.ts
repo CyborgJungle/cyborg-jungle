@@ -37,7 +37,7 @@ async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWor
   const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, coverIndex, thumb: frames[coverIndex], poster: 0 };
   if (!d.video) return work;
   const v = await resolveVideo(d.video);
-  return { ...work, embed: v.embed, videoSrc: v.src, thumb: work.thumb ?? v.thumb, aspect: d.aspect ?? v.aspect ?? (v.src ? '9 / 16' : undefined) };
+  return { ...work, embed: v.embed, videoSrc: v.src, thumb: work.thumb ?? v.thumb, aspect: d.aspect ?? v.aspect };
 }
 
 let cache: Promise<ResolvedWork[]> | undefined;
