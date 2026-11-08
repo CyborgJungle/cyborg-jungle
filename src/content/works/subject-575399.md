@@ -3,7 +3,7 @@ title: Subject575399
 kana: 被写体五七五三九九
 kind: video
 year: 2021
-order: 124
+order: 100
 date: '2021-05-30'
 video: https://www.instagram.com/p/CPg1SpsB_pY/
 alt: A disc of static cut into a pale view of a city
