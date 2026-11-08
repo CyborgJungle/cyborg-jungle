@@ -81,10 +81,11 @@ export async function refreshToken(): Promise<{ expiresAt: string }> {
   return { expiresAt };
 }
 
-export type Media = { video?: string; poster?: string };
+export type Media = { video?: string; poster?: string; type?: string; product?: string };
 
 type GraphMedia = {
   media_type: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
+  media_product_type?: string;
   media_url?: string;
   thumbnail_url?: string;
   permalink?: string;
@@ -108,7 +109,7 @@ function mediaOf(m: GraphMedia): Media {
 
 async function loadIndex(token: string): Promise<Map<string, Media>> {
   const byCode = new Map<string, Media>();
-  const fields = 'media_type,media_url,thumbnail_url,permalink,children{media_type,media_url,thumbnail_url}';
+  const fields = 'media_type,media_product_type,media_url,thumbnail_url,permalink,children{media_type,media_url,thumbnail_url}';
   let base = `${GRAPH}/me/media`;
   if (!isInstagramToken(token)) {
     const user = process.env.INSTAGRAM_USER_ID?.trim();
@@ -123,7 +124,7 @@ async function loadIndex(token: string): Promise<Map<string, Media>> {
     if (!res.ok) throw new Error(`Instagram media list failed: ${data.error?.message ?? res.status}`);
     for (const m of data.data ?? []) {
       const code = m.permalink && shortcodeOf(m.permalink);
-      if (code) byCode.set(code, mediaOf(m));
+      if (code) byCode.set(code, { ...mediaOf(m), type: m.media_type, product: m.media_product_type });
     }
     next = data.paging?.next;
   }
@@ -140,4 +141,12 @@ export async function mediaFor(code: string): Promise<Media | undefined> {
     index = { at: Date.now(), byCode: await loadIndex(token) };
   }
   return index.byCode.get(code);
+}
+
+/** Every post the API returns, as code + type: lets the artist (and debugging) see what is playable. */
+export async function listMedia(): Promise<{ code: string; type?: string; product?: string; video: boolean }[]> {
+  const token = await accessToken();
+  if (!token) throw new Error('No Instagram token configured (INSTAGRAM_TOKEN)');
+  index = { at: Date.now(), byCode: await loadIndex(token) };
+  return [...index.byCode].map(([code, m]) => ({ code, type: m.type, product: m.product, video: Boolean(m.video) }));
 }
