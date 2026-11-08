@@ -59,7 +59,7 @@ with sound and pause buttons), not in Instagram's embed frame. Paste the post or
 work's *Video link* in Pages CMS. The screen fits each video's own shape (set *Frame shape* to
 override). `/api/instagram?list` lists the posts the site can see and whether each has a playable
 file: Instagram withholds the file of some videos (typically ones with licensed music), and those
-fall back to Instagram's own player.
+show their preview frame with a play button that opens the post on Instagram.
 
 How it works: `/api/instagram?p=<post code>` (a Vercel Function, `src/pages/api/instagram.ts`) asks
 the Instagram API for the post's current file and redirects to it, because Instagram's file links

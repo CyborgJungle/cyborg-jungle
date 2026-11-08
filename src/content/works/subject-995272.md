@@ -3,7 +3,7 @@ title: Subject995272
 kana: 被写体九九五二七二
 kind: video
 year: 2021
-order: 117
+order: 132
 date: '2021-03-04'
 video: https://www.instagram.com/p/CMAfOQ3Bpkt/
 alt: A sun made of rippling black and white lines in a pale pastel sky

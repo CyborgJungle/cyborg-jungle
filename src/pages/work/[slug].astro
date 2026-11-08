@@ -39,9 +39,8 @@ const aspect =
   work.aspect ?? (work.videoSrc ? '9 / 16' : first && typeof first !== 'string' ? `${first.width} / ${first.height}` : '4 / 3');
 const [w, h] = aspect.split('/').map(Number);
 // Cap the screen at 70% of the viewport height while keeping its shape.
-// Instagram's own player, used when Instagram withholds a video's file (see the script below).
-const igCode = work.video && shortcodeOf(work.video);
-const igEmbed = igCode ? `https://www.instagram.com/p/${igCode}/embed/` : undefined;
+// When Instagram withholds a video's file, the screen shows its preview frame linking to the post.
+const igPost = work.video && shortcodeOf(work.video) ? work.video : undefined;
 const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(70vh * ${w / h}))` };
 const paragraphs = work.description?.split(/\n\s*\n/) ?? [];
 const isShow = work.slideshow && frames.length > 1;
@@ -82,7 +81,7 @@ const rows = [
         {isShow ? (
           <Frames frames={frames} alt={alt} interval={work.interval} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" fit="contain" eager />
         ) : work.videoSrc ? (
-          <video src={work.videoSrc} poster={typeof work.thumb === 'string' ? work.thumb : undefined} autoplay muted loop playsinline preload="metadata" aria-label={alt} data-video data-fallback={igEmbed} data-auto-aspect={work.aspect ? undefined : ''}></video>
+          <video src={work.videoSrc} poster={typeof work.thumb === 'string' ? work.thumb : undefined} autoplay muted loop playsinline preload="metadata" aria-label={alt} data-video data-auto-aspect={work.aspect ? undefined : ''}></video>
         ) : work.embed ? (
           <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
         ) : work.image ? (
@@ -133,6 +132,17 @@ const rows = [
           {work.video && <a class="count ig" href={work.video} target="_blank" rel="noopener">Instagram ↗</a>}
         </div>
       )}
+      {work.videoSrc && igPost && (
+        <template data-ig-out>
+          <a class="ig-out" href={igPost} target="_blank" rel="noopener">
+            {typeof work.thumb === 'string' && <img src={work.thumb} alt={alt} />}
+            <span class="ig-cta">
+              <span class="ig-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5Z" /></svg></span>
+              <span class="ig-label">Watch on Instagram ↗</span>
+            </span>
+          </a>
+        </template>
+      )}
 
       {!isShow && work.gallery.length > 0 && (
         <ul class="gallery">
@@ -180,25 +190,25 @@ const rows = [
     };
     const screen = video.parentElement as HTMLElement;
     // Fit the screen to the video's real shape unless the CMS sets one.
-    video.addEventListener('loadedmetadata', () => {
-      if (!('autoAspect' in video.dataset) || !video.videoWidth) return;
-      const r = video.videoWidth / video.videoHeight;
-      screen.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
+    const fit = (w: number, h: number) => {
+      if (!('autoAspect' in video.dataset) || !w || !h) return;
+      const r = w / h;
+      screen.style.aspectRatio = `${w} / ${h}`;
       screen.style.maxWidth = `min(100%, calc(70vh * ${r}))`;
       const label = stage.querySelector('[data-aspect-label]');
       const known: Record<string, string> = { '0.56': '9:16', '0.80': '4:5', '1.00': '1:1', '1.33': '4:3', '1.78': '16:9' };
       if (label) label.textContent = known[r.toFixed(2)] ?? `${r.toFixed(2)}:1`;
-    });
-    // Instagram withholds the file of some videos (licensed music): play those in its own player.
+    };
+    video.addEventListener('loadedmetadata', () => fit(video.videoWidth, video.videoHeight));
+    // Instagram withholds the file of some videos (licensed music): those show their preview
+    // frame, and a tap opens the post on Instagram.
     video.addEventListener('error', () => {
-      const src = video.dataset.fallback;
-      if (!src) return;
-      const frame = document.createElement('iframe');
-      frame.src = src;
-      frame.title = video.getAttribute('aria-label') ?? 'Video';
-      frame.allow = 'autoplay; fullscreen; picture-in-picture';
-      frame.loading = 'lazy';
-      video.replaceWith(frame);
+      const tpl = stage.querySelector<HTMLTemplateElement>('template[data-ig-out]');
+      if (!tpl) return;
+      const link = tpl.content.firstElementChild!.cloneNode(true) as HTMLAnchorElement;
+      const img = link.querySelector('img');
+      img?.addEventListener('load', () => fit(img.naturalWidth, img.naturalHeight));
+      video.replaceWith(link);
       stage.querySelectorAll<HTMLElement>('[data-video-ctl]').forEach((b) => (b.hidden = true));
     });
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) video.pause();
@@ -271,6 +281,14 @@ const rows = [
   .controls button[data-video-ctl='sound'][aria-pressed='true'] .i-muted { display: none; }
   .screen > video { object-fit: contain; background: var(--void); }
   .controls button[hidden] { display: none; }
+  /* A video Instagram keeps to itself: its preview frame, opening the post */
+  .ig-out { position: absolute; inset: 0; display: block; background: var(--void); color: var(--cream); text-decoration: none; }
+  .ig-out img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .ig-cta { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; }
+  .ig-play { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--void); border: var(--stroke) solid var(--ch); color: var(--ch); }
+  .ig-play svg { width: 30px; height: 30px; fill: currentColor; }
+  .ig-label { font-family: var(--font-pixel); font-size: var(--step--1); letter-spacing: 0.08em; background: var(--void); padding: 6px 10px; }
+  .ig-out:hover .ig-play, .ig-out:focus-visible .ig-play { background: var(--ch); color: var(--void); }
   .controls a.ig { color: var(--cream-soft); text-decoration: none; padding: 12px 0; }
   .controls a.ig:hover { color: var(--ch); }
   .controls button[aria-pressed='false'] .i-play,

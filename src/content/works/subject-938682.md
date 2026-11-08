@@ -3,7 +3,7 @@ title: Subject938682
 kana: 被写体九三八六八二
 kind: video
 year: 2022
-order: 104
+order: 111
 date: '2022-03-01'
 video: https://www.instagram.com/p/Cak3nrsAT_H/
 alt: A winged human figure dissolving into saturated orange and pink noise
