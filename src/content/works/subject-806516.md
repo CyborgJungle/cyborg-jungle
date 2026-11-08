@@ -5,6 +5,7 @@ kind: image
 year: 2024
 order: 4
 date: 2024-01-05
+video: https://www.instagram.com/p/C1wqyNcNffF/
 tags:
 - portrait
 - window
@@ -53,6 +54,6 @@ interval: 1
 alt: Uniformed officer in a peaked cap framed by white inserts
 description: Authority is a picture held steady. The signal has no reason to honour it; it frames, interrupts and lets the image drift, indifferent to rank. What survives is a gaze, persistent enough to suggest that someone was standing there when the light was taken.
 medium: A combination of analog video mixers and home-built analog effect modules. All results are captured via CRT TV monitors.
-format: 37 stills from analog video
+format: 37 stills from analog video and the footage they come from
 cover: 20
 ---

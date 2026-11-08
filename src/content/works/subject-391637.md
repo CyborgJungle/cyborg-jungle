@@ -3,7 +3,7 @@ title: Subject391637
 kana: 被写体三九一六三七
 kind: video
 year: 2021
-order: 141
+order: 140
 date: '2021-02-15'
 video: https://www.instagram.com/p/CLUEwSPh8bb/
 alt: Tangled lines of red, blue and white light on black

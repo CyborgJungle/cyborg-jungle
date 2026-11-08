@@ -37,17 +37,30 @@ document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((el, n) => {
 
   // Hidden frames aren't decoded until shown, which flashes black on a cut;
   // decode the next frame first, and the one after it ahead of time.
-  const decode = (k: number) =>
-    frames[(k + frames.length) % frames.length].querySelector('img')?.decode().catch(() => {}) ?? Promise.resolve();
+  const decode = (k: number) => {
+    const frame = frames[(k + frames.length) % frames.length];
+    const video = frame.querySelector('video');
+    if (video) video.preload = 'auto';
+    return frame.querySelector('img')?.decode().catch(() => {}) ?? Promise.resolve();
+  };
+  // A video frame (the last one, on a work page) holds the show until it has played through.
+  const videoAt = (k: number) => frames[k].querySelector('video');
+  const playable = (v: HTMLVideoElement | null): v is HTMLVideoElement => Boolean(v && !v.error);
   let pending = 0;
-  const show = async (k: number, scrollThumb = false) => {
+  const show = async (k: number, scrollThumb = false, byHand = false) => {
     const ticket = ++pending;
     await decode(k);
     if (ticket !== pending) return;
     frames[i].removeAttribute('data-active');
     thumbs[i]?.removeAttribute('aria-current');
+    videoAt(i)?.pause();
     i = (k + frames.length) % frames.length;
     decode(i + 1);
+    const video = videoAt(i);
+    if (playable(video)) {
+      video.currentTime = 0;
+      if (byHand || (!paused && !reduceMotion.matches)) video.play().catch(() => {});
+    }
     frames[i].setAttribute('data-active', '');
     thumbs[i]?.setAttribute('aria-current', 'true');
     if (scrollThumb) thumbs[i]?.scrollIntoView({ inline: 'nearest', block: 'nearest' });
@@ -59,11 +72,26 @@ document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((el, n) => {
     }
   };
   const schedule = () => {
-    clearInterval(timer);
-    if (!paused && visible) timer = window.setInterval(() => !document.hidden && show(i + 1), ms);
+    clearTimeout(timer);
+    if (paused || !visible || playable(videoAt(i))) return;
+    timer = window.setTimeout(async () => {
+      if (!document.hidden) await show(i + 1);
+      schedule();
+    }, ms);
   };
+  for (const video of el.querySelectorAll('video')) {
+    video.addEventListener('ended', async () => {
+      if (paused || !visible) return;
+      await show(i + 1);
+      schedule();
+    });
+    // No playable file: the frame shows its poster and the show moves on as usual.
+    video.addEventListener('error', schedule);
+  }
   const setPaused = (p: boolean) => {
     paused = p;
+    const video = videoAt(i);
+    if (playable(video)) p ? video.pause() : video.play().catch(() => {});
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(p));
       toggle.setAttribute('aria-label', p ? 'Play slideshow' : 'Pause slideshow');
@@ -76,12 +104,12 @@ document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((el, n) => {
       const b = (e.target as HTMLElement).closest<HTMLElement>('[data-show], [data-show-goto]');
       if (!b) return;
       if (b.dataset.showGoto !== undefined) {
-        show(Number(b.dataset.showGoto));
         setPaused(true);
+        show(Number(b.dataset.showGoto), false, true);
       } else if (b.dataset.show === 'toggle') setPaused(!paused);
       else {
-        show(i + (b.dataset.show === 'next' ? 1 : -1), true);
         setPaused(true);
+        show(i + (b.dataset.show === 'next' ? 1 : -1), true, true);
       }
     });
   }
@@ -89,6 +117,8 @@ document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((el, n) => {
   const io = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
     if (visible) decode(i + 1);
+    const video = videoAt(i);
+    if (playable(video)) visible && !paused ? video.play().catch(() => {}) : video.pause();
     schedule();
   });
   // Stagger screens on the same page so they don't all cut at the same moment.

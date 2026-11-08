@@ -3,7 +3,7 @@ title: Subject404441
 kana: 被写体四〇四四四一
 kind: video
 year: 2021
-order: 118
+order: 117
 date: '2021-11-13'
 video: https://www.instagram.com/p/CWMiL9sAyac/
 alt: A face rendered in dots and horizontal lines of blue and green

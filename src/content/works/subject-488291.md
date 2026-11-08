@@ -3,7 +3,7 @@ title: Subject488291
 kana: 被写体四八八二九一
 kind: video
 year: 2021
-order: 124
+order: 123
 date: '2021-06-15'
 video: https://www.instagram.com/p/CQKGIGBh39i/
 alt: A city scene torn into black and white fragments

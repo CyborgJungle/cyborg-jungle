@@ -34,18 +34,21 @@ const ch = channelFor(work.kind);
 // The series' preview frame opens the page; the other frames follow in their usual order.
 const frames = [work.frames[work.coverIndex], ...work.frames.filter((_, i) => i !== work.coverIndex)].filter(Boolean);
 const first = frames[0];
+const isShow = work.slideshow && frames.length > 1;
+// A slideshow with a video link plays the video as its last frame; otherwise the video has the screen.
+const showVideo = isShow && work.videoSrc ? { src: work.videoSrc, poster: work.videoPoster } : undefined;
+const videoSrc = isShow ? undefined : work.videoSrc;
 // Instagram videos start as a reel (9 / 16) and fit their real shape once loaded.
 const aspect =
-  work.aspect ?? (work.videoSrc ? '9 / 16' : first && typeof first !== 'string' ? `${first.width} / ${first.height}` : '4 / 3');
+  work.aspect ?? (videoSrc ? '9 / 16' : first && typeof first !== 'string' ? `${first.width} / ${first.height}` : '4 / 3');
 const [w, h] = aspect.split('/').map(Number);
 // Cap the screen at 70% of the viewport height while keeping its shape.
 // When Instagram withholds a video's file, the screen shows its preview frame linking to the post.
 const igPost = work.video && shortcodeOf(work.video) ? work.video : undefined;
 const frameStyle = { aspectRatio: aspect, maxWidth: `min(100%, calc(70vh * ${w / h}))` };
 const paragraphs = work.description?.split(/\n\s*\n/) ?? [];
-const isShow = work.slideshow && frames.length > 1;
 const alt = work.alt ?? work.title;
-const total = frames.length;
+const total = frames.length + (showVideo ? 1 : 0);
 const pad2 = (n: number) => String(n).padStart(2, '0');
 
 // Print-style aspect label: "4:3" for simple ratios, "1.40:1" otherwise.
@@ -60,7 +63,7 @@ const rows = [
   ['Duration', work.duration],
   ['Location', work.location],
   // An Instagram video's shape is only known in the browser, so it shows on the dimension line only.
-  ['Aspect', work.videoSrc && !work.aspect ? undefined : aspectLabel],
+  ['Aspect', videoSrc && !work.aspect ? undefined : aspectLabel],
 ].filter((r): r is [string, string] => Boolean(r[1]));
 ---
 
@@ -71,7 +74,7 @@ const rows = [
     <header class="title-block">
       <div class="tt">
         <h1 class="glitch-type">{work.title}</h1>
-        <p class="meta"><span class="dot" aria-hidden="true"></span>{ch.label} · {work.year}{total > 1 && ` · ${total} frames`}</p>
+        <p class="meta"><span class="dot" aria-hidden="true"></span>{ch.label} · {work.year}{frames.length > 1 && ` · ${frames.length} frames`}{showVideo && ' + video'}</p>
       </div>
       {work.kana && <span class="kana tategaki" lang="ja">{work.kana}</span>}
     </header>
@@ -79,9 +82,9 @@ const rows = [
     <div class="stage" data-show-root={isShow ? '' : undefined}>
       <div class="tv screen" style={frameStyle}>
         {isShow ? (
-          <Frames frames={frames} alt={alt} interval={work.interval} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" fit="contain" eager />
-        ) : work.videoSrc ? (
-          <video src={work.videoSrc} poster={typeof work.thumb === 'string' ? work.thumb : undefined} autoplay muted loop playsinline preload="metadata" aria-label={alt} data-video data-auto-aspect={work.aspect ? undefined : ''}></video>
+          <Frames frames={frames} alt={alt} interval={work.interval} widths={[640, 960, 1400]} sizes="(max-width: 999px) 100vw, 60vw" fit="contain" eager video={showVideo} />
+        ) : videoSrc ? (
+          <video src={videoSrc} poster={typeof work.thumb === 'string' ? work.thumb : undefined} autoplay muted loop playsinline preload="metadata" aria-label={alt} data-video data-auto-aspect={work.aspect ? undefined : ''}></video>
         ) : work.embed ? (
           <iframe src={work.embed} title={work.title} allow="autoplay; fullscreen; picture-in-picture" />
         ) : work.image ? (
@@ -115,11 +118,19 @@ const rows = [
                 </button>
               </li>
             ))}
+            {showVideo && (
+              <li>
+                <button type="button" class="thumb-video" data-show-goto={frames.length} aria-label="Play the video">
+                  {showVideo.poster && <img src={showVideo.poster} alt="" loading="lazy" />}
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5Z" /></svg>
+                </button>
+              </li>
+            )}
           </ul>
         </>
       )}
 
-      {work.videoSrc && (
+      {videoSrc && (
         <div class="controls">
           <button type="button" data-video-ctl="toggle" aria-label="Pause video" aria-pressed="false">
             <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" /></svg>
@@ -132,7 +143,7 @@ const rows = [
           {work.video && <a class="count ig" href={work.video} target="_blank" rel="noopener">Instagram ↗</a>}
         </div>
       )}
-      {work.videoSrc && igPost && (
+      {videoSrc && igPost && (
         <template data-ig-out>
           <a class="ig-out" href={igPost} target="_blank" rel="noopener">
             {typeof work.thumb === 'string' && <img src={work.thumb} alt={alt} />}
@@ -324,6 +335,10 @@ const rows = [
   }
   .thumbs button > :global(img) { width: 100%; height: 100%; object-fit: cover; }
   .thumbs button[aria-current] { opacity: 1; border-color: var(--ch); }
+  /* The video at the end of a slideshow: its preview frame with a play mark */
+  .thumb-video { position: relative; }
+  .thumb-video img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb-video svg { position: absolute; inset: 0; margin: auto; width: 28px; height: 28px; padding: 6px; border-radius: 50%; background: var(--void); fill: var(--ch); }
 
   .gallery { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 12px; }
   .gallery .tv { aspect-ratio: 4 / 3; }

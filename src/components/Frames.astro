@@ -15,9 +15,11 @@ interface Props {
   eager?: boolean;
   /** Show at most this many frames, sampled evenly across the series (keeps the home page light). */
   max?: number;
+  /** A video played as the last frame; the slideshow waits for it to end. */
+  video?: { src: string; poster?: string };
 }
 
-const { frames: all, alt, interval, widths, sizes, fit = 'cover', eager = false, max } = Astro.props;
+const { frames: all, alt, interval, widths, sizes, fit = 'cover', eager = false, max, video } = Astro.props;
 const frames =
   max && all.length > max ? Array.from({ length: max }, (_, k) => all[Math.round((k * (all.length - 1)) / (max - 1))]) : all;
 ---
@@ -28,12 +30,18 @@ const frames =
       <Img src={src} alt={i === 0 ? alt : ''} widths={widths} sizes={sizes} loading={i === 0 && eager ? 'eager' : 'lazy'} />
     </span>
   ))}
+  {video && (
+    <span class="frame" data-frame>
+      <video src={video.src} poster={video.poster} muted playsinline preload="none" aria-label={alt}></video>
+    </span>
+  )}
 </span>
 
 <style>
   .frames, .frame { position: absolute; inset: 0; display: block; }
   .frame { opacity: 0; }
   .frame[data-active] { opacity: 1; }
+  .frame video { width: 100%; height: 100%; object-fit: var(--fit); display: block; background: var(--void); }
   .frame :global(img) { width: 100%; height: 100%; object-fit: var(--fit); display: block; background: var(--void); }
   /* Each cut lands with a short signal jolt: channels split, the picture slips sideways */
   .frames:global(.cut) .frame[data-active] :global(img) { animation: cut 0.18s steps(3) 1; }

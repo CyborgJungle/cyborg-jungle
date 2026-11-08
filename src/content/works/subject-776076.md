@@ -3,7 +3,7 @@ title: Subject776076
 kana: 被写体七七六〇七六
 kind: video
 year: 2022
-order: 116
+order: 115
 date: '2022-01-08'
 video: https://www.instagram.com/p/CYcrYzsh8Zd/
 alt: A hand reaching toward a curled figure in golden, rippling light

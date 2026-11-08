@@ -3,7 +3,7 @@ title: Subject880828
 kana: 被写体八八〇八二八
 kind: video
 year: 2021
-order: 122
+order: 121
 date: '2021-09-12'
 video: https://www.instagram.com/p/CTvLan9AbUN/
 alt: A figure in a dark dress, repeated across tiles of broken picture

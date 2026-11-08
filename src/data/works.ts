@@ -20,6 +20,8 @@ export type ResolvedWork = Omit<CollectionEntry<'works'>['data'], 'image' | 'gal
   embed?: string;
   /** Video file played in our own player (Instagram posts). */
   videoSrc?: string;
+  /** The video's own preview frame (also when the work's images take the card). */
+  videoPoster?: string;
   /** Position in the accent palette (see POSTERS), fixed per work so its colour never changes. */
   poster: number;
 };
@@ -37,7 +39,7 @@ async function resolveWork(entry: CollectionEntry<'works'>): Promise<ResolvedWor
   const work: ResolvedWork = { ...d, slug: entry.id, image, gallery, frames, coverIndex, thumb: frames[coverIndex], poster: 0 };
   if (!d.video) return work;
   const v = await resolveVideo(d.video);
-  return { ...work, embed: v.embed, videoSrc: v.src, thumb: work.thumb ?? v.thumb, aspect: d.aspect ?? v.aspect };
+  return { ...work, embed: v.embed, videoSrc: v.src, videoPoster: v.thumb, thumb: work.thumb ?? v.thumb, aspect: d.aspect ?? v.aspect };
 }
 
 let cache: Promise<ResolvedWork[]> | undefined;

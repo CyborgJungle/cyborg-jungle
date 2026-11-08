@@ -80,7 +80,7 @@ content:
       - name: video
         label: Video link
         type: string
-        description: "Instagram, Vimeo or YouTube link, as copied (e.g. https://www.instagram.com/reel/ABC123xyz/). Instagram posts must be on the @cyborgjungle account and play without the Instagram frame."
+        description: "Instagram, Vimeo or YouTube link, as copied (e.g. https://www.instagram.com/reel/ABC123xyz/). Instagram posts must be on the @cyborgjungle account and play without the Instagram frame. On an image slideshow, the video plays as the last frame."
       - name: image
         label: Main image
         type: image

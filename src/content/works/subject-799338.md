@@ -3,7 +3,7 @@ title: Subject799338
 kana: 被写体七九九三三八
 kind: video
 year: 2021
-order: 126
+order: 125
 date: '2021-05-17'
 video: https://www.instagram.com/p/CO_W9S_B9-J/
 alt: A mirrored pink and blue shape inside a warped wireframe grid

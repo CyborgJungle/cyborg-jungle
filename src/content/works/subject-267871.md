@@ -3,7 +3,7 @@ title: Subject267871
 kana: 被写体二六七八七一
 kind: video
 year: 2021
-order: 134
+order: 133
 date: '2021-03-18'
 video: https://www.instagram.com/p/CMjh6LOBqJP/
 alt: Red spheres and Japanese lettering repeated in a stuttering pattern

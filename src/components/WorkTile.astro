@@ -34,7 +34,7 @@ const fromCover = [...work.frames.slice(work.coverIndex), ...work.frames.slice(0
   {work.kana && <span class="kana tategaki" lang="ja" aria-hidden="true">{work.kana}</span>}
   <span class="foot">
     <span class="title">{work.title}</span>
-    <span class="meta">{ch.label} · {work.year}{frameCount > 1 && ` · ${frameCount} frames`}</span>
+    <span class="meta">{ch.label} · {work.year}{frameCount > 1 && ` · ${frameCount} frames`}{work.slideshow && frameCount > 1 && work.videoSrc && ' + video'}</span>
   </span>
 </a>
 

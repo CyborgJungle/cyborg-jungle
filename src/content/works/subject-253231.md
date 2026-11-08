@@ -3,7 +3,7 @@ title: Subject253231
 kana: 被写体二五三二三一
 kind: video
 year: 2021
-order: 131
+order: 130
 date: '2021-04-01'
 video: https://www.instagram.com/p/CNHw1hBhabw/
 alt: A ragged shape of teal light flickering in darkness
