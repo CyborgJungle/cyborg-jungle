@@ -9,6 +9,13 @@ import home from '../content/home.json';
 
 const all = await resolvedWorks();
 
+// The wall keeps the site order up to the work named in Pages CMS ("Home page" → Date order after);
+// every work after it follows by date, newest first.
+const cut = all.findIndex((w) => w.title.toLowerCase() === (home.dateOrderAfter ?? '').trim().toLowerCase());
+const byDate = (a: (typeof all)[number], b: (typeof all)[number]) =>
+  (b.date ?? `${b.year}-12-31`).localeCompare(a.date ?? `${a.year}-12-31`);
+const wall = cut < 0 ? all : [...all.slice(0, cut + 1), ...all.slice(cut + 1).sort(byDate)];
+
 // The hero is chosen in Pages CMS ("Home page" → Hero image). It links to the work it belongs to.
 const heroSrc = resolveImage(home.heroImage) ?? all[0]?.thumb;
 const heroWork = all.find((w) => w.image && [w.image, ...w.gallery].some((f) => f === heroSrc)) ?? all[0];
@@ -48,7 +55,7 @@ const sizes = '(max-width: 999px) 100vw, 1100px';
       <span class="label">{all.length} projects</span>
     </div>
     <div class="grid">
-      {all.map((w) => <WorkTile work={w} still />)}
+      {wall.map((w) => <WorkTile work={w} still />)}
     </div>
   </section>
 </Base>

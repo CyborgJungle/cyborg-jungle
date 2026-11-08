@@ -22,6 +22,10 @@ content:
           path: src/assets/media/Final art
           extensions: [jpg, jpeg, png, webp]
           rename: safe
+      - name: dateOrderAfter
+        label: Date order after
+        type: string
+        description: "Title of a work, e.g. Subject660613. The home page shows works in their Order up to and including this one; everything after it is sorted by date, newest first. Leave empty to use Order for all."
 
   - name: works
     label: Works
