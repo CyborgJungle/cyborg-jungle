@@ -47,6 +47,11 @@ const works = defineCollection({
       .nullish()
       .transform((v) => (Number(v) >= 1 ? Math.floor(Number(v)) : undefined)),
     /** Cycle the main image and extra images on a timer. */
+    /** Hidden works are left out of the whole site (no card, no page) but stay in the CMS. */
+    hidden: z
+      .boolean()
+      .nullish()
+      .transform((v) => v ?? false),
     slideshow: z
       .boolean()
       .nullish()

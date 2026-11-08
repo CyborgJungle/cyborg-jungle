@@ -65,6 +65,10 @@ content:
         label: Year
         type: number
         required: true
+      - name: hidden
+        label: Hide from the site
+        type: boolean
+        description: "Leaves this work out of every page (no card, no project page). Untick to show it again."
       - name: order
         label: Order
         type: number

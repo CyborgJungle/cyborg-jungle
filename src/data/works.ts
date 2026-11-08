@@ -51,7 +51,7 @@ const byOrder = (a: ResolvedWork, b: ResolvedWork) => (a.order ?? Infinity) - (b
 
 /** All works: by their Order number, then real media before placeholders, then newest first. */
 export function resolvedWorks(): Promise<ResolvedWork[]> {
-  cache ??= getCollection('works').then(async (entries) =>
+  cache ??= getCollection('works', (e) => !e.data.hidden).then(async (entries) =>
     (await Promise.all(entries.map(resolveWork)))
       .sort((a, b) => byOrder(a, b) || hasMedia(b) - hasMedia(a) || sortKey(b).localeCompare(sortKey(a)) || a.title.localeCompare(b.title))
       .map((w, i) => ({ ...w, poster: i % POSTERS.length })),

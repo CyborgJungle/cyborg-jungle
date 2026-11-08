@@ -124,6 +124,7 @@ About 95% of visitors are on a phone; everything is designed and tested at 375px
 
 - Works sort by their **Order** field (1 first), then by date. Swan Signal (the ballet) is last.
 - The home page keeps that order up to the work named in *Home page → Date order after* (now Subject660613); every work after it, images, videos and installations mixed, follows by date, newest first. Channel pages keep the Order.
+- *Hide from the site* (`hidden: true`) leaves a work out of every page while it stays in the CMS (Cut_ - Flip the switch).
 - Every project is named `Subject` + six digits; its katakana is 被写体 ("photographic subject") + the digits as kanji numerals.
 
 ## Where it lives in the code
